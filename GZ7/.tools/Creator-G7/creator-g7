@@ -1,0 +1,160 @@
+#!/bin/bash
+#creator-g7
+#Coded by Z3R07-RED on Dec 15 2020
+
+set `date`
+
+#VARIABLES:
+current_tool_name="creator-g7"
+mes="$2"
+fecha="$3"
+anio="$6"
+hora="$4"
+#DIALOG=${DIALOG=dialog}
+
+function new_tool_in_bash(){
+new_main_file="$chosen_directory/$newtool/$newtool.sh"
+printf "$chosenpath" > "$new_main_file" 2>/dev/null
+sed -i "1a #$newtool" "$new_main_file" 2>/dev/null
+sed -i "2a #Coded by $ADMIN on $mes $fecha $anio" "$new_main_file" 2>/dev/null
+sed -i "3a #" "$new_main_file" 2>/dev/null
+
+PDGFILE=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
+                    --item-help --title "CREATOR" \
+                    --menu "The tool you will work on will be:" 12 51 3 \
+                    1 "[ SIMPLE  ]" "For installation tool." \
+                    2 "[ ELEGANT ]" "For elegant tool." \
+                    3 "[ DIALOG  ]" "To work with the 'dialog' package.")
+
+case $? in
+    0)
+        mkdir "$newtool_goblin/CS07" 2>/dev/null
+        cat "$creator_directory/CS07/colors" > "$newtool_goblin/CS07/colors" 2>/dev/null
+        cat "$creator_directory/CS07/UVF01" > "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+        sed -i "s/program_name=\"null\"/program_name=\"$newtool\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+        sed -i "s/making=\"null\"/making=\"$mes $fecha $anio\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+        sed -i "s/author=\"null\"/author=\"$USERNAME\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+
+        if [[ "$PDGFILE" == 1 ]]; then
+            cat "$creator_directory/CS07/PDG01" >> $new_main_file 2>/dev/null
+            cp -rf "$creator_directory/CS07/banner" "$newtool_goblin/CS07/" 2>/dev/null
+            cat "$creator_directory/CS07/UFF01" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
+        elif [[ "$PDGFILE" == 2 ]]; then
+            cat "$creator_directory/CS07/PDG02" >> $new_main_file 2>/dev/null
+            cp -rf "$creator_directory/CS07/banner" "$newtool_goblin/CS07/" 2>/dev/null
+            cat "$creator_directory/CS07/UFF01" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
+        elif [[ "$PDGFILE" == 3 ]]; then
+            cat "$creator_directory/CS07/PDG03" >> $new_main_file 2>/dev/null
+            cat "$creator_directory/CS07/UFF02" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
+            mkdir "$newtool_goblin/.config" 2>/dev/null
+        else
+            rm -rf "$newtool_goblin" 2>/dev/null
+            unexpected_error
+        fi
+
+        $DIALOG --backtitle "$program_name - $current_tool_name" \
+                --title "INFORMATION" \
+                --msgbox "The foundation of the tool has been created successfully.\nyou can start working on it now." 8 51
+        ;;
+    1)
+        if [[ -d "$newtool_goblin" ]]; then
+            rm -rf "$newtool_goblin" 2>/dev/null
+        fi
+        ;;
+    255)
+        echo $(clear)
+        echo "Program aborted." >&2
+        echo "";exit 1
+        ;;
+esac
+
+}
+
+function new_tool_in_python(){
+new_main_file="$chosen_directory/$newtool/$newtool.py"
+echo "$chosenpath" > "$new_main_file" 2>/dev/null
+sed -i "1a # Name        : $newtool" "$new_main_file" 2>/dev/null
+sed -i "2a # Author      : $USERNAME" "$new_main_file" 2>/dev/null
+sed -i "3a # Last Change : $mes $fecha $anio [$hora]" "$new_main_file" 2>/dev/null
+sed -i "4a #" "$new_main_file" 2>/dev/null
+sed -i "5a # dependencies" "$new_main_file" 2>/dev/null
+sed -i "6a #" "$new_main_file" 2>/dev/null
+sed -i "7a # Define colors" "$new_main_file" 2>/dev/null
+cat "$creator_directory/CS07/C02PP" >> "$new_main_file" 2>/dev/null
+
+$DIALOG --backtitle "$program_name - $current_tool_name" \
+        --title "INFORMATION" \
+        --msgbox "The foundation of the tool has been created successfully.\nyou can start working on it now." 8 51
+
+}
+
+function creator_main_menus(){
+newtool=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
+               --ok-label "create" --title "NEW TOOL" \
+               --inputbox "What will the new tool be called?" 10 60)
+
+if [[ $? = 0 ]]; then
+    if [[ -n $newtool ]]; then
+        program_in_language=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" --begin 2 2 --title "CREATOR" \
+                            --colors --nocancel --item-help --ok-label "create" --radiolist "NEW TOOL" 10 41 2 \
+                            1 "[ BASH   ]" off "Press the '\Z2\Zr\ZbSPACE\Zn' key and then '\Z2\Zr\ZbENTER\Zn'" \
+                            2 "[ PYTHON ]" off "Press the '\Z2\Zr\ZbSPACE\Zn' key and then '\Z2\Zr\ZbENTER\Zn'" \
+                            --and-widget --begin 4 6 --clear \
+                            --ok-label "Select" --title "PATH" --radiolist "" 10 41 3 \
+                            1 "[ KALI LINUX ]" off \
+                            2 "[ TERMUX     ]" ON)
+
+        case $? in
+            0)
+				newtool_goblin="$chosen_directory/$newtool"
+				if [[ ! -d "$newtool_goblin" && ! -f "$newtool_goblin" && ! -L "$newtool_goblin" ]]; then
+					if [[ -d $chosen_directory ]]; then
+						mkdir "$chosen_directory/$newtool"
+					else
+						unexpected_error
+					fi
+				else
+					unexpected_error
+				fi
+
+                type_of_programming=$(echo "$program_in_language" |awk -F' ' '{print $1}')
+                if [[ "$type_of_programming" == 1 ]]; then
+                    type_of_programming=$(echo "$program_in_language" |awk -F' ' '{print $2}')
+                    if [[ "$type_of_programming" == 1 ]]; then
+                        chosenpath="#!/bin/bash"
+                    else
+                        chosenpath="#!/data/data/com.termux/files/usr/bin/bash"
+                    fi
+                    new_tool_in_bash
+                elif [[ "$type_of_programming" == 2 ]]; then
+                    type_of_programming=$(echo "$program_in_language" |awk -F' ' '{print $2}')
+                    if [[ "$type_of_programming" == 1 ]]; then
+                        chosenpath="#!/usr/bin/env python"
+                    elif [[ "$type_of_programming" == 2 ]]; then
+                        chosenpath="#!/data/data/com.termux/files/usr/bin/env python"
+                    else
+                        unexpected_error
+                    fi
+                    new_tool_in_python
+                else
+                    unexpected_error
+                fi
+                ;;
+            1)
+                sleep 0.3
+                ;;
+            255)
+                echo $(clear);exit 1
+                ;;
+        esac
+    else
+        unexpected_error
+    fi
+fi
+
+}
+
+select_a_directory
+if [[ -d "$chosen_directory" ]]; then
+    creator_main_menus
+fi

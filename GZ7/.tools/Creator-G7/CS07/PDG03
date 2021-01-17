@@ -1,0 +1,87 @@
+#VARIABLES:
+termux_path="/data/data/com.termux/files/usr/bin"
+kali_linux_path="/usr/bin"
+DIALOG=${DIALOG=dialog}
+dialogrc_file=".config/.dialog.conf"
+
+#colors dialog
+if [[ -f "$dialogrc_file" ]]; then
+    export DIALOGRC=$dialogrc_file
+fi
+#universal_functions && universal_variables
+if [[ -f "CS07/universal_functions" && -f "CS07/universal_variables" ]]; then
+    source "CS07/universal_functions"
+    source "CS07/universal_variables"
+else
+    echo -e "[ERROR]: \"universal_functions\" \"universal_variables\""
+    echo "";exit 0
+fi
+#colors
+if [[ -f "$colors" ]]; then
+    source "$colors"
+else
+    unexpected_error
+fi
+
+# Directory
+if [[ ! -d "$log_directory" ]]; then
+	mkdir $log_directory
+fi
+
+# Directory
+if [[ ! -d "$tmp_directory" ]]; then
+	mkdir "$tmp_directory"
+fi
+
+#CTRL+C
+trap ctrl_c INT
+
+function ctrl_c(){
+echo $(clear)
+#rm -rf tmp/* 2>/dev/null
+echo "Program aborted."
+#tput cnorm
+echo "";exit 1
+}
+
+#FUNCTIONS:
+function ncurses_utils(){
+if [ ! "$(command -v tput)" ]; then
+	echo -e "\n${Y}[I]${W} apt install ncurses-utils ...${W}"
+	apt install ncurses-utils -y > /dev/null 2>&1
+	sleep 1
+fi
+}
+
+# dependencies
+function dependencies(){
+if [[ -d "$termux_path" ]]; then
+	ncurses_utils
+fi
+
+tput civis; counter_dn=0
+echo $(clear);sleep 0.3
+
+dependencies=(dialog git wget curl) # dependencies
+for program in "${dependencies[@]}"; do
+    if [ ! "$(command -v $program)" ]; then
+        echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}"
+        sleep 0.8
+        echo -e "\n\e[1;33m[i]\e[0m${C} Installing ...${W}"
+        apt install $program -y > /dev/null 2>&1
+        echo -e "\n\e[1;32m[V]\e[0m${C} $program${Y} installed.${W}"
+        sleep 1
+        let counter_dn+=1
+    fi
+done
+
+$DIALOG --backtitle "Community - Club Secreto 07" \
+     --colors --title "$program_name - v$version" \
+     --infobox "\n\Zu$program_name (c) $(echo "$making" |awk 'NF{print $NF}' 2>/dev/null) by $author\Zn\n\nThis program comes ABSOLUTELY WITHOUT WARRANTY;\nthanks for using the program." 10 60 ;sleep 5
+
+tput cnorm
+}
+
+dependencies
+
+

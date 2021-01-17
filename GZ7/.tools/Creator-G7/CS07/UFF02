@@ -1,0 +1,185 @@
+# This file contains universal functions.
+# MSGBOX Error
+function unexpected_error(){
+$DIALOG --backtitle "$program_name - Something went wrong..." \
+    --title "Unexpected error" \
+    --msgbox "There was an unexpected error. run the program and try again." 8 60
+
+if [[ -d "$tmp_directory" ]]; then
+    rm -rf "$tmp_directory/*" 2>/dev/null
+fi
+
+if [[ -d "$log_directory" ]]; then
+    rm -rf "$log_directory/*" 2>/dev/null
+fi
+echo $(clear);exit 1
+}
+
+# File not Found
+# USE: file_not_found $1
+# EXAMPLE:
+#        file_not_found "file.txt"
+function file_not_found(){
+NOFILE="$1"
+$DIALOG --backtitle "$program_name - System error" \
+        --colors --title "[ERROR]" \
+        --msgbox "The program cannot be started because \Z4\Zb\Zu$NOFILE\Zn is missing from the computer.\n\
+Try reinstalling the program to correct this problem." 10 60
+echo $(clear)
+exit 1
+}
+
+# Select a Directory
+function select_a_directory(){
+if [[ ! -d "${PWD}/Download" ]]; then
+    mkdir "${PWD}/Download" 2>/dev/null
+fi
+
+while :
+do
+    chosen_directory=$($DIALOG --stdout --scrollbar --ok-label "Select" --backtitle "$program_name" --title "CHOOSE A DIRECTORY" --dselect "${PWD}/Download" 7 44)
+    chosendir=$?
+    case $chosendir in
+        0)
+            if [[ -d "$chosen_directory" ]]; then
+                break
+            else
+                if [[ -n "$chosen_directory" ]]; then
+                    if [[ ! -e "$chosen_directory" && ! -L "$chosen_directory" && ! -f "$chosen_directory" ]]; then
+                        $DIALOG --colors --backtitle "$program_name" --title "INFORMATION" --clear \
+                            --yesno "'\Zb\Z4\Zu$chosen_directory\Zn' is not a directory. Do you want to create it?" 8 61
+
+                        case $? in
+                            0)
+                                mkdir -p "$chosen_directory" 2>/dev/null
+                                break
+                                ;;
+                            1)
+                                chosen_directory=""
+                                sleep 0.2
+                                ;;
+                            255)
+                                echo $(clear)
+                                echo "Program aborted." >&2
+                                echo "";exit 1
+                                ;;
+                        esac
+                    else
+                        unexpected_error
+                    fi
+                else
+                    unexpected_error
+                fi
+            fi
+            ;;
+        1)
+            chosen_directory=""
+            break
+            ;;
+        255)
+            echo $(clear)
+            echo "Program aborted." >&2
+            echo "";exit 1
+            ;;
+    esac
+done
+}
+
+# DELETE FILES AND DIRECTORIES
+# USE: delete_file_or_directory "$1" "$2"
+# EXAMPLE:
+#        delete_file_or_directory "file" "logs/file.log"
+function delete_file_or_directory(){
+TYPE_OF_FILE="$1"
+FILENAME="$2"
+$DIALOG --backtitle "$program_name" \
+        --clear --colors --title "CONFIRMATION" \
+        --yesno "Are you sure?\nyou want to permanently delete the $TYPE_OF_FILE \n\Z4\Zu\Zb'$FILENAME'\Zn" 10 60
+
+REMOVE=$?
+case $REMOVE in
+        0)
+            sleep 0.3
+            if [[ -f "$FILENAME" || -d "$FILENAME" ]]; then
+                rm -rf "$FILENAME" 2>/dev/null
+                $DIALOG --backtitle "$program_name" \
+                        --colors --title "INFORMATION" \
+                        --msgbox "It was successfully removed!\n\Z4\Zu\Zb'$FILENAME'\Zn" 10 60
+            else
+                $DIALOG --backtitle "$program_name" \
+                        --title "ERROR" \
+                        --msgbox "The file or directory does not exist!" 8 40
+            fi
+            ;;
+        1)
+            sleep 0.2
+            $DIALOG --backtitle "$program_name" \
+                    --title "INFORMATION" \
+                    --infobox "Perfect\nIt was not eliminated!" 8 40; sleep 4
+            ;;
+        255)
+            echo $(clear)
+            echo "Program aborted." >&2
+            echo "";exit 1
+            ;;
+
+esac
+}
+
+# Internet connection
+function internet_connection(){
+if ping -q -c 1 -W 1 8.8.8.8 &>/dev/null;
+then
+    INTERNET=True
+else
+    INTERNET=False
+    $DIALOG --backtitle "$program_name" \
+            --colors --title "[INTERNET = WI-FI]" \
+            --yesno "You are not connected to the \Z1\Zb\ZuInternet.\Zn\nDo you want to continue?" 8 51
+
+    case $? in
+            1)
+                echo $(clear)
+                echo "Exiting ..."
+                exit 0
+                ;;
+            255)
+                echo $(clear)
+                echo "Program aborted." >&2
+                exit 1
+                ;;
+    esac
+fi
+}
+
+# TOR CONNECTION && PROXYCHAINS4
+function tor_connection(){
+check=$(curl --socks5-hostname localhost:9050 -s https://www.google.com > /dev/null; echo $?)
+
+command -v $PROXYCHAINS > /dev/null 2>&1 || { >&2 echo $(clear); echo -e "$R[w]:-> I require proxychains-ng but it's not installed, Aborting.$W"; exit; }
+
+if [[ "$check" -gt 0 ]]; then
+    $DIALOG --backtitle "$program_name - PROXYCHAINS" \
+            --colors --title "[ALERT]" \
+            --yesno "\Z1\Zr(!)\Zn You are not connected to a \Zu'tor'\Zn server.\nDo you want to continue?" 8 55
+
+    case $? in
+            0)
+                PROXYCHAINS=""
+                ;;
+            1)
+                echo $(clear)
+                echo "Exiting ..."
+                echo ""; exit 0
+                ;;
+            255)
+                echo $(clear)
+                echo "Program aborted." >&2
+                echo ""; exit 1
+                ;;
+    esac
+fi
+}
+
+# Coded by Z3R07-RED
+# <https://github.com/Z3R07-RED>

@@ -1,0 +1,49 @@
+# Define colors
+# Bold font colors
+R='\e[0;31m\033[1m'
+G='\e[0;32m\033[1m'
+Y='\e[0;33m\033[1m'
+B='\e[0;34m\033[1m'
+M='\e[0;35m\033[1m'
+C='\e[0;36m\033[1m'
+W='\033[0m\e[0m'
+# Bold font colors
+RED='\e[0;31m\033[1m'
+GREEN='\e[0;32m\033[1m'
+YELLOW='\e[0;33m\033[1m'
+BLUE='\e[0;34m\033[1m'
+MAGENTA='\e[0;35m\033[1m'
+CYAN='\e[0;36m\033[1m'
+WHITE='\e[0;37m\033[1m'
+BLACK='\e[0;30m\033[1m'
+# Simple
+red='\033[0m\e[0;31m'
+green='\033[0m\e[0;32m'
+yellow='\033[0m\e[0;33m'
+blue='\033[0m\e[0;34m'
+magenta='\033[0m\e[0;35m'
+cyan='\033[0m\e[0;36m'
+white='\033[0m\e[0;37m'
+black='\033[0m\e[0;30m'
+#
+# Reset colors
+RESET='\033[0m\e[0m'
+#
+# Special colors
+ORANGE='\033[0m\e[38;5;202m'
+VIOLET='\033[0m\e[38;5;135m'
+LEAD='\033[0m\e[38;5;246m'
+LETTUCE='\033[0m\e[38;5;118m'
+#
+# Background colors
+RED_BC='\033[1;37;41m'
+GREEN_BC='\033[0;30;42m'
+YELLOW_BC='\033[0;30;43m'
+BLUE_BC='\033[0;30;44m'
+MAGENTA_BC='\033[1;37;45m'
+CYAN_BC='\033[0;30;46m'
+WHITE_BC='\033[0;30;47m'
+BLACK_BC='\033[1;32;40m'
+BLACKRED_BC='\033[1;31;40m'
+
+# Coded by Z3R07-RED
