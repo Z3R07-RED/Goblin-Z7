@@ -43,7 +43,9 @@ git clone https://github.com/Z3R07-RED/Goblin-Z7
 
 # Requirements:
 
-`pip install -r requirements.txt`
+```
+pip install -r requirements.txt
+```
 
 # Finally execute the script:
 
