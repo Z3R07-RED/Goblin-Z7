@@ -27,7 +27,9 @@ apt install python python2 -y
 ```
 Once installed, you can proceed to the next point.
 
-`git clone https://github.com/Z3R07-RED/Goblin-Z7`
+```
+git clone https://github.com/Z3R07-RED/Goblin-Z7
+```
 
 # Enter directory:
 
@@ -60,5 +62,5 @@ Once installed, you can proceed to the next point.
 
 |    REGISTRY    |          MENU          |       TOOLS       |
 | -------------- | ---------------------- | ----------------  |
-|![Index](GZ7/.CS07/Img/registry.png)|![Goblin-Z7](GZ7/.CS07/Img/registry.png)|![TOOLS](GZ7/.CS07/Img/registry.png)|
+|![Index](GZ7/.CS07/Img/registry.png)|![Goblin-Z7](GZ7/.CS07/Img/menu.png)|![TOOLS](GZ7/.CS07/Img/tools.png)|
 
