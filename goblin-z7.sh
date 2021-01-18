@@ -94,7 +94,7 @@ function dependencies(){
 special_dependencies
 tput civis; counter_dn=0
 echo $(clear);sleep 0.3
-dependencies=(dialog python python2 git tar zip curl wget w3m sox nmap tor) # dependencies
+dependencies=(dialog python python2 git curl wget w3m sox nmap tor) # dependencies
 for program in "${dependencies[@]}"; do
     if [ ! "$(command -v $program)" ]; then
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}";sleep 0.2
