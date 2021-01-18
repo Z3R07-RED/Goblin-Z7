@@ -47,6 +47,8 @@ git clone https://github.com/Z3R07-RED/Goblin-Z7
 
 # Finally execute the script:
 
+**NOTE** For your security, activate the `tor` server from another window.
+
 # Kali Linux:
 
 `sudo su`

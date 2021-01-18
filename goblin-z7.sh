@@ -64,6 +64,10 @@ if [[ -d "$termux_path" ]]; then
         sleep 1
     fi
     PROXYCHAINS="proxychains4"
+    if [[ ! -f $PREFIX/etc/proxychainsg.old ]]; then
+        cat $PREFIX/etc/proxychains.conf > $PREFIX/etc/proxychainsg.old 2>/dev/null
+        cat GZ7/.CS07/proxychains.conf > $PREFIX/etc/proxychains.conf 2>/dev/null
+    fi
 fi
 
 if [[ -d "$kali_linux_path" ]]; then
@@ -79,6 +83,10 @@ if [[ -d "$kali_linux_path" ]]; then
         exit 1
     fi
     PROXYCHAINS="proxychains"
+    if [[ ! -f /etc/proxychainsg.old ]]; then
+        cat /etc/proxychains.conf > /etc/proxychainsg.old 2>/dev/null
+        cat GZ7/.CS07/proxychains.conf > /etc/proxychains.conf 2>/dev/null
+    fi
 fi
 }
 # dependencies
