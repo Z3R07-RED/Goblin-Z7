@@ -14,5 +14,51 @@
 <p align="center">
 <img alt="Shell Script" src="https://img.shields.io/badge/shell_script%20-%23121011.svg?&style=for-the-badge&logo=gnu-bash&logoColor=white"/>
 <img alt="Python" src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white"/>
-<img title="System" src="https://img.shields.io/badge/Supported%20OS-Linux%20&%20termux-orange?style=for-the-badge&logo=linux">
 </p>
+
+**Goblin-Z7** It is still in its `beta` version, little by little new tools will be added so always keep the tool updated.
+
+Previous requirements:
+======
+The following system-level utilities need to be installed:
+
+```
+apt install python python2 -y
+```
+Once installed, you can proceed to the next point.
+
+`git clone https://github.com/Z3R07-RED/Goblin-Z7`
+
+# Enter directory:
+
+`cd Goblin-Z7/`
+
+# we give execution permissions:
+
+`chmod +x goblin-z7.sh`
+
+`chmod +x requirements.txt`
+
+# Requirements:
+
+`pip install -r requirements.txt`
+
+# Finally execute the script:
+
+# Kali Linux:
+
+`sudo su`
+
+`bash goblin-z7.sh`
+
+# Termux:
+
+```
+./goblin-z7.sh
+```
+<h2 align="center"> Screenshots: </h2>
+
+|    REGISTRY    |          MENU          |       TOOLS       |
+| -------------- | ---------------------- | ----------------  |
+|![Index](https://github.com/Z3R07-RED/Goblin-Z7/GZ7/.CS07/Img/registry.png)|![Goblin-Z7](https://github.com/Z3R07-RED/Goblin-Z7/GZ7/.CS07/Img/registry.png)|![TOOLS](https://github.com/Z3R07-RED/Goblin-Z7/GZ7/.CS07/Img/registry.png)|
+
