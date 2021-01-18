@@ -28,7 +28,7 @@ apt install python python2 -y
 Once installed, you can proceed to the next point.
 
 ```
-git clone https://github.com/Z3R07-RED/Goblin-Z7
+git clone https://github.com/Z3R07-RED/Goblin-Z7.git
 ```
 
 # Enter directory:
