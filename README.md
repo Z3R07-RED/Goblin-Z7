@@ -23,7 +23,10 @@ Previous requirements:
 The following system-level utilities need to be installed:
 
 ```
-apt install python python2 -y
+apt install python -y
+```
+```
+apt install python2 -y
 ```
 Once installed, you can proceed to the next point.
 

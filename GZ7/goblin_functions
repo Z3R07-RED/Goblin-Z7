@@ -126,29 +126,41 @@ case $REMOVE in
 esac
 }
 
-# Internet connection
+# Internet Connection
 function internet_connection(){
-if ping -q -c 1 -W 1 8.8.8.8 &>/dev/null;
-then
-    INTERNET=True
-else
-    INTERNET=False
-    $DIALOG --backtitle "$program_name" \
-            --colors --title "[INTERNET = WI-FI]" \
-            --yesno "You are not connected to the \Z1\Zb\ZuInternet.\Zn\nDo you want to continue?" 8 51
+INTERNET=""
+let inetc=0
+declare -a BWifi
 
-    case $? in
-            1)
-                echo $(clear)
-                echo "Exiting ..."
-                exit 0
-                ;;
-            255)
-                echo $(clear)
-                echo "Program aborted." >&2
-                exit 1
-                ;;
-    esac
+for inet in $(ifconfig |grep 'inet ' |awk '{print $2}');
+do
+    let inetc=$(($inetc+1))
+    if [[ $inetc = 2 ]]; then
+       BWifi="$inet"
+    fi
+done
+
+if [[ -n $BWifi ]]; then
+   INTERNET=True
+
+else
+   INTERNET=False
+   $DIALOG --backtitle "$program_name" \
+           --colors --title "[INTERNET = WI-FI]" \
+           --yesno "You are not connected to the \Z1\Zb\ZuInternet.\Zn\nDo you want to continue?" 8 51
+
+   case $? in
+        1)
+          echo $(clear)
+          echo "Exiting ..."
+          echo ""; exit 0
+          ;;
+        255)
+          echo $(clear)
+          echo "Program aborted." >&2
+          echo ""; exit 1
+          ;;
+   esac
 fi
 }
 
