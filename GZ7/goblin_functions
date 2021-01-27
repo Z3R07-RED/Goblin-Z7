@@ -128,20 +128,20 @@ esac
 
 # Internet Connection
 function internet_connection(){
-INTERNET=""
-let inetc=0
-declare -a BWifi
-
-for inet in $(ifconfig |grep 'inet ' |awk '{print $2}');
+INTERNET=("eth0" "wlan0")
+LAN="0"
+for CONNECT in ${INTERNET[@]};
 do
-    let inetc=$(($inetc+1))
-    if [[ $inetc = 2 ]]; then
-       BWifi="$inet"
-    fi
+  BRED=$(ifconfig | grep "${CONNECT}" 2>/dev/null)
+  if [[ -n $BRED && -n $LAN ]]; then
+     ERED="$CONNECT"
+     LAN=""
+     CONNECTED=$(ifconfig ${ERED} | grep 'inet ' | awk '{print $2}' 2>/dev/null)
+  fi
 done
 
-if [[ -n $BWifi ]]; then
-   INTERNET=True
+if [[ -n "$CONNECTED" ]]; then
+   INTERNET="${CONNECTED}"
 
 else
    INTERNET=False

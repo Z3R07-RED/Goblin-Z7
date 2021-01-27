@@ -126,32 +126,6 @@ case $REMOVE in
 esac
 }
 
-# Internet connection
-function internet_connection(){
-if ping -q -c 1 -W 1 8.8.8.8 &>/dev/null;
-then
-    INTERNET=True
-else
-    INTERNET=False
-    $DIALOG --backtitle "$program_name" \
-            --colors --title "[INTERNET = WI-FI]" \
-            --yesno "You are not connected to the \Z1\Zb\ZuInternet.\Zn\nDo you want to continue?" 8 51
-
-    case $? in
-            1)
-                echo $(clear)
-                echo "Exiting ..."
-                exit 0
-                ;;
-            255)
-                echo $(clear)
-                echo "Program aborted." >&2
-                exit 1
-                ;;
-    esac
-fi
-}
-
 # TOR CONNECTION && PROXYCHAINS4
 function tor_connection(){
 check=$(curl --socks5-hostname localhost:9050 -s https://www.google.com > /dev/null; echo $?)
