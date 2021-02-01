@@ -22,12 +22,33 @@ Previous requirements:
 ======
 The following system-level utilities need to be installed:
 
+* KALI LINUX
+
+```
+apt-get install dialog
+```
+```
+apt-get install python2 -y
+```
+```
+apt-get install python3 -y
+```
+```
+apt-get install python3-pip
+```
+
+* TERMUX
+
+```
+apt install dialog
+```
 ```
 apt install python -y
 ```
 ```
 apt install python2 -y
 ```
+
 Once installed, you can proceed to the next point.
 
 ```
@@ -47,7 +68,7 @@ git clone https://github.com/Z3R07-RED/Goblin-Z7.git
 # Requirements:
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 # Finally execute the script:

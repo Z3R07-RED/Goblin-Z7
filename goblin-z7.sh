@@ -77,6 +77,12 @@ if [[ -d "$kali_linux_path" ]]; then
         sleep 0.5
     fi
 
+    if [ ! "$(command -v ifconfig)" ]; then
+        echo -e "\n${Y}[I]${W} apt-get install net-tools ...${W}"
+        apt -y install net-tools > /dev/null
+        sleep 0.5
+    fi
+
     if [ ! "$(command -v proxychains)" ]; then
         echo $(clear)
         echo -e "\n${Y}[I]${W} sudo apt-get install proxychains ...${W}"
@@ -94,12 +100,12 @@ function dependencies(){
 special_dependencies
 tput civis; counter_dn=0
 echo $(clear);sleep 0.3
-dependencies=(dialog python python2 git curl wget w3m sox nmap tor) # dependencies
+dependencies=(dialog git curl wget w3m sox nmap tor) # dependencies
 for program in "${dependencies[@]}"; do
     if [ ! "$(command -v $program)" ]; then
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}";sleep 0.2
         echo -e "\n\e[1;33m[i]\e[0m${C} Installing ...${W}";sleep 0.6
-        apt install $program -y > /dev/null 2>&1
+        apt-get install $program -y > /dev/null 2>&1
         echo -e "\n\e[1;32m[V]\e[0m${C} $program${Y} installed.${W}";sleep 1
         let counter_dn+=1
     fi
@@ -193,7 +199,7 @@ case $? in
             if [[ ! -x "$phonenumbersCS07_tool" ]]; then
                 chmod +x "$phonenumbersCS07_tool"
             fi
-            python "$phonenumbersCS07_tool" &
+            python3 "$phonenumbersCS07_tool" &
             $DIALOG --clear --backtitle "$program_name - PhoneNumbersCS07" \
                 --title "[INFO]" \
                 --tailbox "$phone_number_infor_file" 10 60

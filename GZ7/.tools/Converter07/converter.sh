@@ -198,11 +198,11 @@ case $? in
             echo "${audioname}" > "${audio_file_name}"
             languagemenu_select=$(echo "$languagemenu_audio" |awk -F' ' '{print $1}')
             if [[ $languagemenu_select == "ES" ]]; then
-                python $converter_tool/voz_es.py & show_transform_to_audio
+                python3 $converter_tool/voz_es.py & show_transform_to_audio
             elif [[ "$languagemenu_select" == "EN" ]]; then
-                python $converter_tool/voz_en.py & show_transform_to_audio
+                python3 $converter_tool/voz_en.py & show_transform_to_audio
             elif [[ "$languagemenu_select" == "FR" ]]; then
-                python $converter_tool/voz_fr.py & show_transform_to_audio
+                python3 $converter_tool/voz_fr.py & show_transform_to_audio
             else
                 unexpected_error
             fi
