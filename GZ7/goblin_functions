@@ -37,7 +37,7 @@ fi
 
 while :
 do
-    chosen_directory=$($DIALOG --stdout --scrollbar --ok-label "Select" --backtitle "$program_name" --title "CHOOSE A DIRECTORY" --dselect "${PWD}/Download" 7 44)
+    chosen_directory=$($DIALOG --stdout --scrollbar --ok-label "Select" --backtitle "$program_name" --title "CHOOSE A DIRECTORY" --dselect "${PWD}/Download" 15 45)
     chosendir=$?
     case $chosendir in
         0)
