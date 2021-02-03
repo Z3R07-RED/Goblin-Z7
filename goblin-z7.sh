@@ -71,10 +71,13 @@ if [[ -d "$termux_path" ]]; then
 fi
 
 if [[ -d "$kali_linux_path" ]]; then
-    if [ ! "$(command -v libsox-fmt-all)" ]; then
-        echo -e "\n${Y}[I]${W} apt-get install libsox-fmt-all ...${W}"
-        apt-get install libsox-fmt-all -y >/dev/null 2>&1
-        sleep 0.5
+    if [[ ! -f "$log_directory/libsox_fmt_all.txt" ]]; then
+        touch "$log_directory/libsox_fmt_all.txt"
+        if [ ! "$(command -v libsox-fmt-all)" ]; then
+            echo -e "\n${Y}[I]${W} apt-get install libsox-fmt-all ...${W}"
+            apt-get install libsox-fmt-all -y >/dev/null 2>&1
+            sleep 0.5
+        fi
     fi
 
     if [ ! "$(command -v ifconfig)" ]; then
@@ -221,6 +224,27 @@ esac
 tput civis
 }
 
+# Shorten URL
+function shorten_url(){
+tput cnorm
+SHORTEN=$($DIALOG --stdout --backtitle "$program_name - Shorten URL" --title "SHORTEN URL" --inputbox "Enter a long URL to make a TinyURL:" 10 51)
+
+case $? in
+    0)
+        $DIALOG --backtitle "$program_name - Shorten URL" \
+                --title "CUT URL" \
+                --prgbox "echo Your long URL:; echo $SHORTEN; echo; echo TinyURL:; curl -s http://tinyurl.com/api-create.php?url=$SHORTEN" 10 51
+        ;;
+
+    255)
+        echo $(clear)
+        echo "Program aborted." >&2
+        echo ""; exit 1
+        ;;
+esac
+tput civis
+}
+
 #RED TOOLS MENU
 function red_tools_zmenu(){
 while :
@@ -233,7 +257,8 @@ do
         "1" "[ Email-RedZ       ]" "Tool to impersonate any email." \
         "2" "[ Extract links    ]" "Extract all links from a web page?" \
         "3" "[ Download website ]" "Do you want to download a website?" \
-        "4" "[ PhoneNumbersCS07 ]" "Get information from a phone number.")
+        "4" "[ Shorten URL      ]" "cut a url very fast." \
+        "5" "[ PhoneNumbersCS07 ]" "Get information from a phone number.")
 
     case $red_toolsz_option in
         1)
@@ -246,6 +271,9 @@ do
             wdownload
             ;;
         4)
+            shorten_url
+            ;;
+        5)
             phonenumbersCS07
             ;;
         *)
