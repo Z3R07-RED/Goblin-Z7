@@ -32,9 +32,10 @@ trap ctrl_c INT
 
 function ctrl_c(){
 echo $(clear)
-#rm -rf tmp/* 2>/dev/null
+# rm -rf tmp/* 2>/dev/null
+# rm -rf logs/* 2>/dev/null
 echo "Program aborted."
-#tput cnorm
+# tput cnorm
 echo "";exit 1
 }
 
@@ -49,7 +50,10 @@ fi
 
 # dependencies
 function dependencies(){
-if [[ -d "$termux_path" ]]; then
+if [[ -d "$kali_linux_path" ]]; then
+    ZEROAPT="apt-get"
+else
+    ZEROAPT="apt"
 	ncurses_utils
 fi
 
@@ -62,7 +66,7 @@ for program in "${dependencies[@]}"; do
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}"
         sleep 0.8
         echo -e "\n\e[1;33m[i]\e[0m${C} Installing ...${W}"
-        apt install $program -y > /dev/null 2>&1
+        $ZEROAPT install $program -y > /dev/null 2>&1
         echo -e "\n\e[1;32m[V]\e[0m${C} $program${Y} installed.${W}"
         sleep 1
         let counter_dn+=1

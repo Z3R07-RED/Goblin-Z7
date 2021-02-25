@@ -1,5 +1,5 @@
 # This file contains universal functions.
-# MSGBOX Error
+# MSGBOX ERROR
 function unexpected_error(){
 $DIALOG --backtitle "$program_name - Something went wrong..." \
     --title "Unexpected error" \
@@ -155,5 +155,54 @@ if [[ "$check" -gt 0 ]]; then
 fi
 }
 
+# RANDOM [DATA]
+# USE:
+#     Example:
+#             randdata 10
+function randdata(){
+        MATRIX="abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ-0123456789"
+        Z3R07=""
+        n=1
+        i=1
+        [ -z "$1" ] && length=8 || length=$1
+        [ -z "$2" ] && num=1 || num=$2
+        while [ ${i} -le $num ]; do
+                while [ ${n} -le $length ]; do
+                        Z3R07="$Z3R07${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+                        n=$(($n + 1))
+                done
+                echo $Z3R07
+                n=1
+                Z3R07=""
+                i=$(($i + 1))
+        done
+}
+
+# Internet Connection
+function internet_connection(){
+curl -I "www.google.es" &> /dev/null
+if [[ $? -eq 0 ]]; then
+    sleep 0.1
+else
+    $DIALOG --backtitle "$program_name - v$version" \
+            --colors --title "[INTERNET]" \
+            --yesno "You are not connected to the \Z1\Zb\ZuInternet.\Zn\nDo you want to continue?" 8 51
+
+    case $? in
+            1)
+              echo $(clear)
+              echo "Exiting ..."
+              echo ""; exit 0
+              ;;
+            255)
+              echo $(clear)
+              echo "Program aborted." >&2
+              echo ""; exit 1
+              ;;
+    esac
+fi
+}
+
 # Coded by Z3R07-RED
 # <https://github.com/Z3R07-RED>
+

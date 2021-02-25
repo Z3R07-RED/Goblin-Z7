@@ -16,7 +16,7 @@ function new_tool_in_bash(){
 new_main_file="$chosen_directory/$newtool/$newtool.sh"
 printf "$chosenpath" > "$new_main_file" 2>/dev/null
 sed -i "1a #$newtool" "$new_main_file" 2>/dev/null
-sed -i "2a #Coded by $ADMIN on $mes $fecha $anio" "$new_main_file" 2>/dev/null
+sed -i "2a #Coded by $USERNAME on $mes $fecha $anio" "$new_main_file" 2>/dev/null
 sed -i "3a #" "$new_main_file" 2>/dev/null
 
 PDGFILE=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
@@ -110,6 +110,11 @@ if [[ $? = 0 ]]; then
 				if [[ ! -d "$newtool_goblin" && ! -f "$newtool_goblin" && ! -L "$newtool_goblin" ]]; then
 					if [[ -d $chosen_directory ]]; then
 						mkdir "$chosen_directory/$newtool"
+                        touch "$newtool_goblin/README.md" 2>/dev/null
+                        touch "$newtool_goblin/.gitignore"
+                        echo "tmp/" >> "$newtool_goblin/.gitignore" 2>/dev/null
+                        echo "logs/" >> "$newtool_goblin/.gitignore" 2>/dev/null
+
 					else
 						unexpected_error
 					fi
@@ -127,6 +132,7 @@ if [[ $? = 0 ]]; then
                     fi
                     new_tool_in_bash
                 elif [[ "$type_of_programming" == 2 ]]; then
+                    touch "$new_tool_in_bash/requirements.txt" 2>/dev/null
                     type_of_programming=$(echo "$program_in_language" |awk -F' ' '{print $2}')
                     if [[ "$type_of_programming" == 1 ]]; then
                         chosenpath="#!/usr/bin/env python"

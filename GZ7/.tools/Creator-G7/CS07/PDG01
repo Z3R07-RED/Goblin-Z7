@@ -32,9 +32,10 @@ trap ctrl_c INT
 
 function ctrl_c(){
 echo $(clear)
-#rm -rf tmp/* 2>/dev/null
+# rm -rf tmp/* 2>/dev/null
+# rm -rf logs/* 2>/dev/null
 echo "Program aborted."
-#tput cnorm
+# tput cnorm
 echo "";exit 1
 }
 
@@ -49,7 +50,10 @@ fi
 
 # dependencies
 function dependencies(){
-if [[ -d "$termux_path" ]]; then
+if [[ -d "$kali_linux_path" ]]; then
+    ZEROAPT="apt-get"
+else
+    ZEROAPT="apt"
 	ncurses_utils
 fi
 tput civis; counter_dn=0
@@ -75,7 +79,7 @@ for program in "${dependencies[@]}"; do
         let counter_dn+=1
 		echo -e "${Y}[i]${C} INSTALLING $program ${W}...${RESET}"
 		echo ""
-		apt install $program -y
+		$ZEROAPT install $program -y
 		echo ""
 	else
 		for SPMP in ${spinner[@]}; do

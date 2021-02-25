@@ -1,1 +1,46 @@
 # This file contains universal functions.
+
+# unexpected error
+functions unexpected_error(){
+echo $(clear)
+echo "[!] unexpected error."
+echo ""
+tput cnorm
+exit 1
+}
+
+# INTERNET
+function internet_connection(){
+curl -I "www.google.es" &> /dev/null
+if [[ $? -eq 0 ]]; then
+    sleep 0.1
+else
+    echo $(clear)
+    echo -e "${R}[INTERNET]:${M} Not connected!${W}"
+    echo ""; exit 1
+fi
+}
+
+# RANDOM [DATA]
+# USE:
+#     Example:
+#             randdata 10
+function randdata(){
+        MATRIX="abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ-0123456789"
+        Z3R07=""
+        n=1
+        i=1
+        [ -z "$1" ] && length=8 || length=$1
+        [ -z "$2" ] && num=1 || num=$2
+        while [ ${i} -le $num ]; do
+                while [ ${n} -le $length ]; do
+                        Z3R07="$Z3R07${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+                        n=$(($n + 1))
+                done
+                echo $Z3R07
+                n=1
+                Z3R07=""
+                i=$(($i + 1))
+        done
+}
+
