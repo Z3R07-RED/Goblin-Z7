@@ -1,7 +1,7 @@
 # This file contains universal functions.
 
 # unexpected error
-functions unexpected_error(){
+function unexpected_error(){
 echo $(clear)
 echo "[!] unexpected error."
 echo ""

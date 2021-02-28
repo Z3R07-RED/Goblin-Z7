@@ -311,6 +311,8 @@ case $? in
             case $? in
                 0)
                     sed -i "s/THEME=\"$THEME\"/THEME=\"$THEME_SETTING\"/g" "$config_directory/goblin.conf" 2>/dev/null
+                    TMESTTG="$THEME_SETTING"
+                    THEME="$TMESTTG"
                     export DIALOGRC=$config_directory/themes/$THEME_SETTING
                     $DIALOG --backtitle "$program_name - Themes" \
                             --title "Settings" \

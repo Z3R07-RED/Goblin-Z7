@@ -132,7 +132,7 @@ if [[ $? = 0 ]]; then
                     fi
                     new_tool_in_bash
                 elif [[ "$type_of_programming" == 2 ]]; then
-                    touch "$new_tool_in_bash/requirements.txt" 2>/dev/null
+                    touch "$newtool_goblin/requirements.txt" 2>/dev/null
                     type_of_programming=$(echo "$program_in_language" |awk -F' ' '{print $2}')
                     if [[ "$type_of_programming" == 1 ]]; then
                         chosenpath="#!/usr/bin/env python"
