@@ -128,25 +128,16 @@ esac
 
 # Internet Connection
 function internet_connection(){
-INTERNET=("eth0" "wlan0")
-LAN="0"
-for CONNECT in ${INTERNET[@]};
-do
-  BRED=$(ifconfig | grep "${CONNECT}" 2>/dev/null)
-  if [[ -n $BRED && -n $LAN ]]; then
-     ERED="$CONNECT"
-     LAN=""
-     CONNECTED=$(ifconfig ${ERED} | grep 'inet ' | awk '{print $2}' 2>/dev/null)
-  fi
-done
+INTERNET=""
+curl -I "www.google.es" &> /dev/null
 
-if [[ -n "$CONNECTED" ]]; then
-   INTERNET="${CONNECTED}"
+if [[ $? -eq 0 ]]; then
+   INTERNET="True"
 
 else
-   INTERNET=False
-   $DIALOG --backtitle "$program_name" \
-           --colors --title "[INTERNET = WI-FI]" \
+   INTERNET="False"
+   $DIALOG --backtitle "$program_name - v$version" \
+           --colors --title "[INTERNET]" \
            --yesno "You are not connected to the \Z1\Zb\ZuInternet.\Zn\nDo you want to continue?" 8 51
 
    case $? in
