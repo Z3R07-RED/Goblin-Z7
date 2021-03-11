@@ -82,7 +82,7 @@ if [[ -d "$kali_linux_path" ]]; then
 
     if [ ! "$(command -v ifconfig)" ]; then
         echo -e "\n${Y}[I]${W} apt-get install net-tools ...${W}"
-        apt -y install net-tools > /dev/null
+        apt-get install net-tools -y >/dev/null 2>&1
         sleep 0.5
     fi
 

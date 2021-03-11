@@ -17,7 +17,7 @@ def voz(text_file, lang, name_file):
     file.save(filename)
 
 
-voz("tmp/text.txt", "EN", name_file)
+voz("tmp/text.txt", "en", name_file)
 
 
 audiodone = open(r'tmp/audiocreated.tmp', 'w')
