@@ -1,6 +1,6 @@
 # This file contains goblin-z7 universal variable definitions.
 program_name="Goblin-Z7"
-version="0.3"
+version="0.4"
 author="Z3R07-RED"
 DIALOG=${DIALOG=dialog}
 PWD=$(pwd)

@@ -2,20 +2,20 @@
 #Coded by Z3R07-RED
 
 #VARIABLES
-if [[ -s GZ7/.CS07/security/.key ]]; then
+if [[ -s "GZ7/.CS07/security/.key" ]]; then
 
 	PASSWRD=$(base64 -d GZ7/.CS07/security/.key)
 else
 	PASSWRD=""
 fi
 
-if [[ -s GZ7/.CS07/security/.question ]]; then
+if [[ -s "GZ7/.CS07/security/.question" ]]; then
 	QUESTION=$(base64 -d GZ7/.CS07/security/.question)
 else
-	QUESTION=""
+	QUESTION="Second password?"
 fi
 
-if [[ -s GZ7/.CS07/security/.reply ]]; then
+if [[ -s "GZ7/.CS07/security/.reply" ]]; then
 	ANSWER=$(base64 -d GZ7/.CS07/security/.reply)
 else
 	ANSWER=""
@@ -109,13 +109,13 @@ exec 3>&1
 FORM=$($DIALOG --ok-label "Submit" \
 	--backtitle "$program_name" \
 	--title "PROFILE" \
-	--colors --clear \
-	--form "To continue press the \Z4\Zb\Zu'TAB'\Zn key and then \Z4\Zb\Zu'ENTER'\Zn\n\
+    --insecure --colors --clear \
+	--mixedform "To continue press the \Z4\Zb\Zu'TAB'\Zn key and then \Z4\Zb\Zu'ENTER'\Zn\n\
 \Z0\ZrUser profile:\Zn" 13 55 4 \
-	"USERNAME:" 1 1 "$USERNAME"     1 11 35 0 \
-	"PASSWORD:" 2 1 "$PASSWRD"      2 11 35 0 \
-	"QUESTION:" 3 1 "$QUESTION"     3 11 35 45 \
-	"ANSWER  :" 4 1 "$ANSWER"       4 11 35 0 \
+	"USERNAME:" 1 1 "$USERNAME"     1 11 35 0 0 \
+	"PASSWORD:" 2 1 "$PASSWRD"      2 11 35 0 1 \
+	"QUESTION:" 3 1 "$QUESTION"     3 11 35 45 0 \
+	"ANSWER  :" 4 1 "$ANSWER"       4 11 35 0 1 \
 2>&1 1>&3)
 E_status=$?
 exec 3>&-
@@ -157,6 +157,8 @@ fi
 }
 
 if [[ -z "$PASSWRD" ]]; then
+    REGISTRY
+elif [[ -z "$ANSWER" ]]; then
     REGISTRY
 elif [[ -z "$SHOW_REGISTER" ]]; then
     REGISTRY

@@ -5,7 +5,7 @@ function unexpected_error(){
 echo $(clear)
 echo "[!] unexpected error."
 echo ""
-tput cnorm
+tput cnorm 2>/dev/null
 exit 1
 }
 
