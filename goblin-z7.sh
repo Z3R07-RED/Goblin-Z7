@@ -320,6 +320,9 @@ case $? in
                             --title "Settings" \
                             --msgbox "The theme of the program was configured correctly." 8 51
                     ;;
+                1)
+                    break
+                    ;;
 
                 255)
                     echo $(clear)
