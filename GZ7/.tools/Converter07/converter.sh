@@ -34,7 +34,6 @@ fi
 
 if [[ ! -d "$converter_tool/sounds" ]]; then
     mkdir "$converter_tool/sounds"
-    chmod +x "$converter_tool/*"
 fi
 
 function selected_sound_option_menu(){

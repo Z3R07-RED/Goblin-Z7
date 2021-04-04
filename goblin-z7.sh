@@ -289,7 +289,7 @@ function goblin_settings(){
 while :
 do
 SETTINGS=$($DIALOG --stdout --backtitle "$program_name - Settings" \
-                   --ok-label "Select" \
+                   --ok-label "Select" --cancel-label "Back" \
                    --title "Settings" \
                    --menu "" 10 45 3 \
                     1 "[ PROFILE ]" \
@@ -302,10 +302,12 @@ case $? in
             SHOW_REGISTER=""
             source GZ7/.CS07/security/.sec
         elif [[ $SETTINGS == 2 ]]; then
+            while :
+            do
             THEMES_LIST=$(find "$config_directory/themes" -mindepth 1 -maxdepth 1 -type f -not -name '.*' -printf "%f %TY-%Tm-%Td\n");
             THEME_SETTING=$($DIALOG --stdout --backtitle "$program_name - Settings" \
                                     --title "THEMES" \
-                                    --ok-label "Select" \
+                                    --ok-label "Select" --cancel-label "Back" \
                                     --menu "" 12 45 5 $THEMES_LIST --output-fd 1)
 
             case $? in
@@ -325,6 +327,7 @@ case $? in
                     exit 1
                     ;;
             esac
+            done
         elif [[ $SETTINGS == 3 ]]; then
             $DIALOG --backtitle "$program_name" \
                     --title "ABOUT" \

@@ -46,7 +46,7 @@ do
                 NDMZ3R07RED=$(echo "$chosen_directory" |awk -F "$BNDDN" '{print $2}' 2>/dev/null)
                 if [[ "$NDMZ3R07RED" != "" ]]; then
                     chosen_directoryaa=$(echo "$chosen_directory" |awk -F "$BNDDN" '{print $1}' 2>/dev/null)
-                    chosen_directory="$chosen_directoryaa/$BNDDN"
+                    chosen_directory="${chosen_directoryaa}${BNDDN}"
                 fi
             fi
 
