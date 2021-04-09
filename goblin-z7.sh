@@ -43,6 +43,7 @@ function ctrl_c(){
 echo $(clear)
 rm -rf tmp/* 2>/dev/null
 rm -rf logs/* 2>/dev/null
+rm -rf "$DISKDIGGERT" 2>/dev/null
 echo "Program aborted."
 tput cnorm
 echo "";exit 1
@@ -369,11 +370,24 @@ elif [[ "$main_menu" == 3 ]]; then
     else
         file_not_found "TubeVide07.sh"
     fi
+
 elif [[ "$main_menu" == 4 ]]; then
+    if [[ -f "$DiggerSC_tool/DiggerSC" ]]; then
+        if [[ -f "$DiggerSC_tool/DiskDigger" ]]; then
+            cat "$DiggerSC_tool/DiskDigger" > "$DISKDIGGERT"
+            chmod +x "$DISKDIGGERT"
+            source "$DiggerSC_tool/DiggerSC"
+        else
+            file_not_found "DiskDigger"
+        fi
+    else
+        file_not_found "DiggerSC"
+    fi
+elif [[ "$main_menu" == 5 ]]; then
     tput cnorm
     source "${nmap_tool}"
     tput civis
-elif [[ "$main_menu" == 5 ]]; then
+elif [[ "$main_menu" == 6 ]]; then
     tput cnorm
     if [[ -f "${converter_tool}/converter.sh" ]]; then
         source "${converter_tool}/converter.sh"
@@ -381,7 +395,7 @@ elif [[ "$main_menu" == 5 ]]; then
     else
         file_not_found "converter.sh"
     fi
-elif [[ "$main_menu" == 6 ]]; then
+elif [[ "$main_menu" == 7 ]]; then
     tput cnorm
     goblin_settings
     tput civis
@@ -400,9 +414,10 @@ do
         "1" "Red tools Z7        [ Hacking       ]" "Powerful tools." \
         "2" "Creator-G7          [ New tool      ]" "Start a new project." \
         "3" "TubeVide07          [ Audio/Video   ]" "Download videos and audios." \
-        "4" "Nmap                [ Port scan     ]" "Scan ports with nmap" \
-        "5" "Text to audio       [ converter     ]" "Convert text to MP3 audio?" \
-        "6" "Settings            [ Settings      ]" "Configuration of '$program_name'")
+        "4" "DiggerSC            [ File Digger   ]" "Copy all the files from a disk or usb." \
+        "5" "Nmap                [ Port scan     ]" "Scan ports with nmap" \
+        "6" "Text to audio       [ converter     ]" "Convert text to MP3 audio?" \
+        "7" "Settings            [ Settings      ]" "Configuration of '$program_name'")
 
 case $? in
     0)

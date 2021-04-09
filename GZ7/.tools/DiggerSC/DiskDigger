@@ -1,0 +1,712 @@
+#!/bin/bash
+#DiskDigger
+#Coded by Z3R07-RED
+#https://github.com/Z3R07-RED
+
+tmp_directory="tmp"
+log_directory="logs"
+AUDE=""
+DELETE="OFF"
+PROGRESS="OFF"
+VERBOSE="OFF"
+COMPRESS="OFF"
+TYPE1="OFF"
+TYPE2="OFF"
+TYPE3="OFF"
+TYPE4="OFF"
+TYPE5="OFF"
+TYPE6="OFF"
+let IMAGENUM=0
+let VIDEONUM=0
+let AUDIONUM=0
+let TEXTONUM=0
+let PDFNUM=0
+let ZIPTARNUM=0
+
+# RANDOM [DATA]
+function randdata(){
+        MATRIX="abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ-0123456789"
+        Z3R07=""
+        n=1
+        i=1
+        [ -z "$1" ] && length=8 || length=$1
+        [ -z "$2" ] && num=1 || num=$2
+        while [ ${i} -le $num ]; do
+                while [ ${n} -le $length ]; do
+                        Z3R07="$Z3R07${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+                        n=$(($n + 1))
+                done
+                echo $Z3R07
+                n=1
+                Z3R07=""
+                i=$(($i + 1))
+        done
+}
+
+function new_videos(){
+let VIDEONUM=$(($VIDEONUM+1))
+NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).mp4"
+
+if [[ "$VERBOSE" == "ON" ]]; then
+    echo "$VIDEONUM) $NEWVIDEO" >> "$FOUNDD/Video/found_files.txt" 2>/dev/null
+    echo "$SLE" >> "$FOUNDD/Video/found_files.txt" 2>/dev/null
+fi
+
+cp "$SLE" "$FOUNDD/Video/$NEWVIDEO" 2>/dev/null
+
+if [[ "$PROGRESS" == "ON" ]]; then
+    if [[ -f "$FOUNDD/Video/$NEWVIDEO" ]]; then
+        echo "---------------------------"
+        echo "[VIDEO]: $VIDEONUM"
+        sleep 0.1
+        echo "[ NAME]: $NEWVIDEO - \"New\""
+        sleep 0.1
+        echo "[ PATH]: $SLE"
+        echo "---------------------------"
+        sleep 0.1
+    else
+        echo "[VIDEO]: $SLE"
+        echo "[ERROR]: An error has occurred."
+        sleep 0.2
+    fi
+else
+    echo "[VIDEO]: $VIDEONUM - '$NEWVIDEO'"
+    sleep 0.1
+fi
+
+if [[ "$DELETE" == "ON" ]]; then
+    rm -rf $SLE 2>/dev/null
+fi
+}
+
+function new_pdf(){
+let PDFNUM=$(($PDFNUM+1))
+PDFBASENAME=$(basename "$SLE" 2>/dev/null)
+NEWPDF="PDF - $(printf "%02d" ${PDFNUM}) - ${PDFBASENAME}"
+
+if [[ "$VERBOSE" == "ON" ]]; then
+    echo "$PDFNUM) $NEWPDF" >> "$FOUNDD/pdf/found_files.txt" 2>/dev/null
+    echo "$SLE" >> "$FOUNDD/pdf/found_files.txt" 2>/dev/null
+fi
+
+cp "$SLE" "$FOUNDD/pdf/$NEWPDF" 2>/dev/null
+
+if [[ "$PROGRESS" == "ON" ]]; then
+    if [[ -f "$FOUNDD/pdf/$NEWPDF" ]]; then
+        echo "---------------------------"
+        echo "[  PDF]: $PDFNUM"
+        sleep 0.1
+        echo "[ NAME]: $NEWPDF - \"New\""
+        sleep 0.1
+        echo "[ PATH]: $SLE"
+        echo "---------------------------"
+        sleep 0.1
+    else
+        echo "[  PDF]: $SLE"
+        echo "[ERROR]: An error has occurred."
+        sleep 0.2
+    fi
+else
+    echo "[  PDF]: $PDFNUM - '$NEWPDF'"
+    sleep 0.1
+fi
+
+if [[ "$DELETE" == "ON" ]]; then
+    rm -rf $SLE 2>/dev/null
+fi
+}
+
+function new_audios(){
+let AUDIONUM=$(($AUDIONUM+1))
+NEWAUDIO="A - $(printf "%02d" ${AUDIONUM}) - ${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).${AUDE}"
+
+if [[ "$VERBOSE" == "ON" ]]; then
+    echo "$AUDIONUM) $NEWAUDIO" >> "$FOUNDD/Audio/found_files.txt" 2>/dev/null
+    echo "$SLE" >> "$FOUNDD/Audio/found_files.txt" 2>/dev/null
+fi
+
+cp "$SLE" "$FOUNDD/Audio/$NEWAUDIO" 2>/dev/null
+
+if [[ "$PROGRESS" == "ON" ]]; then
+    if [[ -f "$FOUNDD/Audio/$NEWAUDIO" ]]; then
+        echo "---------------------------"
+        echo "[AUDIO]: $AUDIONUM"
+        sleep 0.1
+        echo "[ NAME]: $NEWAUDIO - \"New\""
+        sleep 0.1
+        echo "[ PATH]: $SLE"
+        echo "---------------------------"
+        sleep 0.1
+    else
+        echo "[AUDIO]: $SLE"
+        echo "[ERROR]: An error has occurred."
+        sleep 0.2
+    fi
+else
+    echo "[AUDIO]: $AUDIONUM - '$NEWAUDIO'"
+    sleep 0.1
+fi
+
+if [[ "$DELETE" == "ON" ]]; then
+    rm -rf $SLE 2>/dev/null
+fi
+}
+
+function new_text(){
+let TEXTONUM=$(($TEXTONUM+1))
+TXTBASENAME=$(basename "$SLE" 2>/dev/null)
+NEWTEXTO="TEXTO - $(printf "%02d" ${TEXTONUM}) - ${TXTBASENAME}"
+
+if [[ "$VERBOSE" == "ON" ]]; then
+    echo "$TEXTONUM) $NEWTEXTO" >> "$FOUNDD/file/found_files.txt" 2>/dev/null
+    echo "$SLE" >> "$FOUNDD/file/found_files.txt" 2>/dev/null
+fi
+
+cp "$SLE" "$FOUNDD/file/$NEWTEXTO" 2>/dev/null
+
+if [[ "$PROGRESS" == "ON" ]]; then
+    if [[ -f "$FOUNDD/file/$NEWTEXTO" ]]; then
+        echo "---------------------------"
+        echo "[ TEXT]: $TEXTONUM"
+        sleep 0.1
+        echo "[ NAME]: $NEWTEXTO - \"New\""
+        sleep 0.1
+        echo "[ PATH]: $SLE"
+        echo "---------------------------"
+        sleep 0.1
+    else
+        echo "[ TEXT]: $SLE"
+        echo "[ERROR]: An error has occurred."
+        sleep 0.2
+    fi
+else
+    echo "[ TEXT]: $TEXTONUM - '$NEWTEXTO'"
+    sleep 0.1
+fi
+
+if [[ "$DELETE" == "ON" ]]; then
+    rm -rf $SLE 2>/dev/null
+fi
+}
+
+function new_compress(){
+let ZIPTARNUM=$(($ZIPTARNUM+1))
+COMPRESSBASENAME=$(basename "$SLE" 2>/dev/null)
+NEWCOMPRESS="C - $(printf "%02d" ${ZIPTARNUM}) - ${COMPRESSBASENAME}"
+
+if [[ "$VERBOSE" == "ON" ]]; then
+    echo "$ZIPTARNUM) $NEWCOMPRESS" >> "$FOUNDD/Compress/found_files.txt" 2>/dev/null
+    echo "$SLE" >> "$FOUNDD/Compress/found_files.txt" 2>/dev/null
+fi
+
+cp "$SLE" "$FOUNDD/Compress/$NEWCOMPRESS" 2>/dev/null
+
+if [[ "$PROGRESS" == "ON" ]]; then
+    if [[ -f "$FOUNDD/Compress/$NEWCOMPRESS" ]]; then
+        echo "---------------------------"
+        echo "[ZIPTAR]: $ZIPTARNUM"
+        sleep 0.1
+        echo "[ NAME]: $NEWCOMPRESS - \"New\""
+        sleep 0.1
+        echo "[ PATH]: $SLE"
+        echo "---------------------------"
+        sleep 0.1
+    else
+        echo "[ZIPTAR]: $SLE"
+        echo "[ERROR]: An error has occurred."
+        sleep 0.2
+    fi
+else
+    echo "[ZIPTAR]: $ZIPTARNUM - '$NEWCOMPRESS'"
+    sleep 0.1
+fi
+
+if [[ "$DELETE" == "ON" ]]; then
+    rm -rf $SLE 2>/dev/null
+fi
+}
+
+#INSPECT DIRECTORY
+function inspect_directory(){
+if [[ -f "$tmp_directory/inspect_directory.txt" ]]; then
+    file_inspect_new=$(awk "NR==1" "$tmp_directory/inspect_directory.txt")
+    BDDN=$(basename "$file_inspect_new")
+    NDMZ3R07=$(echo "$file_inspect_new" |awk -F "$BDDN" '{print $2}' 2>/dev/null)
+
+    if [[ "$NDMZ3R07" == "" ]]; then
+        inspect_files=$(find "$file_inspect_new/" > "$log_directory/inspect.log" 2>/dev/null)
+
+    else
+        inspect_files=$(find "$file_inspect_new" > "$log_directory/inspect.log" 2>/dev/null)
+
+    fi
+else
+    echo "[i] unexpected error."
+    echo ""; exit 1
+fi
+
+NINPECT=$(cat "$log_directory/inspect.log" |wc -l)
+for i in $(seq 1 $NINPECT);
+do
+    mes=`date "+%m"`
+    fecha=`date "+%d"`
+    anio=`date "+%y"`
+
+    echo "$(printf "%02d" $i) searching for files ... $(randdata 7)"
+    sleep 0.2
+
+    if [[ "$i" == 1 ]]; then
+        SAVETODIR=$(awk "NR==2" "$tmp_directory/inspect_directory.txt" 2>/dev/null)
+        BNDDNU=$(basename "$SAVETODIR" 2>/dev/null)
+        NDMZ3R07RED7=$(echo "$SAVETODIR" |awk -F "$BNDDNU" '{print $2}' 2>/dev/null)
+
+        if [[ "$NDMZ3R07RED7" != "" ]]; then
+            SAVETODIRAAA=$(echo "$SAVETODIR" |awk -F "$BNDDNU" '{print $1}' 2>/dev/null)
+            SAVETODIR="${SAVETODIRAAA}${BNDDNU}"
+            sleep 0.2
+        fi
+
+        FOUNDD="$SAVETODIR/${fecha}-${mes}-${anio}-$(randdata 4)"
+        if [[ -d "$FOUNDD" ]]; then
+            rm -rf "$FOUNDD" 2>/dev/null
+            mkdir -p "$FOUNDD" 2>/dev/null
+        else
+            mkdir -p "$FOUNDD" 2>/dev/null
+        fi
+
+        if [[ ! -d "$FOUNDD" ]]; then
+            echo $(clear)
+            rm -rf "$tmp_directory/inspect_directory.txt" 2>/dev/null
+            echo "[i] unexpected error."
+            echo ""; exit 1
+        fi
+    fi
+
+    SLE=$(awk "NR==$i" "$log_directory/inspect.log")
+    if [[ -f "$SLE" ]]; then
+        if [[ "$TYPE1" == "ON" ]]; then
+            let BUSCARIMAGENES=$(file "$SLE" | grep "image" |wc -l 2>/dev/null)
+        else
+            let BUSCARIMAGENES=0
+        fi
+
+        if [[ "$BUSCARIMAGENES" != 0 ]]; then
+            if [[ "$TYPE1" == "ON" ]]; then
+                if [[ ! -d "$FOUNDD/Image" ]]; then
+                    mkdir -p "$FOUNDD/Image" 2>/dev/null
+                    if [[ "$VERBOSE" == "ON" ]]; then
+                        touch "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                    fi
+                fi
+
+                case "$SLE" in
+                        *.jpg)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).jpg"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                        *.png)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).png"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                        *.gif)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).gif"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                        *.jpeg)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).jpeg"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                        *.webp)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).webp"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                        *.svg)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).svg"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                        *.[pdf|PDF])
+                            sleep 0.2
+                            ;;
+                        *.psd|*.PSD)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).psd"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                        *)
+                            let IMAGENUM=$(($IMAGENUM+1))
+                            NEWIMAGES="IMG$(printf "%02d" ${IMAGENUM})-${fecha}-${mes}-${anio}-file${i}cs-$(randdata 5).jpg"
+                            if [[ "$VERBOSE" == "ON" ]]; then
+                                echo "$IMAGENUM) $NEWIMAGES" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                                echo "$SLE" >> "$FOUNDD/Image/found_files.txt" 2>/dev/null
+                            fi
+
+                            cp "$SLE" "$FOUNDD/Image/$NEWIMAGES" 2>/dev/null
+
+                            if [[ "$PROGRESS" == "ON" ]]; then
+                                echo "---------------------------"
+                                echo "[IMAGE]: $IMAGENUM"
+                                sleep 0.1
+                                echo "[ NAME]: $NEWIMAGES - 'New'"
+                                echo "[ PATH]: $SLE"
+                                echo "---------------------------"
+                                sleep 0.1
+                            else
+                                echo "[IMAGE]: $NEWIMAGES - 'New'"
+                            fi
+                            sleep 0.1
+                            if [[ "$DELETE" == "ON" ]]; then
+                                rm -rf "$SLE" 2>/dev/null
+                            fi
+                            ;;
+                esac
+            fi
+        fi
+
+        #VIDEOS
+        if [[ "$TYPE2" == "ON" ]]; then
+            if [[ ! -d "$FOUNDD/Video" ]]; then
+                mkdir -p "$FOUNDD/Video" 2>/dev/null
+            fi
+            if [[ "$VERBOSE" == "ON" ]]; then
+                if [[ ! -f "$FOUNDD/Video/found_files.txt" ]]; then
+                    touch "$FOUNDD/Video/found_files.txt"
+                fi
+            fi
+
+            case "$SLE" in
+                *.mp4)
+                    new_videos
+                    ;;
+                *)
+                    let BUSCARVIDEOS=$(file "$SLE" | grep "MP4" |wc -l 2>/dev/null)
+
+                    if [[ "$BUSCARVIDEOS" != 0 ]]; then
+                        new_videos
+                    fi
+                    ;;
+            esac
+        fi
+
+        #AUDIOS
+        if [[ "$TYPE3" == "ON" ]]; then
+            if [[ ! -d "$FOUNDD/Audio" ]]; then
+                mkdir -p "$FOUNDD/Audio" 2>/dev/null
+            fi
+
+            case "$SLE" in
+                *.mp3)
+                    AUDE="mp3"
+                    new_audios
+                    ;;
+                *.wav)
+                    AUDE="wav"
+                    new_audios
+                    ;;
+                *.m4a)
+                    AUDE="m4a"
+                    new_audios
+                    ;;
+                *.aiff)
+                    AUDE="aiff"
+                    new_audios
+                    ;;
+                *.wma)
+                    AUDE="wma"
+                    new_audios
+                    ;;
+                *.[ogg|OGG])
+                    AUDE="ogg"
+                    new_audios
+                    ;;
+            esac
+        fi
+
+        #PDF
+        if [[ "$TYPE4" == "ON" ]]; then
+            if [[ ! -d "$FOUNDD/pdf" ]]; then
+                mkdir -p "$FOUNDD/pdf" 2>/dev/null
+            fi
+
+            case "$SLE" in
+                *.pdf)
+                    new_pdf
+                    ;;
+                *.PDF)
+                    new_pdf
+                    ;;
+            esac
+        fi
+
+        #TEXTO
+        if [[ "$TYPE5" == "ON" ]]; then
+            if [[ ! -d "$FOUNDD/file" ]]; then
+                mkdir -p "$FOUNDD/file" 2>/dev/null
+            fi
+
+            case "$SLE" in
+                *.txt)
+                    new_text
+                    ;;
+                *.TXT)
+                    new_text
+                    ;;
+                *.text)
+                    new_text
+                    ;;
+            esac
+        fi
+
+        # ZIP TAR
+        if [[ "$TYPE6" == "ON" ]]; then
+            if [[ ! -d "$FOUNDD/Compress" ]]; then
+                mkdir -p "$FOUNDD/Compress" 2>/dev/null
+            fi
+
+            case "$SLE" in
+                *.zip)
+                    new_compress
+                    ;;
+                *.tar)
+                    new_compress
+                    ;;
+                *.tgz)
+                    new_compress
+                    ;;
+            esac
+        fi
+    fi
+done
+
+if [[ "$COMPRESS" == "ON" ]]; then
+    FOUNDDBASENAME=$(basename "$FOUNDD" 2>/dev/null)
+    DIRECTORYI=`pwd`
+    cd "$SAVETODIR" 2>/dev/null
+
+    zip -r "$FOUNDDBASENAME.zip" "$FOUNDDBASENAME" 2>/dev/null
+
+    sleep 1
+    cd "$DIRECTORYI"
+    rm -rf "$FOUNDD" 2>/dev/null
+fi
+
+echo ""
+echo "DIRECTORY: ${FOUNDD}"
+echo ""
+if [[ "$TYPE1" == "ON" ]]; then
+    echo "[IMAGES]: $IMAGENUM"
+fi
+if [[ "$TYPE2" == "ON" ]]; then
+    echo "[VIDEOS]: $VIDEONUM"
+fi
+if [[ "$TYPE3" == "ON" ]]; then
+    echo "[AUDIOS]: $AUDIONUM"
+fi
+if [[ "$TYPE4" == "ON" ]]; then
+    echo "[   PDF]: $PDFNUM"
+fi
+if [[ "$TYPE5" == "ON" ]]; then
+    echo "[  TEXT]: $TEXTONUM"
+fi
+if [[ "$TYPE6" == "ON" ]]; then
+    echo "[ZIPTAR]: $ZIPTARNUM"
+fi
+
+echo "Finish searching for the files! :)"
+echo ""
+rm -rf tmp/* 2>/dev/null
+sleep 0.2
+exit 0
+}
+
+if [[ -f "$tmp_directory/file_types.tmp" ]]; then
+    for tnu in $(cat "$tmp_directory/file_types.tmp" 2>/dev/null);
+    do
+        if [[ "$tnu" == 1 ]]; then
+            TYPE1="ON"
+        elif [[ "$tnu" == 2 ]]; then
+            TYPE2="ON"
+        elif [[ "$tnu" == 3 ]]; then
+            TYPE3="ON"
+        elif [[ "$tnu" == 4 ]]; then
+            TYPE4="ON"
+        elif [[ "$tnu" == 5 ]]; then
+            TYPE5="ON"
+        elif [[ "$tnu" == 6 ]]; then
+            TYPE6="ON"
+        fi
+    done
+
+    if [[ -s "$tmp_directory/diggersc_config.tmp" ]]; then
+        for CGDNF in $(cat "$tmp_directory/diggersc_config.tmp" 2>/dev/null);
+        do
+            if [[ "$CGDNF" == "Delete" ]]; then
+                DELETE="ON"
+            elif [[ "$CGDNF" == "Progress" ]]; then
+                PROGRESS="ON"
+            elif [[ "$CGDNF" == "Verbose" ]]; then
+                VERBOSE="ON"
+            elif [[ "$CGDNF" == "Compress" ]]; then
+                COMPRESS="ON"
+            fi
+        done
+    fi
+
+    echo "Club Secreto 07"
+    sleep 0.1
+    echo "DiggerSC (c) 2021 by Z3R07-RED"
+    sleep 2
+    echo ""
+    inspect_directory
+fi
