@@ -108,9 +108,16 @@ if [[ $? = 0 ]]; then
         case $? in
             0)
 				newtool_goblin="$chosen_directory/$newtool"
+
 				if [[ ! -d "$newtool_goblin" && ! -f "$newtool_goblin" && ! -L "$newtool_goblin" ]]; then
 					if [[ -d $chosen_directory ]]; then
-						mkdir "$chosen_directory/$newtool"
+						mkdir "$chosen_directory/$newtool" 2>/dev/null
+                        BASENAMENEWDIRCRG7=$(basename "$newtool_goblin")
+                        newtool="$BASENAMENEWDIRCRG7"
+                        newtool_goblin="$chosen_directory/$newtool"
+                        if [[ ! -d "$newtool_goblin" ]]; then
+                            unexpected_error
+                        fi
                         touch "$newtool_goblin/README.md" 2>/dev/null
                         touch "$newtool_goblin/.gitignore"
                         echo "tmp/" >> "$newtool_goblin/.gitignore" 2>/dev/null

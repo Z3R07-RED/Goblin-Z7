@@ -105,7 +105,7 @@ function dependencies(){
 special_dependencies
 tput civis; counter_dn=0
 echo $(clear);sleep 0.3
-dependencies=(dialog git curl wget w3m sox nmap tor) # dependencies
+dependencies=(dialog git curl wget w3m sox nmap tor file zip) # dependencies
 for program in "${dependencies[@]}"; do
     if [ ! "$(command -v $program)" ]; then
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}";sleep 0.2
@@ -336,7 +336,7 @@ case $? in
         elif [[ $SETTINGS == 3 ]]; then
             $DIALOG --backtitle "$program_name" \
                     --title "ABOUT" \
-                    --textbox "GZ7/.CS07/about" 12 51
+                    --textbox "GZ7/.CS07/about" 15 55
         else
             unexpected_error
         fi
@@ -521,7 +521,7 @@ case $? in
     3)
         $DIALOG --backtitle "$program_name" \
                 --title "ABOUT" \
-                --textbox "GZ7/.CS07/about" 12 51
+                --textbox "GZ7/.CS07/about" 15 55
         ;;
     255)
         echo $(clear)
