@@ -4,9 +4,7 @@
 #
 #VARIABLES:
 current_tool_name="DiggerSC"
-termux_path="/data/data/com.termux/files/usr/bin"
 making="Mar 18 2021"
-kali_linux_path="/usr/bin"
 DISKDIGGER="DiskDigger"
 INSPECTDIR="$HOME/"
 SAVETODIR="$(pwd)/"

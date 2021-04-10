@@ -42,12 +42,14 @@ if [[ "$selected_sound_option" == 1 ]]; then
     if [[ -d "$termux_path" ]]; then
         pulseaudio -k 2>/dev/null
         pulseaudio -D 2>/dev/null
-    fi
-    $DIALOG --backtitle "$program_name - $current_tool_name" \
-            --title "PLAY AUDIO" \
-            --prgbox "echo play audio: $selected_audios; play $converter_tool/sounds/$selected_audios" 10 50
+        $DIALOG --backtitle "$program_name - $current_tool_name" \
+               --title "PLAY AUDIO" \
+               --prgbox "echo play audio: $selected_audios; play $converter_tool/sounds/$selected_audios" 10 50
 
-    pulseaudio -k 2>/dev/null
+        pulseaudio -k 2>/dev/null
+    else
+        option_only_for_termux
+    fi
 
 elif [[ "$selected_sound_option" == 2 ]]; then
     select_a_directory

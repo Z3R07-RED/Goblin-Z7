@@ -10,6 +10,7 @@ DISKDIGGERT="DiskDigger"
 #Directory
 log_directory="logs"
 tmp_directory="tmp"
+GZ7_directory="GZ7"
 config_directory=".config"
 tools_directory="GZ7/.tools"
 creator_directory="$tools_directory/Creator-G7"

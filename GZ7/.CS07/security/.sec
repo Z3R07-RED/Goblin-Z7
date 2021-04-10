@@ -111,10 +111,10 @@ FORM=$($DIALOG --ok-label "Submit" \
 	--title "PROFILE" \
     --insecure --colors --clear \
 	--mixedform "To continue press the \Z4\Zb\Zu'TAB'\Zn key and then \Z4\Zb\Zu'ENTER'\Zn\n\
-\Z0\ZrUser profile:\Zn" 13 55 4 \
+\Z0\ZrUser profile:\Zn" 15 60 5 \
 	"USERNAME:" 1 1 "$USERNAME"     1 11 35 0 0 \
 	"PASSWORD:" 2 1 "$PASSWRD"      2 11 35 0 1 \
-	"QUESTION:" 3 1 "$QUESTION"     3 11 35 45 0 \
+	"QUESTION:" 3 1 "$QUESTION"     3 11 35 0 0 \
 	"ANSWER  :" 4 1 "$ANSWER"       4 11 35 0 1 \
 2>&1 1>&3)
 E_status=$?

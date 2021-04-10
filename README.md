@@ -1,5 +1,5 @@
 <p align="center">
-<img src="GZ7/.CS07/Img/Goblin-Z7.png" title="Goblin-Z7 v.01" width="350px" height="350px">
+<img alt="goblin-z7" src="GZ7/.CS07/Img/Goblin-Z7.png" title="Goblin-Z7 v.01" width="350px" height="350px">
 </p>
 
 <p align="center">
@@ -36,6 +36,9 @@ apt-get install python3 -y
 ```
 apt-get install python3-pip
 ```
+```
+apt-get install proxychains
+```
 
 * TERMUX
 
@@ -47,6 +50,9 @@ apt install python -y
 ```
 ```
 apt install python2 -y
+```
+```
+apt install proxychains-ng
 ```
 
 Once installed, you can proceed to the next point.

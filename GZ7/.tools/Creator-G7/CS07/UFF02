@@ -6,11 +6,11 @@ $DIALOG --backtitle "$program_name - Something went wrong..." \
     --msgbox "There was an unexpected error. run the program and try again." 8 60
 
 if [[ -d "$tmp_directory" ]]; then
-    rm -rf "$tmp_directory/*" 2>/dev/null
+    rm -rf "$tmp_directory" 2>/dev/null
 fi
 
 if [[ -d "$log_directory" ]]; then
-    rm -rf "$log_directory/*" 2>/dev/null
+    rm -rf "$log_directory" 2>/dev/null
 fi
 echo $(clear);exit 1
 }

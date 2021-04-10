@@ -6,11 +6,11 @@ $DIALOG --backtitle "$program_name - Something went wrong..." \
     --msgbox "There was an unexpected error. run the program and try again." 8 60
 
 if [[ -d "$tmp_directory" ]]; then
-    rm -rf "$tmp_directory/*" 2>/dev/null
+    rm -rf "$tmp_directory" 2>/dev/null
 fi
 
 if [[ -d "$log_directory" ]]; then
-    rm -rf "$log_directory/*" 2>/dev/null
+    rm -rf "$log_directory" 2>/dev/null
 fi
 tput cnorm 2>/dev/null
 echo $(clear);exit 1
@@ -193,6 +193,25 @@ if [[ "$check" -gt 0 ]]; then
                 ;;
     esac
 fi
+}
+
+#PERMISSIONS
+function give_permissions(){
+for FCHMOD in $(find "$GZ7_directory/" 2>/dev/null);
+do
+   if [[ -f "$FCHMOD" ]]; then
+      if [[ ! -x "$FCHMOD" ]]; then
+         chmod +x "$FCHMOD" 2>/dev/null
+      fi
+   fi
+done
+}
+
+#OPTION ONLY FOR TERMUX "MSGBOX"
+function option_only_for_termux(){
+$DIALOG --backtitle "$program_name - v$version" \
+        --title "INFORMATION" \
+        --msgbox "\n\nSorry: this option is for termux. :(" 10 50
 }
 
 # Goblin-Z7 Copyright (c) 2020-2021

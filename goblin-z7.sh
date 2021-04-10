@@ -449,6 +449,7 @@ done
 }
 
 dependencies
+give_permissions
 tput cnorm
 if [[ -f GZ7/.CS07/security/.sec ]]; then
     source GZ7/.CS07/security/.sec
