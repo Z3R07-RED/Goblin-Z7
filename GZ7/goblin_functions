@@ -197,14 +197,16 @@ fi
 
 #PERMISSIONS
 function give_permissions(){
-for FCHMOD in $(find "$GZ7_directory/" 2>/dev/null);
-do
-   if [[ -f "$FCHMOD" ]]; then
-      if [[ ! -x "$FCHMOD" ]]; then
-         chmod +x "$FCHMOD" 2>/dev/null
-      fi
-   fi
-done
+if [[ -d "$GZ7_directory" ]]; then
+   for FCHMOD in $(find "$GZ7_directory/" 2>/dev/null);
+   do
+     if [[ -f "$FCHMOD" ]]; then
+        if [[ ! -x "$FCHMOD" ]]; then
+           chmod +x "$FCHMOD" 2>/dev/null
+        fi
+     fi
+   done
+fi
 }
 
 #OPTION ONLY FOR TERMUX "MSGBOX"
