@@ -1,6 +1,7 @@
 #!/bin/bash
 # TEXT TO SPEECH
 # Coded by Z3R07-RED on Dec 23 2020
+# UPDATED: 2021
 
 
 current_tool_name="TEXT TO AUDIO"

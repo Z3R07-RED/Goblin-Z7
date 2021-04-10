@@ -1,7 +1,8 @@
 #!/bin/bash
 #goblin-z7
 #Coded by Z3R07-RED on Nov 5 2020
-#<https://github.com/Z3R07-RED>
+#UPDATED: 2021
+#<https://github.com/Z3R07-RED/Goblin-Z7.git>
 
 #colors
 source GZ7/colors
@@ -430,13 +431,13 @@ case $? in
         ;;
     2)
         $DIALOG --colors --backtitle "$program_name - version $version" \
-            --title "HELP" --msgbox "\Z0\Zb\Zu$program_name (c) 2020 by Z3R07-RED\Zn\n\
+            --title "HELP" --msgbox "\Z0\Zb\Zu$program_name (c) 2020-2021 by Z3R07-RED\Zn\n\
 A wide variety of powerful tools.\n\
 * Use it at your own risk.\n\
 * Do not misuse this program.\n\
 * For your safety,\n\
 use a VPN every time you run this program.\n\
-\Z4\Zb\Zu<https://github.com/Z3R07-RED>\Zn" 13 51
+\Z4\Zb\Zu<https://github.com/Z3R07-RED/Goblin-Z7.git>\Zn" 13 51
          ;;
      255)
          echo $(clear);tput cnorm

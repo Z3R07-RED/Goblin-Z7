@@ -12,6 +12,7 @@ fi
 if [[ -d "$log_directory" ]]; then
     rm -rf "$log_directory/*" 2>/dev/null
 fi
+tput cnorm 2>/dev/null
 echo $(clear);exit 1
 }
 
@@ -26,6 +27,7 @@ $DIALOG --backtitle "$program_name - System error" \
         --msgbox "The program cannot be started because \Z4\Zb\Zu$NOFILE\Zn is missing from the computer.\n\
 Try reinstalling the program to correct this problem." 10 60
 echo $(clear)
+tput cnorm 2>/dev/null
 exit 1
 }
 
@@ -193,4 +195,5 @@ if [[ "$check" -gt 0 ]]; then
 fi
 }
 
-# Coded by Z3R07-RED on Nov 5 2020
+# Goblin-Z7 Copyright (c) 2020-2021
+# Coded by Z3R07-RED

@@ -29,4 +29,5 @@ converter_tool="$tools_directory/Converter07"
 nmap_tool="$tools_directory/NMAP/nmap.sh"
 DiggerSC_tool="$tools_directory/DiggerSC"
 
-#Coded by Z3R07-RED on Nov 5 2020
+# Goblin-Z7 Copyright (c) 2020-2021
+# Coded by Z3R07-RED
