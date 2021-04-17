@@ -362,7 +362,11 @@ if [[ "$main_menu" == 1 ]]; then
     red_tools_zmenu
 elif [[ "$main_menu" == 2 ]]; then
     tput cnorm
-    source "${creator_tool}"
+    if [[ -f "$creator_tool" ]]; then
+        source "${creator_tool}"
+    else
+        file_not_found "$creator_tool"
+    fi
     tput civis
 elif [[ "$main_menu" == 3 ]]; then
     tput cnorm
@@ -389,13 +393,8 @@ elif [[ "$main_menu" == 5 ]]; then
     tput cnorm
     source "${nmap_tool}"
     tput civis
+
 elif [[ "$main_menu" == 6 ]]; then
-    if [[ -f "$system_information_file" ]]; then
-        source "$system_information_file"
-    else
-        file_not_found "system_information"
-    fi
-elif [[ "$main_menu" == 7 ]]; then
     tput cnorm
     if [[ -f "${converter_tool}/converter.sh" ]]; then
         source "${converter_tool}/converter.sh"
@@ -403,6 +402,14 @@ elif [[ "$main_menu" == 7 ]]; then
     else
         file_not_found "converter.sh"
     fi
+
+elif [[ "$main_menu" == 7 ]]; then
+    if [[ -f "$system_information_file" ]]; then
+        source "$system_information_file"
+    else
+        file_not_found "system_information"
+    fi
+
 elif [[ "$main_menu" == 8 ]]; then
     tput cnorm
     goblin_settings
@@ -424,8 +431,8 @@ do
         "3" "TubeVide07          [ Audio/Video   ]" "Download videos and audios." \
         "4" "DiggerSC            [ File Digger   ]" "Copy all the files from a disk or usb." \
         "5" "Nmap                [ Port scan     ]" "Scan ports with nmap" \
-        "6" "System Information  [ Information   ]" "Show system information" \
-        "7" "Text to audio       [ converter     ]" "Convert text to MP3 audio?" \
+        "6" "Text to audio       [ converter     ]" "Convert text to MP3 audio?" \
+        "7" "System Information  [ Information   ]" "Show system information" \
         "8" "Settings            [ Settings      ]" "Configuration of '$program_name'")
 
 case $? in
