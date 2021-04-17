@@ -35,21 +35,27 @@ while true; do
                     display_result "Disk Space"
                     ;;
                 2)
+                    if [[ -d "$kali_linux_path" ]]; then
+                       DIRHOMEGSC="/home/"
+                    else
+                       DIRHOMEGSC="$HOME"
+                    fi
+
                     if [[ $(id -u) -eq 0 ]]; then
-                        _RESULTGOBLIN=$(du -sh $HOME 2> /dev/null)
+                        _RESULTGOBLIN=$(du -sh $DIRHOMEGSC 2> /dev/null)
                         display_result "Home Space Utilization (All Users)"
                     else
-                        _RESULTGOBLIN=$(du -sh $HOME 2> /dev/null)
+                        _RESULTGOBLIN=$(du -sh $DIRHOMEGSC 2> /dev/null)
                         display_result "Home Space Utilization ($USER)"
                     fi
                     ;;
                 3)
                     if [[ -d "/root" ]]; then
                         if [[ $(id -u 2>/dev/null) -eq 0 ]]; then
-                            _RESULTGOBLIN=$(du -sh "/root/*" 2> /dev/null)
+                            _RESULTGOBLIN=$(du -sh /root/* 2> /dev/null)
                             display_result "Root Space Utilization (All Users)"
                         else
-                            _RESULTGOBLIN=$(du -sh "/root/*" 2> /dev/null)
+                            _RESULTGOBLIN=$(du -sh /root/* 2> /dev/null)
                             display_result "Root Space Utilization ($USER)"
                         fi
                     else
