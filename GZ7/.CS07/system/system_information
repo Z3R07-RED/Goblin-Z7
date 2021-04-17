@@ -1,4 +1,5 @@
 #!/bin/bash
+#Coded by Z3R07-RED
 
 function display_result(){
 $DIALOG --backtitle "$program_name - v$version" --title "$1" \
@@ -45,10 +46,10 @@ while true; do
                 3)
                     if [[ -d "/root" ]]; then
                         if [[ $(id -u 2>/dev/null) -eq 0 ]]; then
-                            _RESULTGOBLIN=$(du -sh "/root" 2> /dev/null)
+                            _RESULTGOBLIN=$(du -sh "/root/*" 2> /dev/null)
                             display_result "Root Space Utilization (All Users)"
                         else
-                            _RESULTGOBLIN=$(du -sh "/root" 2> /dev/null)
+                            _RESULTGOBLIN=$(du -sh "/root/*" 2> /dev/null)
                             display_result "Root Space Utilization ($USER)"
                         fi
                     else
