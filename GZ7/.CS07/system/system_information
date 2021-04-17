@@ -1,0 +1,88 @@
+#!/bin/bash
+
+function display_result(){
+$DIALOG --backtitle "$program_name - v$version" --title "$1" \
+       --no-collapse \
+       --msgbox "$_RESULTGOBLIN" 15 60
+}
+
+function system_information_nemu(){
+while true; do
+    exec 3>&1
+    ESO=$($DIALOG \
+        --backtitle "System Information" \
+        --clear --title "INFORMATION" \
+        --menu "Please select:" 12 60 5 \
+        "1" "Display Disk Space" \
+        "2" "Display Home Space Utilization" \
+        "3" "Display Root Space Utilization" \
+        "4" "Display $program_name Space Utilization" \
+        "5" "Display Details" \
+        2>&1 1>&3)
+    exit_status_optionssc=$?
+    exec 3>&-
+
+    case $exit_status_optionssc in
+        0)
+            case $ESO in
+                1)
+                    if [[ -d "$kali_linux_path" ]]; then
+                        _RESULTGOBLIN=$(df -Bg 2>/dev/null)
+                    else
+                        _RESULTGOBLIN=$(df 2>/dev/null)
+                    fi
+                    display_result "Disk Space"
+                    ;;
+                2)
+                    if [[ $(id -u) -eq 0 ]]; then
+                        _RESULTGOBLIN=$(du -sh $HOME 2> /dev/null)
+                        display_result "Home Space Utilization (All Users)"
+                    else
+                        _RESULTGOBLIN=$(du -sh $HOME 2> /dev/null)
+                        display_result "Home Space Utilization ($USER)"
+                    fi
+                    ;;
+                3)
+                    if [[ -d "/root" ]]; then
+                        if [[ $(id -u 2>/dev/null) -eq 0 ]]; then
+                            _RESULTGOBLIN=$(du -sh "/root" 2> /dev/null)
+                            display_result "Root Space Utilization (All Users)"
+                        else
+                            _RESULTGOBLIN=$(du -sh "/root" 2> /dev/null)
+                            display_result "Root Space Utilization ($USER)"
+                        fi
+                    else
+                        unexpected_error
+                    fi
+                    ;;
+                4)
+                    if [[ $(id -u 2>/dev/null) -eq 0 ]]; then
+                        _RESULTGOBLIN=$(du -sh "$PWD" 2> /dev/null)
+                        display_result "$program_name Space Utilization (All Users)"
+                    else
+                        _RESULTGOBLIN=$(du -sh "$PWD" 2> /dev/null)
+                        display_result "$program_name Space Utilization ($USERNAME)"
+                    fi
+                    ;;
+                5)
+                    let _ELEMENTSGOBLIN=$(find $PWD | wc -l 2>/dev/null)
+                    let _FILESGOBLIN=$(find $PWD -type f | wc -l 2>/dev/null)
+                    let _DIRECTORIESGOBLIN=$(find $PWD -type d | wc -l 2>/dev/null)
+                    _ARCHITECTURE=$(dpkg --print-architecture 2>/dev/null)
+                    _RESULTGOBLIN="\n     kernel Name : $(uname -s 2>/dev/null)\n       User Name : $USERNAME\n    Architecture : $_ARCHITECTURE\nOperating System : $(uname -o 2>/dev/null)\n    Program Name : $program_name\n          Author : $author\n            Size : $(du -sh $PWD | awk -F' ' '{print $1}' 2>/dev/null)\n        Elements : $_ELEMENTSGOBLIN\n           files : $_FILESGOBLIN\n     Directories : $_DIRECTORIESGOBLIN"
+                    display_result "$program_name"
+            esac
+            ;;
+        1)
+            break
+            ;;
+        255)
+            echo $(clear)
+            echo "Program aborted." >&2
+            exit 1
+            ;;
+    esac
+done
+}
+
+system_information_nemu

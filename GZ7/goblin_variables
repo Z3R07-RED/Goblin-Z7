@@ -16,6 +16,7 @@ tools_directory="GZ7/.tools"
 creator_directory="$tools_directory/Creator-G7"
 #Files
 colors="GZ7/colors"
+system_information_file="$GZ7_directory/.CS07/system/system_information"
 phone_numbers_CS07_file="$tmp_directory/number.tmp"
 phone_number_infor_file="$log_directory/info.txt"
 url_youtube_file="$log_directory/youtube.log"

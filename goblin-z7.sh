@@ -320,6 +320,7 @@ case $? in
                     export DIALOGRC=$config_directory/themes/$THEME_SETTING
                     $DIALOG --backtitle "$program_name - Themes" \
                             --title "Settings" \
+                            --no-collapse \
                             --msgbox "The theme of the program was configured correctly." 8 51
                     ;;
                 1)
@@ -389,6 +390,12 @@ elif [[ "$main_menu" == 5 ]]; then
     source "${nmap_tool}"
     tput civis
 elif [[ "$main_menu" == 6 ]]; then
+    if [[ -f "$system_information_file" ]]; then
+        source "$system_information_file"
+    else
+        file_not_found "system_information"
+    fi
+elif [[ "$main_menu" == 7 ]]; then
     tput cnorm
     if [[ -f "${converter_tool}/converter.sh" ]]; then
         source "${converter_tool}/converter.sh"
@@ -396,7 +403,7 @@ elif [[ "$main_menu" == 6 ]]; then
     else
         file_not_found "converter.sh"
     fi
-elif [[ "$main_menu" == 7 ]]; then
+elif [[ "$main_menu" == 8 ]]; then
     tput cnorm
     goblin_settings
     tput civis
@@ -417,8 +424,9 @@ do
         "3" "TubeVide07          [ Audio/Video   ]" "Download videos and audios." \
         "4" "DiggerSC            [ File Digger   ]" "Copy all the files from a disk or usb." \
         "5" "Nmap                [ Port scan     ]" "Scan ports with nmap" \
-        "6" "Text to audio       [ converter     ]" "Convert text to MP3 audio?" \
-        "7" "Settings            [ Settings      ]" "Configuration of '$program_name'")
+        "6" "System Information  [ Information   ]" "Show system information" \
+        "7" "Text to audio       [ converter     ]" "Convert text to MP3 audio?" \
+        "8" "Settings            [ Settings      ]" "Configuration of '$program_name'")
 
 case $? in
     0)
@@ -431,6 +439,7 @@ case $? in
         ;;
     2)
         $DIALOG --colors --backtitle "$program_name - version $version" \
+            --no-collapse \
             --title "HELP" --msgbox "\Z0\Zb\Zu$program_name (c) 2020-2021 by Z3R07-RED\Zn\n\
 A wide variety of powerful tools.\n\
 * Use it at your own risk.\n\

@@ -3,6 +3,7 @@
 function unexpected_error(){
 $DIALOG --backtitle "$program_name - Something went wrong..." \
     --title "Unexpected error" \
+    --no-collapse \
     --msgbox "There was an unexpected error. run the program and try again." 8 60
 
 if [[ -d "$tmp_directory" ]]; then
@@ -24,6 +25,7 @@ function file_not_found(){
 NOFILE="$1"
 $DIALOG --backtitle "$program_name - System error" \
         --colors --title "[ERROR]" \
+        --no-collapse \
         --msgbox "The program cannot be started because \Z4\Zb\Zu$NOFILE\Zn is missing from the computer.\n\
 Try reinstalling the program to correct this problem." 10 60
 echo $(clear)
@@ -115,6 +117,7 @@ case $REMOVE in
                 rm -rf "$FILENAME" 2>/dev/null
                 $DIALOG --backtitle "$program_name" \
                         --colors --title "INFORMATION" \
+                        --no-collapse \
                         --msgbox "It was successfully removed!\n\Z4\Zu\Zb'$FILENAME'\Zn" 10 60
             else
                 $DIALOG --backtitle "$program_name" \
