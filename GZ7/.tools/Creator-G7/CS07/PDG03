@@ -14,7 +14,7 @@ if [[ -f "CS07/universal_functions" && -f "CS07/universal_variables" ]]; then
     source "CS07/universal_variables"
 else
     echo -e "[ERROR]: \"universal_functions\" \"universal_variables\""
-    echo "";exit 0
+    echo "";exit 1
 fi
 #colors
 if [[ -f "$colors" ]]; then
@@ -66,8 +66,8 @@ fi
 tput civis; counter_dn=0
 echo $(clear);sleep 0.3
 
-dependencies=(dialog git wget curl) # dependencies
-for program in "${dependencies[@]}"; do
+PKGS=(dialog git wget curl) # dependencies
+for program in "${PKGS[@]}"; do
     if [ ! "$(command -v $program)" ]; then
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}"
         sleep 0.8

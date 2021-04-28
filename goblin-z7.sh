@@ -105,8 +105,8 @@ function dependencies(){
 special_dependencies
 tput civis; counter_dn=0
 echo $(clear);sleep 0.3
-dependencies=(dialog git curl wget w3m sox nmap tor file zip) # dependencies
-for program in "${dependencies[@]}"; do
+PKGS=(dialog git curl wget w3m sox nmap tor file zip) # dependencies
+for program in "${PKGS[@]}"; do
     if [ ! "$(command -v $program)" ]; then
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}";sleep 0.2
         echo -e "\n\e[1;33m[i]\e[0m${C} Installing ...${W}";sleep 0.6

@@ -44,7 +44,7 @@ if [[ "$selected_sound_option" == 1 ]]; then
         pulseaudio -D 2>/dev/null
         $DIALOG --backtitle "$program_name - $current_tool_name" \
                --title "PLAY AUDIO" \
-               --prgbox "echo play audio: $selected_audios; play $converter_tool/sounds/$selected_audios" 10 50
+               --prgbox "echo play audio: $selected_audios; play $converter_tool/sounds/$selected_audios" 12 60
 
         pulseaudio -k 2>/dev/null
     else
@@ -183,6 +183,9 @@ audios_created
 }
 
 function run_the_audio_converter(){
+let _CAUDIOS_NUM_GOBLINN=$(find "$converter_tool/sounds/" -type f |wc -l);
+let _CAUDIOS_NUM_GOBLIN=$(($_CAUDIOS_NUM_GOBLINN+1))
+_NNAMEAUDIO_GOBLIN=$(printf "Audio_$(randdata 5)_%02d.mp3" ${_CAUDIOS_NUM_GOBLIN})
 languagemenu_audio=$($DIALOG --stdout --nocancel --begin 2 2 --backtitle "$program_name - $current_tool_name" \
                             --item-help --colors --title "LANGUAGE" \
                             --radiolist "" 10 41 3 \
@@ -190,13 +193,32 @@ languagemenu_audio=$($DIALOG --stdout --nocancel --begin 2 2 --backtitle "$progr
                             "EN" "[ ENGLISH ]" off "Press the \Z2\Zr\Zb'SPACE'\Zn key and then \Z2\Zr\Zb'ENTER'\Zn" \
                             "FR" "[ FRENCH  ]" off "Press the \Z2\Zr\Zb'SPACE'\Zn key and then \Z2\Zr\Zb'ENTER'\Zn" \
                             --and-widget --begin 6 6 --title "MP3 FILE" \
-                            --ok-label "create" --clear --inputbox "Enter a name for the file:" 10 45)
+                            --ok-label "create" --clear --inputbox "Enter a name for the file:" 10 45 "$_NNAMEAUDIO_GOBLIN")
 
 case $? in
     0)
         languagemenu_select=$(echo "$languagemenu_audio" |awk -F' ' '{print $2}')
         if [[ -n "$languagemenu_select" ]]; then
-            audioname="$converter_tool/sounds/$languagemenu_select.mp3"
+            case "$languagemenu_select" in
+                *.mp3)
+                    audioname="$converter_tool/sounds/$languagemenu_select"
+                    ;;
+                *.wav)
+                    audioname="$converter_tool/sounds/$languagemenu_select"
+                    ;;
+                *.m4a)
+                    audioname="$converter_tool/sounds/$languagemenu_select"
+                    ;;
+                *.aiff)
+                    audioname="$converter_tool/sounds/$languagemenu_select"
+                    ;;
+                *.ogg)
+                    audioname="$converter_tool/sounds/$languagemenu_select"
+                    ;;
+                *)
+                    audioname="$converter_tool/sounds/$languagemenu_select.mp3"
+                    ;;
+            esac
             echo "${audioname}" > "${audio_file_name}"
             languagemenu_select=$(echo "$languagemenu_audio" |awk -F' ' '{print $1}')
             if [[ $languagemenu_select == "ES" ]]; then

@@ -2,7 +2,7 @@
 program_name="null"
 making="null"
 author="null"
-version="0.1"
+version="1.0.0"
 PWD=$(pwd)
 #Directory
 log_directory="logs"

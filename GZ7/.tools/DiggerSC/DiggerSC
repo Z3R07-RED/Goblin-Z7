@@ -12,13 +12,13 @@ DIALOG=${DIALOG=dialog}
 dialogrc_file=".config/RedPower.conf"
 ATYPE01="on"
 ATYPE02="off"
-ATYPE03="off"
+ATYPE03="on"
 ATYPE04="off"
 ATYPE05="off"
 ATYPE06="off"
 DGGROPT01="off"
-DGGROPT02="off"
-DGGROPT03="off"
+DGGROPT02="on"
+DGGROPT03="on"
 DGGROPT04="off"
 
 tput civis

@@ -219,5 +219,28 @@ $DIALOG --backtitle "$program_name - v$version" \
         --msgbox "\n\nSorry: this option is for termux. :(" 10 50
 }
 
+# RANDOM [DATA]
+# USE:
+#     Example:
+#             randdata 10
+function randdata(){
+        MATRIX="abcdefghijklmnopqrstuvwxyzABCDEFGHIJLKMNOPQRSTUVWXYZ-0123456789"
+        Z3R07=""
+        n=1
+        i=1
+        [ -z "$1" ] && length=8 || length=$1
+        [ -z "$2" ] && num=1 || num=$2
+        while [ ${i} -le $num ]; do
+                while [ ${n} -le $length ]; do
+                        Z3R07="$Z3R07${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+                        n=$(($n + 1))
+                done
+                echo $Z3R07
+                n=1
+                Z3R07=""
+                i=$(($i + 1))
+        done
+}
+
 # Goblin-Z7 Copyright (c) 2020-2021
 # Coded by Z3R07-RED
