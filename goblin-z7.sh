@@ -42,12 +42,12 @@ trap ctrl_c INT
 
 function ctrl_c(){
 echo $(clear)
-rm -rf tmp/* 2>/dev/null
-rm -rf logs/* 2>/dev/null
-rm -rf "$DISKDIGGERT" 2>/dev/null
+rm -rf tmp/* 2> /dev/null
+rm -rf logs/* 2> /dev/null
+rm -rf "$DISKDIGGERT" 2> /dev/null
 echo "Program aborted."
-tput cnorm
-echo "";exit 1
+tput cnorm 2> /dev/null
+echo ""; exit 1
 }
 
 #FUNCTIONS:
@@ -125,7 +125,8 @@ fi
 ##################################################################
 #Extract links
 function extract_links(){
-tput cnorm
+tput cnorm 2>/dev/null
+tor_connection
 web_extract_links=$($DIALOG --stdout --clear --backtitle "$program_name - Extract links" \
         --title "[WEBSITE]" \
         --inputbox "Website:" 10 60)
@@ -133,7 +134,7 @@ web_extract_links=$($DIALOG --stdout --clear --backtitle "$program_name - Extrac
 case $? in
     0)
         if [[ -n $web_extract_links ]]; then
-            tput civis
+            tput civis 2>/dev/null
             #$DIALOG --backtitle "$program_name - Extract links" --title "[WEBSITE]" --prgbox "curl https://api.hackertarget.com/pagelinks/?q=$web_extract_links > $log_directory/extracted_links.log" 12 60
             $PROXYCHAINS curl https://api.hackertarget.com/pagelinks/?q=$web_extract_links > $log_directory/extracted_links.log 2>/dev/null
             $DIALOG --exit-label "Ok" --backtitle "$program_name - $log_directory/extracted_links.log" --title "Extracted Links" --textbox $log_directory/extracted_links.log 15 60
@@ -142,20 +143,21 @@ case $? in
         fi
         ;;
     1)
-        tput civis
+        tput civis 2>/dev/null
         sleep 0.3
         ;;
     255)
         echo $(clear)
         echo "Program aborted." >&2
-        echo "";exit 1
+        echo ""; exit 1
         ;;
 esac
 }
 
 # Downloaded Website
 function wdownload(){
-tput cnorm
+tput cnorm 2>/dev/null
+tor_connection
 download_website=$($DIALOG --stdout --clear --backtitle "$program_name - Download Website" \
         --title "[WEBSITE]" \
         --inputbox "Website:" 10 60)
@@ -168,26 +170,26 @@ case $? in
                 $DIALOG --backtitle "$program_name - Download Website" --title "[DOWNLOADING]" --prgbox "$PROXYCHAINS wget -P $chosen_directory -r -l 2 -k $download_website" 12 60
                 $DIALOG --backtitle "$program_name - Download Website" --title "[WEBSITE]" --prgbox "echo Downloaded website:; ls -a $chosen_directory" 12 60
             fi
-            tput civis
+            tput civis 2>/dev/null
         else
             unexpected_error
         fi
         ;;
     1)
-        tput civis
+        tput civis 2>/dev/null
         sleep 0.3
         ;;
     255)
         echo $(clear)
         echo "Program aborted." >&2
-        echo "";exit 1
+        echo ""; exit 1
         ;;
 esac
 }
 
 #PhoneNumbersCS07
 function phonenumbersCS07(){
-tput cnorm
+tput cnorm 2>/dev/null
 $DIALOG --backtitle "$program_name - PhoneNumbersCS07" \
     --title "PHONE NUMBER" \
     --inputbox "Enter phone number:" 10 50 "+591" 2>"${phone_numbers_CS07_file}"
@@ -223,12 +225,12 @@ case $? in
         echo ""; exit 1
         ;;
 esac
-tput civis
+tput civis 2>/dev/null
 }
 
 # Shorten URL
 function shorten_url(){
-tput cnorm
+tput cnorm 2>/dev/null
 SHORTEN=$($DIALOG --stdout --backtitle "$program_name - Shorten URL" --title "SHORTEN URL" --inputbox "Enter a long URL to make a TinyURL:" 10 51)
 
 case $? in
@@ -244,7 +246,7 @@ case $? in
         echo ""; exit 1
         ;;
 esac
-tput civis
+tput civis 2>/dev/null
 }
 
 #RED TOOLS MENU
@@ -337,7 +339,7 @@ case $? in
         elif [[ $SETTINGS == 3 ]]; then
             $DIALOG --backtitle "$program_name" \
                     --title "ABOUT" \
-                    --textbox "GZ7/.CS07/about" 15 55
+                    --textbox "GZ7/.CS07/about" 15 60
         else
             unexpected_error
         fi
@@ -348,7 +350,7 @@ case $? in
         ;;
 
     255)
-        echo $(clear);tput cnorm
+        echo $(clear); tput cnorm 2>/dev/null
         echo "Program aborted." >&2
         echo "";exit 1
         ;;
@@ -361,18 +363,18 @@ function goblin_options(){
 if [[ "$main_menu" == 1 ]]; then
     red_tools_zmenu
 elif [[ "$main_menu" == 2 ]]; then
-    tput cnorm
+    tput cnorm 2> /dev/null
     if [[ -f "$creator_tool" ]]; then
         source "${creator_tool}"
     else
         file_not_found "$creator_tool"
     fi
-    tput civis
+    tput civis 2> /dev/null
 elif [[ "$main_menu" == 3 ]]; then
-    tput cnorm
+    tput cnorm 2> /dev/null
     if [[ -f "${TubeVide07_tool}/TubeVide07.sh" ]]; then
         source "${TubeVide07_tool}/TubeVide07.sh"
-        tput civis
+        tput civis 2> /dev/null
     else
         file_not_found "TubeVide07.sh"
     fi
@@ -390,15 +392,15 @@ elif [[ "$main_menu" == 4 ]]; then
         file_not_found "DiggerSC"
     fi
 elif [[ "$main_menu" == 5 ]]; then
-    tput cnorm
+    tput cnorm 2> /dev/null
     source "${nmap_tool}"
-    tput civis
+    tput civis 2> /dev/null
 
 elif [[ "$main_menu" == 6 ]]; then
-    tput cnorm
+    tput cnorm 2> /dev/null
     if [[ -f "${converter_tool}/converter.sh" ]]; then
         source "${converter_tool}/converter.sh"
-        tput civis
+        tput civis 2> /dev/null
     else
         file_not_found "converter.sh"
     fi
@@ -411,9 +413,9 @@ elif [[ "$main_menu" == 7 ]]; then
     fi
 
 elif [[ "$main_menu" == 8 ]]; then
-    tput cnorm
+    tput cnorm 2> /dev/null
     goblin_settings
-    tput civis
+    tput civis 2> /dev/null
 fi
 }
 
@@ -440,7 +442,7 @@ case $? in
         goblin_options
         ;;
     1)
-        echo $(clear);tput cnorm
+        echo $(clear); tput cnorm 2> /dev/null
         echo "Exiting ..."
         echo "";exit 0
         ;;
@@ -456,7 +458,7 @@ use a VPN every time you run this program.\n\
 \Z4\Zb\Zu<https://github.com/Z3R07-RED/Goblin-Z7.git>\Zn" 13 51
          ;;
      255)
-         echo $(clear);tput cnorm
+         echo $(clear); tput cnorm 2> /dev/null
          echo "Program aborted." >&2
          echo "";exit 1
          ;;
@@ -466,7 +468,7 @@ done
 
 dependencies
 give_permissions
-tput cnorm
+tput cnorm 2> /dev/null
 if [[ -f GZ7/.CS07/security/.sec ]]; then
     source GZ7/.CS07/security/.sec
 else
@@ -484,7 +486,7 @@ case $? in
             let try=0
             internet_connection
             tor_connection
-            tput civis
+            tput civis 2> /dev/null
             goblin_menu_options
 
         else
@@ -505,7 +507,7 @@ case $? in
                             let try=0
                             internet_connection
                             tor_connection
-                            tput civis
+                            tput civis 2> /dev/null
                             goblin_menu_options
                         else
                             echo $(clear)

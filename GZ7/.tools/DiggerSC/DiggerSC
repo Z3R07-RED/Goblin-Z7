@@ -17,8 +17,8 @@ ATYPE04="off"
 ATYPE05="off"
 ATYPE06="off"
 DGGROPT01="off"
-DGGROPT02="on"
-DGGROPT03="on"
+DGGROPT02="off"
+DGGROPT03="off"
 DGGROPT04="off"
 
 tput civis
@@ -287,7 +287,6 @@ esac
 done
 }
 
-dependencies
 diggerscmenu
 
 
