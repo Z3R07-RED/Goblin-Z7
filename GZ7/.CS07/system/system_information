@@ -84,7 +84,7 @@ while true; do
             break
             ;;
         255)
-            echo $(clear)
+            echo $(clear); tput cnorm 2> /dev/null
             echo "Program aborted." >&2
             exit 1
             ;;

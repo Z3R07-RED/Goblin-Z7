@@ -29,6 +29,12 @@ if [[ -f "$config_directory/themes/$THEME" ]]; then
     export DIALOGRC=$config_directory/themes/$THEME
 fi
 
+if [[ -f "$analyzer" ]]; then
+    source "$analyzer"
+else
+    file_not_found "analyzer"
+fi
+
 if [[ ! -d "$log_directory" ]]; then
     mkdir "$log_directory"
 fi
@@ -82,6 +88,11 @@ if [[ -d "$kali_linux_path" ]]; then
         fi
     fi
 
+    if [ ! "$(command -v zenity)" ]; then
+        echo -e "\n${Y}[I]${W} apt-get install zenity ...${W}"
+        apt-get install zenity >/dev/null 2>&1
+    fi
+
     if [ ! "$(command -v ifconfig)" ]; then
         echo -e "\n${Y}[I]${W} apt-get install net-tools ...${W}"
         apt-get install net-tools -y >/dev/null 2>&1
@@ -105,6 +116,9 @@ function dependencies(){
 special_dependencies
 tput civis; counter_dn=0
 echo $(clear);sleep 0.3
+echo -e "\n\e[1;32m$program_name (c) 2020-${UPDATED} by Z3R07-RED\e[0m"
+echo -e "\n\e[1;36m$program_name - version $version\e[0m"
+echo ""
 PKGS=(dialog git curl wget w3m sox nmap tor file zip) # dependencies
 for program in "${PKGS[@]}"; do
     if [ ! "$(command -v $program)" ]; then
@@ -115,11 +129,7 @@ for program in "${PKGS[@]}"; do
         let counter_dn+=1
     fi
 done
-if [[ $counter_dn != 0 ]]; then
-    echo -e "\n\e[1;36m$program_name - version $version\e[0m"
-    echo -e "\n\e[1;32mCoded by Z3R07-RED on Nov 5 2020\e[0m"
-    sleep 2; echo $(clear)
-fi
+
 }
 
 ##################################################################
@@ -425,9 +435,9 @@ while :
 do
     main_menu=$($DIALOG --stdout --help-button --item-help \
         --ok-label "Select" --cancel-label "Exit" \
-        --backtitle "$program_name" \
-        --title "MAIN-MENU" \
-        --menu "$version" 15 51 6 \
+        --backtitle "$program_name - $(uname -o 2> /dev/null)" \
+        --title "MENU" \
+        --menu "v${version}" 15 60 6 \
         "1" "Red tools Z7        [ Hacking       ]" "Powerful tools." \
         "2" "Creator-G7          [ New tool      ]" "Start a new project." \
         "3" "TubeVide07          [ Audio/Video   ]" "Download videos and audios." \
@@ -449,13 +459,13 @@ case $? in
     2)
         $DIALOG --colors --backtitle "$program_name - version $version" \
             --no-collapse \
-            --title "HELP" --msgbox "\Z0\Zb\Zu$program_name (c) 2020-2021 by Z3R07-RED\Zn\n\
+            --title "HELP" --msgbox "\Z0\Zb\Zu$program_name (c) 2020-${UPDATED} by Z3R07-RED\Zn\n\
 A wide variety of powerful tools.\n\
 * Use it at your own risk.\n\
 * Do not misuse this program.\n\
 * For your safety,\n\
 use a VPN every time you run this program.\n\
-\Z4\Zb\Zu<https://github.com/Z3R07-RED/Goblin-Z7.git>\Zn" 13 51
+\Z4\Zb\Zu<https://github.com/Z3R07-RED/Goblin-Z7.git>\Zn" 15 60
          ;;
      255)
          echo $(clear); tput cnorm 2> /dev/null
@@ -467,6 +477,8 @@ done
 }
 
 dependencies
+check_all_files_goblin
+sleep 0.3; echo $(clear)
 give_permissions
 tput cnorm 2> /dev/null
 if [[ -f GZ7/.CS07/security/.sec ]]; then

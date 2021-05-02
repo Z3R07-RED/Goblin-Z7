@@ -1,0 +1,31 @@
+#!/bin/bash
+#Coded by Z3R07-RED
+
+# Check all files goblin
+function check_all_files_goblin(){
+if [[ -f "$goblin_file_list" ]]; then
+    CREATE_GOBLIN_FILE_LIST=$(grep "check_all_files_goblin" "$goblin_file_list" | wc -l 2>/dev/null)
+    if [[ "$CREATE_GOBLIN_FILE_LIST" != 0 ]]; then
+        find . > "$goblin_file_list" 2>/dev/null
+    fi
+fi
+
+if [[ -s "$goblin_file_list" ]]; then
+    for _GLISTN in $(cat "$goblin_file_list" | wc -l);
+    do
+        _GBNFLG=$(awk "NR==$_GLISTN" "$goblin_file_list" 2>/dev/null)
+        if [[ -d "$_GBNFLG" ]]; then
+            echo -e "${W}[${G}  OK  ${W}] $_GBNFLG directory ..."
+            sleep 0.2
+        elif [[ -f "$_GBNFLG" ]]; then
+            echo -e "${W}[${G}  OK  ${W}] $_GBNFLG file ..."
+            sleep 0.2
+        else
+            echo -e "${W}[${R}FaILED${W}]${M} $_GBNFLG${W} ..."
+            sleep 0.8
+        fi
+    done
+else
+    file_not_found "goblin_file_list"
+fi
+}

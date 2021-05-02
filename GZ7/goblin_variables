@@ -2,6 +2,7 @@
 program_name="Goblin-Z7"
 version="0.5"
 author="Z3R07-RED"
+UPDATED="2021"
 DIALOG=${DIALOG=dialog}
 PWD=$(pwd)
 termux_path="/data/data/com.termux/files/usr/bin"
@@ -17,11 +18,13 @@ creator_directory="$tools_directory/Creator-G7"
 #Files
 colors="GZ7/colors"
 system_information_file="$GZ7_directory/.CS07/system/system_information"
+analyzer="$GZ7_directory/.CS07/system/analyzer"
 phone_numbers_CS07_file="$tmp_directory/number.tmp"
 phone_number_infor_file="$log_directory/info.txt"
 url_youtube_file="$log_directory/youtube.log"
 youtube_file_tmp="$tmp_directory/youtube.tmp"
 DirectoryTubeVide07File="$tmp_directory/directory.tmp"
+goblin_file_list="$GZ7_directory/.CS07/goblin_file_list"
 #Tools
 creator_tool="$tools_directory/Creator-G7/creator-g7"
 email_redz_tool="$tools_directory/Email-RedZ/Email-RedZ"
