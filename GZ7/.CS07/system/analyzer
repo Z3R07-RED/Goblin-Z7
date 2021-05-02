@@ -20,7 +20,6 @@ _GLISTNNFN=$(cat "$goblin_file_list" | wc -l)
             sleep 0.2
         elif [[ -f "$_GBNFLG" ]]; then
             echo -e "${W}[${G}  OK  ${W}] $_GBNFLG file ..."
-            sleep 0.2
         else
             echo -e "${W}[${R}FaILED${W}]${M} $_GBNFLG${W} ..."
             sleep 0.8
