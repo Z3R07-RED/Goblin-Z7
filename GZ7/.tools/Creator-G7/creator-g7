@@ -85,7 +85,8 @@ cat "$creator_directory/CS07/C02PP" >> "$new_main_file" 2>/dev/null
 
 $DIALOG --backtitle "$program_name - $current_tool_name" \
         --title "INFORMATION" \
-        --msgbox "The foundation of the tool has been created successfully.\nyou can start working on it now." 8 51
+        --no-collapse \
+        --msgbox "The foundation of the tool has been created successfully. :)\nyou can start working on it now.\n$chosen_directory/$newtool/" 10 60
 
 }
 

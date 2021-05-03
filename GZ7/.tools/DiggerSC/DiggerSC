@@ -24,7 +24,7 @@ DGGROPT04="off"
 tput civis
 $DIALOG --backtitle "Community - Club Secreto 07" \
      --colors --title "$program_name - v$version" \
-     --infobox "\n\Zu$current_tool_name (c) $(echo "$making" |awk 'NF{print $NF}' 2>/dev/null) by $author\Zn\n\nThis program comes ABSOLUTELY WITHOUT WARRANTY;\nthanks for using the program." 10 60 ;sleep 5
+     --infobox "\n\Zu$current_tool_name (c) 2020-${UPDATED} by $author\Zn\n\nThis program comes ABSOLUTELY WITHOUT WARRANTY;\nthanks for using the program." 10 60 ;sleep 5
 
 tput cnorm
 
