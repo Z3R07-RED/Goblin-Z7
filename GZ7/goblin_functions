@@ -107,6 +107,7 @@ TYPE_OF_FILE="$1"
 FILENAME="$2"
 $DIALOG --backtitle "$program_name" \
         --clear --colors --title "CONFIRMATION" \
+        --no-collapse \
         --yesno "Are you sure?\nyou want to permanently delete the $TYPE_OF_FILE \n\Z4\Zu\Zb'$FILENAME'\Zn" 10 60
 
 REMOVE=$?

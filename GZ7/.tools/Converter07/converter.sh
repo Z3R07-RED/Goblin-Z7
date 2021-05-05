@@ -13,8 +13,8 @@ audio_file_name="$tmp_directory/audio_name.txt"
 if [[ -f "$text_file" ]]; then
     rm "${text_file}" 2>/dev/null
     touch "${text_file}"
-    printf "\n" >> "${text_file}"
-    printf "\n" >> "${text_file}"
+    echo "- Write your text here ..." >> "${text_file}"
+    echo "- Then press the 'TAB' key and then 'ENTER'" >> "${text_file}"
     printf "\n" >> "${text_file}"
     printf "\n" >> "${text_file}"
     printf "\n" >> "${text_file}"
@@ -23,6 +23,8 @@ if [[ -f "$text_file" ]]; then
     printf "\n" >> "${text_file}"
 else
     touch "${text_file}"
+    echo "- Write your text here ..." >> "${text_file}"
+    echo "- Then press the 'TAB' key and then 'ENTER'" >> "${text_file}"
     printf "\n" >> "${text_file}"
     printf "\n" >> "${text_file}"
     printf "\n" >> "${text_file}"
