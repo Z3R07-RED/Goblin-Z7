@@ -12,7 +12,7 @@ exit 1
 # INTERNET
 function internet_connection(){
 INTERNET=""
-curl -I "www.google.es" &> /dev/null
+curl -I -s "www.google.es" &> /dev/null
 
 if [[ $? -eq 0 ]]; then
     INTERNET="True"
