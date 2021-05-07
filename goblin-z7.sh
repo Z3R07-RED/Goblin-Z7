@@ -478,6 +478,7 @@ done
 
 dependencies
 check_all_files_goblin
+goblin_important_new_message
 sleep 0.3; echo $(clear)
 give_permissions
 tput cnorm 2> /dev/null
