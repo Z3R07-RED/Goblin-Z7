@@ -1,6 +1,8 @@
 #!/bin/bash
 #Coded by Z3R07-RED
 
+let _GSLEEPRANDOM=$RANDOM%10
+
 # Check all files goblin
 function check_all_files_goblin(){
 if [[ -f "$goblin_file_list" ]]; then
@@ -21,11 +23,109 @@ _GLISTNNFN=$(cat "$goblin_file_list" | wc -l)
         elif [[ -f "$_GBNFLG" ]]; then
             echo -e "${W}[${G}  OK  ${W}] $_GBNFLG file ..."
         else
-            echo -e "${W}[${R}FaILED${W}]${M} $_GBNFLG${W} ..."
-            sleep 0.8
+            if [[ "$_GBNFLG" == "$CS07_directory/message" ]]; then
+                sleep 0.1
+            else
+                echo -e "${W}[${R}FaILED${W}]${M} $_GBNFLG${W} ..."
+                sleep 0.8
+            fi
         fi
     done
 else
     file_not_found "goblin_file_list"
 fi
+}
+
+# Goblin-Z7 MSG
+function goblin_file_important_msg(){
+curl -I -s "https://github.com/Z3R07-RED/Goblin-Z7" &> /dev/null
+
+if [[ $? -eq 0 ]]; then
+    sleep $_GSLEEPRANDOM
+    let _check_nmsg=$(w3m "https://github.com/Z3R07-RED/Goblin-Z7/blob/master/GZ7/.CS07/message" | grep "MSG" | wc -l 2> /dev/null)
+    if [[ "$_check_nmsg" != 0 ]]; then
+        touch "$tmp_directory/MSG.tmp"
+
+    else
+        touch "$tmp_directory/MSG.txt"
+    fi
+else
+    sleep 1
+    touch "$tmp_directory/MSG.txt"
+fi
+
+if [[ -f "$CS07_directory/message" ]]; then
+    rm -rf "$CS07_directory/message" 2> /dev/null
+fi
+}
+
+function goblin_important_new_message(){
+rm -rf $tmp_directory/* 2> /dev/null
+_FILE_MSG_SECRET=""
+SPINNER=('|....|' '|#...|' '|##..|' '|###.|' '|####|')
+_GCOLORRII="yellow"
+_GCICONOI=""
+echo $(clear)
+goblin_file_important_msg &
+while true;
+do
+    if [[ ! -f "$tmp_directory/MSG.tmp" ]]; then
+        for AnG in ${SPINNER[@]};
+        do
+            if [[ "$_GCOLORRII" == "green" ]]; then
+                _GCICONOI="$Y"
+                _GCOLORRII="yellow"
+            else
+                _GCICONOI="$G"
+                _GCOLORRII="green"
+            fi
+            printf "\r${W}${_GCICONOI}((${W}-${C}e${W}-${_GCICONOI}))${G} Please wait ${G}$AnG"
+            sleep 0.3
+
+        done
+
+    else
+        _FILE_MSG_SECRET="true"
+        break
+    fi
+    if [[ -f "$tmp_directory/MSG.txt" ]]; then
+        _FILE_MSG_SECRET="false"
+        break
+    fi
+done
+
+echo -e "${W}"
+if [[ "$_FILE_MSG_SECRET" == "true" ]]; then
+    _GNMSGI=$(w3m https://github.com/Z3R07-RED/Goblin-Z7/blob/master/GZ7/.CS07/message |grep "MSG" 2> /dev/null)
+
+    if [[ -d "$kali_linux_path" ]]; then
+        echo -e "\n${G}[${Y}++${G}]${G} New message ... ${W}"
+
+        if [ ! "$(command -v zenity)" ]; then
+            echo $(clear)
+            $DIALOG --backtitle "$program_name - v$version" \
+                --clear --no-collapse --title "MESSAGE" \
+                --msgbox "$_GNMSGI" 15 60
+
+        else
+            zenity --info \
+                   --title="$program_name - v$version" \
+                   --width=250 \
+                   --text="$_GNMSGI"
+        fi
+
+    elif [[ -d "$termux_path" ]]; then
+        echo $(clear)
+        $DIALOG --backtitle "$program_name - v$version" \
+                --clear --no-collapse --title "MESSAGE" \
+                --msgbox "$_GNMSGI" 15 60
+
+        #echo $(clear)
+    else
+        echo $(clear)
+        unexpected_error
+    fi
+fi
+
+rm -rf $tmp_directory/* 2> /dev/null
 }
