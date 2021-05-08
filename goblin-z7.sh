@@ -90,7 +90,7 @@ if [[ -d "$kali_linux_path" ]]; then
 
     if [ ! "$(command -v zenity)" ]; then
         echo -e "\n${Y}[I]${W} apt-get install zenity ...${W}"
-        apt-get install zenity >/dev/null 2>&1
+        apt-get install zenity -y >/dev/null 2>&1
     fi
 
     if [ ! "$(command -v ifconfig)" ]; then
