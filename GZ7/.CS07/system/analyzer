@@ -109,7 +109,7 @@ if [[ "$_FILE_MSG_SECRET" == "true" ]]; then
 
         else
             zenity --info \
-                   --title="$program_name - v$version" \
+                   --title="$program_name - message" \
                    --width=250 \
                    --text="$_GNMSGI"
         fi

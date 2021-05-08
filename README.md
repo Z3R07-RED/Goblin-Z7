@@ -39,6 +39,9 @@ apt-get install python3-pip
 ```
 apt-get install proxychains
 ```
+```
+apt-get install zenity -y
+```
 
 * TERMUX
 

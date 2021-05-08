@@ -29,7 +29,8 @@ PDGFILE=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
 
 case $? in
     0)
-        mkdir "$newtool_goblin/CS07" 2>/dev/null
+        mkdir -p "$newtool_goblin/CS07" 2>/dev/null
+        mkdir -p "$newtool_goblin/CS07/images" 2>/dev/null
         cat "$creator_directory/CS07/colors" > "$newtool_goblin/CS07/colors" 2>/dev/null
         cat "$creator_directory/CS07/UVF01" > "$newtool_goblin/CS07/universal_variables" 2>/dev/null
         sed -i "s/program_name=\"null\"/program_name=\"$newtool\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
@@ -47,7 +48,7 @@ case $? in
         elif [[ "$PDGFILE" == 3 ]]; then
             cat "$creator_directory/CS07/PDG03" >> $new_main_file 2>/dev/null
             cat "$creator_directory/CS07/UFF02" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
-            mkdir "$newtool_goblin/.config" 2>/dev/null
+            mkdir -p "$newtool_goblin/.config" 2>/dev/null
         else
             rm -rf "$newtool_goblin" 2>/dev/null
             unexpected_error
@@ -55,7 +56,8 @@ case $? in
 
         $DIALOG --backtitle "$program_name - $current_tool_name" \
                 --title "INFORMATION" \
-                --msgbox "The foundation of the tool has been created successfully.\nyou can start working on it now." 8 51
+                --no-collapse \
+                --msgbox "The foundation of the tool has been created successfully. :)\nyou can start working on it now.\n$chosen_directory/$newtool/" 10 60
         ;;
     1)
         if [[ -d "$newtool_goblin" ]]; then
@@ -82,6 +84,8 @@ sed -i "5a # dependencies" "$new_main_file" 2>/dev/null
 sed -i "6a #" "$new_main_file" 2>/dev/null
 sed -i "7a # Define colors" "$new_main_file" 2>/dev/null
 cat "$creator_directory/CS07/C02PP" >> "$new_main_file" 2>/dev/null
+mkdir -p "$newtool_goblin/CS07" 2>/dev/null
+mkdir -p "$newtool_goblin/CS07/images" 2>/dev/null
 
 $DIALOG --backtitle "$program_name - $current_tool_name" \
         --title "INFORMATION" \
@@ -103,8 +107,8 @@ if [[ $? = 0 ]]; then
                             2 "[ PYTHON ]" off "Press the '\Z2\Zr\ZbSPACE\Zn' key and then '\Z2\Zr\ZbENTER\Zn'" \
                             --and-widget --begin 4 6 --clear \
                             --ok-label "Select" --title "PATH" --radiolist "" 10 41 3 \
-                            1 "[ KALI LINUX ]" off \
-                            2 "[ TERMUX     ]" ON)
+                            1 "[ LINUX  ]" off \
+                            2 "[ TERMUX ]" ON)
 
         case $? in
             0)
@@ -112,7 +116,7 @@ if [[ $? = 0 ]]; then
 
 				if [[ ! -d "$newtool_goblin" && ! -f "$newtool_goblin" && ! -L "$newtool_goblin" ]]; then
 					if [[ -d $chosen_directory ]]; then
-						mkdir "$chosen_directory/$newtool" 2>/dev/null
+						mkdir -p "$chosen_directory/$newtool" 2>/dev/null
                         BASENAMENEWDIRCRG7=$(basename "$newtool_goblin")
                         newtool="$BASENAMENEWDIRCRG7"
                         newtool_goblin="$chosen_directory/$newtool"
