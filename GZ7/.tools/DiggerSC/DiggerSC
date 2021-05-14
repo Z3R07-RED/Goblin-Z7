@@ -16,6 +16,7 @@ ATYPE03="on"
 ATYPE04="off"
 ATYPE05="off"
 ATYPE06="off"
+ATYPE07="off"
 DGGROPT01="off"
 DGGROPT02="off"
 DGGROPT03="off"
@@ -100,10 +101,10 @@ esac
 # START DIGGER
 function start_digger(){
 tput civis
-$DIALOG --backtitle "$program_name - v$version" \
-	    --title "$current_tool_name" \
+$DIALOG --backtitle "$program_name - $current_tool_name" \
+	    --title "" \
 		--ok-label "Exit" \
-		--prgbox "bash $DISKDIGGER" 15 60
+		--prgbox "Looking for the files ..."  "bash $DISKDIGGER" 15 60
 
 tput cnorm; echo $(clear)
 rm -rf "$DISKDIGGERT" 2>/dev/null
@@ -195,15 +196,16 @@ while :
 do
 tput civis
 inspector_menu_opt=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
-                 --item-help --title "TYPE OF FILES" \
+                 --item-help --scrollbar --no-collapse --title "TYPE OF FILES" \
                  --extra-button --extra-label "Settings" --cancel-label "Back" \
                  --default-item 2 --checklist "Find the most hidden and protected files.\nPress the 'SPACE' key" 12 60 4 \
-                 1 "Images  [ Search Files  ]" $ATYPE01 "[↑↓]-Move [SPACE]-Select [ESC]-Exit" \
+                 1 "Images  [ Search Images ]" $ATYPE01 "[↑↓]-Move [SPACE]-Select [ESC]-Exit" \
                  2 "Videos  [ Search Videos ]" $ATYPE02 "[↑↓]-Move [SPACE]-Select [ESC]-Exit" \
 			     3 "Audios  [ Search Audios ]" $ATYPE03 "[↑↓]-Move [SPACE]-Select [ESC]-Exit" \
 			     4 "PDF     [ Search PDF    ]" $ATYPE04 "[↑↓]-Move [SPACE]-Select [ESC]-Exit" \
 			     5 "Text    [ Search TXT    ]" $ATYPE05 "[↑↓]-Move [SPACE]-Select [ESC]-Exit" \
-			     6 "ZIP/TAR [ Search zip/tgz]" $ATYPE06 "[↑↓]-Move [SPACE]-Select [ESC]-Exit")
+			     6 "ZIP/TAR [ Search zip/tgz]" $ATYPE06 "[↑↓]-Move [SPACE]-Select [ESC]-Exit" \
+                 7 "XML     [ Search XML    ]" $ATYPE07 "[↑↓]-Move [SPACE]-Select [ESC]-Exit")
 
 case $? in
     0)
@@ -235,6 +237,8 @@ case $? in
 				    ATYPE05="5"
 			    elif [[ "$DMOPT" == 6 ]]; then
 				    ATYPE06="6"
+                elif [[ "$DMOPT" == 7 ]]; then
+                    ATYPE07="7"
 			    fi
 		    done
 
@@ -273,6 +277,12 @@ case $? in
 			else
 				ATYPE06="off"
 			fi
+
+            if [[ "$ATYPE07" == 7 ]]; then
+                ATYPE07="on"
+            else
+                ATYPE07="off"
+            fi
 		fi
 		digger_settings
 		;;

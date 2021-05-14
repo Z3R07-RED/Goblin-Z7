@@ -16,12 +16,14 @@ TYPE3="OFF"
 TYPE4="OFF"
 TYPE5="OFF"
 TYPE6="OFF"
+TYPE7="OFF"
 let IMAGENUM=0
 let VIDEONUM=0
 let AUDIONUM=0
 let TEXTONUM=0
 let PDFNUM=0
 let ZIPTARNUM=0
+let XMLNUM=0
 
 # RANDOM [DATA]
 function randdata(){
@@ -63,15 +65,15 @@ if [[ "$PROGRESS" == "ON" ]]; then
         sleep 0.1
         echo "[ PATH]: $SLE"
         echo "---------------------------"
-        sleep 0.1
+        sleep 0.4
     else
         echo "[VIDEO]: $SLE"
         echo "[ERROR]: An error has occurred."
-        sleep 0.2
+        sleep 0.4
     fi
 else
     echo "[VIDEO]: $VIDEONUM - '$NEWVIDEO'"
-    sleep 0.1
+    sleep 0.4
 fi
 
 if [[ "$DELETE" == "ON" ]]; then
@@ -136,15 +138,15 @@ if [[ "$PROGRESS" == "ON" ]]; then
         sleep 0.1
         echo "[ PATH]: $SLE"
         echo "---------------------------"
-        sleep 0.1
+        sleep 0.4
     else
         echo "[AUDIO]: $SLE"
         echo "[ERROR]: An error has occurred."
-        sleep 0.2
+        sleep 0.4
     fi
 else
     echo "[AUDIO]: $AUDIONUM - '$NEWAUDIO'"
-    sleep 0.1
+    sleep 0.4
 fi
 
 if [[ "$DELETE" == "ON" ]]; then
@@ -173,15 +175,15 @@ if [[ "$PROGRESS" == "ON" ]]; then
         sleep 0.1
         echo "[ PATH]: $SLE"
         echo "---------------------------"
-        sleep 0.1
+        sleep 0.8
     else
         echo "[ TEXT]: $SLE"
         echo "[ERROR]: An error has occurred."
-        sleep 0.2
+        sleep 1
     fi
 else
     echo "[ TEXT]: $TEXTONUM - '$NEWTEXTO'"
-    sleep 0.1
+    sleep 0.8
 fi
 
 if [[ "$DELETE" == "ON" ]]; then
@@ -206,19 +208,57 @@ if [[ "$PROGRESS" == "ON" ]]; then
         echo "---------------------------"
         echo "[ZIPTAR]: $ZIPTARNUM"
         sleep 0.1
-        echo "[ NAME]: $NEWCOMPRESS - \"New\""
+        echo "[  NAME]: $NEWCOMPRESS - \"New\""
         sleep 0.1
-        echo "[ PATH]: $SLE"
+        echo "[  PATH]: $SLE"
         echo "---------------------------"
-        sleep 0.1
+        sleep 0.8
     else
         echo "[ZIPTAR]: $SLE"
         echo "[ERROR]: An error has occurred."
-        sleep 0.2
+        sleep 1
     fi
 else
     echo "[ZIPTAR]: $ZIPTARNUM - '$NEWCOMPRESS'"
-    sleep 0.1
+    sleep 0.6
+fi
+
+if [[ "$DELETE" == "ON" ]]; then
+    rm -rf $SLE 2>/dev/null
+fi
+}
+
+# NEW XML
+function new_xml(){
+let XMLNUM=$(($XMLNUM+1))
+XMLBASENAME=$(basename "$SLE" 2>/dev/null)
+NEWXML="XML - $(printf "%02d" ${XMLNUM}) - ${XMLBASENAME}"
+
+if [[ "$VERBOSE" == "ON" ]]; then
+    echo "$XMLNUM) $NEWXML" >> "$FOUNDD/xml/found_files.txt" 2>/dev/null
+    echo "$SLE" >> "$FOUNDD/xml/found_files.txt" 2>/dev/null
+fi
+
+cp "$SLE" "$FOUNDD/xml/$NEWXML" 2>/dev/null
+
+if [[ "$PROGRESS" == "ON" ]]; then
+    if [[ -f "$FOUNDD/xml/$NEWXML" ]]; then
+        echo "---------------------------"
+        echo "[  XML]: $XMLNUM"
+        sleep 0.1
+        echo "[ NAME]: $NEWXML - \"New\""
+        sleep 0.1
+        echo "[ PATH]: $SLE"
+        echo "---------------------------"
+        sleep 1
+    else
+        echo "[  XML]: $SLE"
+        echo "[ERROR]: An error has occurred."
+        sleep 1
+    fi
+else
+    echo "[   XML]: $XMLNUM - '$NEWXML'"
+    sleep 1
 fi
 
 if [[ "$DELETE" == "ON" ]]; then
@@ -316,11 +356,11 @@ do
                                 echo "[ NAME]: $NEWIMAGES - 'New'"
                                 echo "[ PATH]: $SLE"
                                 echo "---------------------------"
-                                sleep 0.1
+                                sleep 0.6
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 1
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
                             fi
@@ -342,11 +382,11 @@ do
                                 echo "[ NAME]: $NEWIMAGES - 'New'"
                                 echo "[ PATH]: $SLE"
                                 echo "---------------------------"
-                                sleep 0.1
+                                sleep 0.6
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 1
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
                             fi
@@ -368,11 +408,11 @@ do
                                 echo "[ NAME]: $NEWIMAGES - 'New'"
                                 echo "[ PATH]: $SLE"
                                 echo "---------------------------"
-                                sleep 0.1
+                                sleep 0.8
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 2
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
                             fi
@@ -394,11 +434,11 @@ do
                                 echo "[ NAME]: $NEWIMAGES - 'New'"
                                 echo "[ PATH]: $SLE"
                                 echo "---------------------------"
-                                sleep 0.1
+                                sleep 0.6
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 1
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
                             fi
@@ -420,11 +460,11 @@ do
                                 echo "[ NAME]: $NEWIMAGES - 'New'"
                                 echo "[ PATH]: $SLE"
                                 echo "---------------------------"
-                                sleep 0.1
+                                sleep 0.6
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 1
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
                             fi
@@ -450,13 +490,13 @@ do
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 1
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
                             fi
                             ;;
                         *.[pdf|PDF])
-                            sleep 0.2
+                            sleep 1
                             ;;
                         *.psd|*.PSD)
                             let IMAGENUM=$(($IMAGENUM+1))
@@ -479,7 +519,7 @@ do
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 1
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
                             fi
@@ -501,13 +541,14 @@ do
                                 echo "[ NAME]: $NEWIMAGES - 'New'"
                                 echo "[ PATH]: $SLE"
                                 echo "---------------------------"
-                                sleep 0.1
+                                sleep 0.6
                             else
                                 echo "[IMAGE]: $NEWIMAGES - 'New'"
                             fi
-                            sleep 0.1
+                            sleep 1
                             if [[ "$DELETE" == "ON" ]]; then
                                 rm -rf "$SLE" 2>/dev/null
+                                sleep 0.2
                             fi
                             ;;
                 esac
@@ -626,6 +667,22 @@ do
                     ;;
             esac
         fi
+
+        # FILE XML
+        if [[ "$TYPE7" == "ON" ]]; then
+            if [[ ! -d "$FOUNDD/xml" ]]; then
+                mkdir -p "$FOUNDD/xml" 2> /dev/null
+            fi
+
+            case "$SLE" in
+                *.xml)
+                    new_xml
+                    ;;
+                *.XML)
+                    new_xml
+                    ;;
+            esac
+        fi
     fi
 done
 
@@ -663,6 +720,10 @@ if [[ "$TYPE6" == "ON" ]]; then
     echo "[ZIPTAR]: $ZIPTARNUM"
 fi
 
+if [[ "$TYPE7" == "ON" ]]; then
+    echo "[   XML]: $XMLNUM"
+fi
+
 echo "Finish searching for the files! :)"
 echo ""
 rm -rf tmp/* 2>/dev/null
@@ -685,6 +746,8 @@ if [[ -f "$tmp_directory/file_types.tmp" ]]; then
             TYPE5="ON"
         elif [[ "$tnu" == 6 ]]; then
             TYPE6="ON"
+        elif [[ "$tnu" == 7 ]]; then
+            TYPE7="ON"
         fi
     done
 
