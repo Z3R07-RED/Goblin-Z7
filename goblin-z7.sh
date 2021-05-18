@@ -52,7 +52,7 @@ kill_pid
 rm -rf tmp/* 2> /dev/null
 rm -rf logs/* 2> /dev/null
 rm -rf "$DISKDIGGERT" 2> /dev/null
-echo "Program aborted."
+echo -e "${W}Program aborted."
 tput cnorm 2> /dev/null
 echo ""; exit 1
 }
