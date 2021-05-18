@@ -34,6 +34,9 @@ function setup_site(){
 echo $(clear)
 if [[ ! -d "$LOCALSERVER/www" ]]; then
     mkdir -p "$LOCALSERVER/www" 2> /dev/null
+else
+    rm -rf "$LOCALSERVER/www" 2> /dev/null
+    mkdir -p "$LOCALSERVER/www" 2> /dev/null
 fi
 
 echo -e "\n${red}[${white}-${red}]${green} Initializing... ${green}( ${cyan}http://$HOST:$PORT ${green})${W}"
