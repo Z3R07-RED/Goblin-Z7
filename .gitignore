@@ -2,9 +2,17 @@
 tmp/
 logs/
 Download/
-GZ7/.tools/Converter07/sounds/
+sounds/
+.server/
 
 # files
 info.txt
 number.tmp
-GZ7/.CS07/security/.key
+*.tmp
+*.log
+*.logs
+*.webm
+*.mp3
+.key
+.question
+.reply

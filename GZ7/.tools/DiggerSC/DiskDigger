@@ -47,7 +47,16 @@ function randdata(){
 
 function new_videos(){
 let VIDEONUM=$(($VIDEONUM+1))
-NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).mp4"
+case "$SLE" in
+    *.mp4)
+        NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).mp4"
+        ;;
+    *.webm)
+        NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).webm"
+        ;;
+esac
+sleep 0.2
+
 
 if [[ "$VERBOSE" == "ON" ]]; then
     echo "$VIDEONUM) $NEWVIDEO" >> "$FOUNDD/Video/found_files.txt" 2>/dev/null
@@ -568,6 +577,9 @@ do
 
             case "$SLE" in
                 *.mp4)
+                    new_videos
+                    ;;
+                *.webm)
                     new_videos
                     ;;
                 *)

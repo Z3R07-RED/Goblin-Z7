@@ -17,6 +17,34 @@ tput cnorm 2>/dev/null
 echo $(clear);exit 1
 }
 
+# KILL PID
+function kill_pid(){
+    if [[ `pidof php` ]]; then
+        killall php > /dev/null 2>&1
+    fi
+
+    if [[ `pidof ngrok` || `pidof ngrok2` ]]; then
+        killall ngrok > /dev/null 2>&1 || killall ngrok2 > /dev/null 2>&1
+    fi
+}
+
+# LOCAL SERVER
+# Create the variable: 'website'
+function setup_site(){
+echo $(clear)
+if [[ ! -d "$LOCALSERVER/www" ]]; then
+    mkdir -p "$LOCALSERVER/www" 2> /dev/null
+fi
+
+echo -e "\n${red}[${white}-${red}]${green} Initializing... ${green}( ${cyan}http://$HOST:$PORT ${green})${W}"
+sleep 0.2
+echo -e "${red}[${white}-${red}]${blue} Setting up server... ${W}"
+cp -rf "$website"/* "$LOCALSERVER/www"
+echo -ne "${red}[${white}-${red}]${blue} Starting PHP server...${W}"
+cd "$LOCALSERVER/www" && php -S "$HOST":"$PORT" > /dev/null 2>&1 &
+
+}
+
 # File not Found
 # USE: file_not_found $1
 # EXAMPLE:

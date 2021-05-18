@@ -1,0 +1,169 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
+    padding: 1.6rem;
+    line-height: 2rem;
+    text-align: center;
+    background: #1488CC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+h1 {
+    text-align: center;
+    border-bottom: 0.2rem red solid;
+    color: steelblue;
+    font-family: 'Permanent Marker', "Blenda Script Regular", 'decorative', sans-serif;
+    font-size: 1.4em;
+    margin: 0 auto;
+    padding: 1rem;
+    margin-top: 1rem;
+    line-height: 3rem;
+}
+
+#button0,
+#button2 {
+    display: block;
+}
+
+.boton {
+    cursor: pointer;
+    display: initial;
+    background: #2d5373;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: .4rem auto;
+}
+
+.boton:hover {
+    background: #d2ac8c;
+    color: #505050;
+    transition-duration: 400ms;
+}
+
+.boton[type="text"] {
+    border: 1px #ccc solid;
+    width: 300px;
+    padding: 4px;
+    height: 35px;
+    margin-top: 20px;
+}
+
+.lorem {
+    border: #ccc 1px solid;
+    color: #333;
+    margin-top: 1rem;
+    font-family: 'IBM Plex Sans', serif;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #a7bed9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: 6649b8;
+    background: #294056;
+}
+
+.cancel {
+    background-color: #294056;
+    margin: 0 20%;
+    height: 1rem;
+}
+.progreso {
+    background-color: orange;
+    font-size: 1rem;
+    text-align: center;
+    transition-duration: 400ms;
+    color: black;
+    font-family: 'Permanent Marker', 'Segoe UI', Tahoma, Verdana, sans-serif;
+    height: 1rem;
+}
+#parrafo {
+    padding: 2rem;
+    word-spacing: 0.3rem;
+}
+
+#div-datos-ingresados {
+    font-family: 'Permanent Marker', Verdana, Tahoma, sans-serif;
+    color: #294056;
+}
+
+#campos-ingreso-datos {
+    font-family: 'Bangers', Arial, Helvetica, sans-serif;
+    padding: 0.3rem;
+    font-size: 2rem;
+}
+
+#campos-ingreso-datos select, option {
+    font-family: 'Bangers', Arial, Helvetica, sans-serif;
+}
+
+#div-imagen {
+    margin: 0 auto;
+    text-align: center;
+    max-width: max-content;
+}
+
+select {
+    width: 10rem;
+    padding-left: 0.8rem;
+    padding-right: .5rem;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    margin-top: 1.2rem;
+    border: 2px solid #2d5373;
+    border-radius: 4px;
+}
+
+.ingreso {
+    border: 2px solid #2d5373;
+    border-radius: 4px;
+}
+
+#dato {
+    width: 2rem;
+    font-size: 1.4rem;
+    text-align: center;
+    margin: 1rem;
+}
+
+#carta {
+    font-size: 1.4rem;
+    text-align: left;
+    align-content: justify;
+    margin: 0 2%;
+}
+label {
+    font-family: 'Bangers', 'Segoe UI', Tahoma, Verdana, sans-serif;
+    margin: 5% 0%;
+}
+
+#obtener {
+    float: right;
+    margin-right: 30%;
+    margin-top: 2rem;
+    margin-left: 0;
+}
+
+#imagen {
+    transition: height 2s, width 4s, transform 2.4s;
+}
+#imagen:hover {
+  width: 18rem;
+  height: 12rem;
+  transform: rotate(200deg);
+}
+
+video {
+    border: 4px dotted red;
+    background:#000;
+}
+

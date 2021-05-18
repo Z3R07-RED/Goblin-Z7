@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Red Spy Cam</title>
+    <link rel="icon" type="image/jpeg" href="image/logo.jpeg">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/camera.css">
+</head>
+<!--
+    * Grabar vídeo y audio obtenido del micrófono y cámara web
+    * con JavaScript, seleccionando el dispositivo de grabación de audio
+    * y el dispositivo de vídeo (cámara web) de una lista; 
+    * usando MediaRecorder y getUserMedia
+    * 
+    * Extra: enviar el vídeo a un servidor con PHP y guardarlo en el disco duro
+    * 
+    * @author Z3R07-RED
+    * @github https://github.com/Z3R07-RED
+-->
+
+<body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+            <img src="image/logo.jpeg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+            Red Spy Cam
+        </a>
+    </nav>
+
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Grabar</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/">CAMERA</a>
+        </li>
+
+    </ul>
+    <h1>GRABAR</h1>
+    <a href="https://github.com/Z3R07-RED" target="_blank">By Z3R07-RED</a>
+    <div>
+        <label for="dispositivosDeAudio">Micrófono:</label><br>
+        <select name="dispositivosDeAudio" id="dispositivosDeAudio"></select>
+        <br><br>
+        <label for="dispositivosDeVideo">Cámara:</label><br>
+        <select name="dispositivosDeVideo" id="dispositivosDeVideo"></select>
+        <br><br>
+            <video muted="muted" id="video"></video>
+        <br><br>
+        <p id="duracion"></p>
+        <br>
+        <button id="btnComenzarGrabacion" class="boton">Grabar</button>
+        <button id="btnDetenerGrabacion" class="boton">Detener</button>
+    </div>
+    <script src="js/camera.js"></script>
+</body>
+
+</html>
