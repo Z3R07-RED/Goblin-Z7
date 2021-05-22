@@ -8,7 +8,7 @@
 </p>
 
 <p align="center"> 
-  <a href="#featured-in"><img alt="undefined" src="https://img.shields.io/github/watchers/Z3R07-RED/Goblin-Z7"></a>
+  <a href="#featured-in"><img alt="undefined" src="https://img.shields.io/github/stars/Z3R07-RED/Goblin-Z7"></a>
   <a href="https://github.com/Z3R07-RED/Goblin-Z7/blob/master/LICENSE"><img alt="undefined" src="https://img.shields.io/github/license/Z3R07-RED/Goblin-Z7.svg?style=popout"></a>
   <br>
 </p>
