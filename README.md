@@ -11,7 +11,7 @@
 <a href="https://youtube.com/channel/UC9RNHWC3CFapIkmmXS8qYDQ"><img title="youtube" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white"></a>
 </p>
   <br>
-  <a href="https://github.com/Z3R07-RED/Goblin-Z7/releases/latest"><img alt="undefined" src="https://img.shields.io/github/release/Z3R07_RED/Goblin-Z7.svg?style=popout"></a>
+  <a href="https://github.com/Z3R07-RED/Goblin-Z7/releases/latest"><img alt="undefined" src="https://img.shields.io/github/release/Z3R07_RED/Goblin-Z7?style=popout"></a>
   <a href="#featured-in"><img alt="undefined" src="https://img.shields.io/github/downloads/Z3R07_RED/Goblin-Z7/total.svg?style=popout"></a>
   <a href="https://github.com/Z3R07-RED/Goblin-Z7/blob/master/LICENSE"><img alt="undefined" src="https://img.shields.io/github/license/Z3R07_RED/Goblin-Z7.svg?style=popout"></a>
   <br>
