@@ -4,16 +4,16 @@
 
 <p align="center">
 <a href="https://github.com/Z3R07-RED"><img title="Autor" src="https://img.shields.io/badge/Author-@Z3R07_RED-blue?style=for-the-badge&logo=github"></a>
-<a href=""><img title="Version" src="https://img.shields.io/badge/Version-0.6-green?style=for-the-badge&logo="></a>
+<a href="https://github.com/Z3R07-RED/Goblin-Z7/blob/master/LICENSE"><img title="Version" src="https://img.shields.io/badge/Version-0.6-green?style=for-the-badge&logo="></a>
+<a href="https://youtube.com/channel/UC9RNHWC3CFapIkmmXS8qYDQ"><img title="youtube" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white"></a>
 </p>
 
 <p align="center">
-<a href="https://youtube.com/channel/UC9RNHWC3CFapIkmmXS8qYDQ"><img title="youtube" src="https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white"></a>
-</p>
   <br> 
   <a href="#featured-in"><img alt="undefined" src="https://img.shields.io/github/watchers/Z3R07-RED/Goblin-Z7"></a>
   <a href="https://github.com/Z3R07-RED/Goblin-Z7/blob/master/LICENSE"><img alt="undefined" src="https://img.shields.io/github/license/Z3R07-RED/Goblin-Z7.svg?style=popout"></a>
   <br>
+</p>
 <p align="center">
 <img alt="Shell Script" src="https://img.shields.io/badge/shell_script%20-%23121011.svg?&style=for-the-badge&logo=gnu-bash&logoColor=white"/>
 <img alt="Python" src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white"/>
