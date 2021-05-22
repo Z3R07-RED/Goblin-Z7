@@ -13,7 +13,7 @@ function banner_small(){
         echo -e "$R"
         cat "$banner_directory/banner01" 2>/dev/null
         sleep 0.2
-        echo -e "\n${G}[${W}-${G}]${C} Tool Created by $author (Club Secreto 07) ${W}"
+        echo -e "\n${R}[${W}-${R}]${C} Tool Created by $author (Club Secreto 07) ${W}"
 
     fi
     sleep 0.2
