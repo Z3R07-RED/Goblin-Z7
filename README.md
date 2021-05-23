@@ -4,12 +4,13 @@
 
 <p align="center">
 <a href="https://github.com/Z3R07-RED"><img title="Autor" src="https://img.shields.io/badge/Author-@Z3R07_RED-blue?style=for-the-badge&logo=github"></a>
-<a href="https://github.com/Z3R07-RED/Goblin-Z7/blob/master/LICENSE"><img title="Version" src="https://img.shields.io/badge/Version-0.6-green?style=for-the-badge&logo="></a>
+<a href="https://github.com/Z3R07-RED/Goblin-Z7/tags"><img title="Version" src="https://img.shields.io/badge/Version-0.6-green?style=for-the-badge&logo="></a>
 </p>
 
 <p align="center"> 
   <a href="#featured-in"><img alt="undefined" src="https://img.shields.io/github/stars/Z3R07-RED/Goblin-Z7"></a>
   <a href="https://github.com/Z3R07-RED/Goblin-Z7/blob/master/LICENSE"><img alt="undefined" src="https://img.shields.io/github/license/Z3R07-RED/Goblin-Z7.svg?style=popout"></a>
+  ![](https://visitor-badge.glitch.me/badge?page_id=Z3R07-RED.Z3R07-RED)
   <br>
 </p>
 <p align="center">
