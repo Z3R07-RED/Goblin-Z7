@@ -10,7 +10,7 @@
 <p align="center"> 
   <a href="#featured-in"><img alt="undefined" src="https://img.shields.io/github/stars/Z3R07-RED/Goblin-Z7"></a>
   <a href="https://github.com/Z3R07-RED/Goblin-Z7/blob/master/LICENSE"><img alt="undefined" src="https://img.shields.io/github/license/Z3R07-RED/Goblin-Z7.svg?style=popout"></a>
-  ![](https://visitor-badge.glitch.me/badge?page_id=Z3R07-RED.Z3R07-RED)
+  <a href="#"><img alt="goblin-z7" src="https://visitor-badge.glitch.me/badge?page_id=Z3R07-RED.Z3R07-RED"></a>
   <br>
 </p>
 <p align="center">
