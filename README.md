@@ -21,6 +21,9 @@
 
 **Goblin-Z7** It is still in its `beta` version, little by little new tools will be added so always keep the tool updated.
 
+<p align="center">
+<img src="Img/menu.01.png" alt="Goblin-Z7" style="float: left; margin-right: 10px;" />
+</p>
 Previous requirements:
 ======
 The following system-level utilities need to be installed:
