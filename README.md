@@ -1,5 +1,5 @@
 <p align="center">
-<img alt="goblin-z7" src="GZ7/.CS07/Img/Goblin-Z7.png" title="Goblin-Z7 v.01" width="350px" height="350px">
+<img alt="goblin-z7" src="GZ7/.CS07/Img/Goblin-Z7.png" title="Goblin-Z7 v.01" width="350px" height="150px">
 </p>
 
 <p align="center">
