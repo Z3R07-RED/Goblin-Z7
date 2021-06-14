@@ -49,10 +49,13 @@ function new_videos(){
 let VIDEONUM=$(($VIDEONUM+1))
 case "$SLE" in
     *.mp4)
-        NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).mp4"
+        NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file-${i}_CS-$(randdata 5).mp4"
         ;;
     *.webm)
-        NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).webm"
+        NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file-${i}_CS-$(randdata 5).webm"
+        ;;
+    *)
+        NEWVIDEO="V$(printf "%02d" ${VIDEONUM})_${fecha}-${mes}-${anio}_file-${i}_CS-$(randdata 5).mp4"
         ;;
 esac
 sleep 0.2
@@ -129,7 +132,7 @@ fi
 
 function new_audios(){
 let AUDIONUM=$(($AUDIONUM+1))
-NEWAUDIO="A - $(printf "%02d" ${AUDIONUM}) - ${fecha}-${mes}-${anio}_file${i}CS-$(randdata 5).${AUDE}"
+NEWAUDIO="A - $(printf "%02d" ${AUDIONUM}) - ${fecha}-${mes}-${anio}_file-${i}_CS-$(randdata 5).${AUDE}"
 
 if [[ "$VERBOSE" == "ON" ]]; then
     echo "$AUDIONUM) $NEWAUDIO" >> "$FOUNDD/Audio/found_files.txt" 2>/dev/null
