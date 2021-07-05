@@ -1,3 +1,4 @@
 phonenumbers
 pytube
+requests
 gtts

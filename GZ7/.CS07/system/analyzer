@@ -9,6 +9,8 @@ if [[ -f "$goblin_file_list" ]]; then
     CREATE_GOBLIN_FILE_LIST=$(grep "check_all_files_goblin" "$goblin_file_list" | wc -l 2>/dev/null)
     if [[ "$CREATE_GOBLIN_FILE_LIST" != 0 ]]; then
         find "$GZ7_directory/" > "$goblin_file_list" 2>/dev/null
+        pip3 install -r requirements.txt
+        sleep 0.2
     fi
 fi
 
