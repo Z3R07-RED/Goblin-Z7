@@ -507,7 +507,7 @@ do
                                 rm -rf "$SLE" 2>/dev/null
                             fi
                             ;;
-                        *.[pdf|PDF])
+                        *.pdf|*.PDF)
                             sleep 1
                             ;;
                         *.psd|*.PSD)
@@ -622,7 +622,7 @@ do
                     AUDE="wma"
                     new_audios
                     ;;
-                *.[ogg|OGG])
+                *.ogg|*.OGG)
                     AUDE="ogg"
                     new_audios
                     ;;

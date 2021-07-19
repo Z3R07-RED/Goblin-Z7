@@ -239,16 +239,16 @@ if [[ -d "$GZ7_directory" ]]; then
      if [[ -f "$FCHMOD" ]]; then
         if [[ ! -x "$FCHMOD" ]]; then
            case "$FCHMOD" in
-               *.[conf|css])
+               *.conf|*.css)
                   let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
                   ;;
-               *.[png|jpg])
+               *.png|*.jpg)
                   let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
                   ;;
-               *.[html|txt])
+               *.html|*.txt)
                   let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
                   ;;
-               *.[mp3|jpeg])
+               *.mp3|*.jpeg)
                   let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
                   ;;
                *)
