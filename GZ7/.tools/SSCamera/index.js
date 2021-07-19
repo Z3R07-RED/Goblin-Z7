@@ -12,7 +12,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Start the server
 const server = app.listen(app.get('port'), () => {
     console.log('server on port', app.get('port'));
-    console.log('Local -->> http://localhost:3000');
+    console.log('Local 1 -->> http://localhost:3000');
+    console.log('Local 2 -->> http://localhost:3000/camera.html');
     console.log('Waiting for connections, Ctrl + C to exit...');
 });
 
