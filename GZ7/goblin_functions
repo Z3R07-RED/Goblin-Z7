@@ -235,7 +235,7 @@ function give_permissions(){
 let FilesStatic_Goblin=0
 if [[ -d "$GZ7_directory" ]]; then
    echo -e "Please wait ..."
-   for FCHMOD in $(find "$GZ7_directory/" 2>/dev/null);
+   for FCHMOD in $(find type f "$GZ7_directory/" 2>/dev/null);
    do
      if [[ -f "$FCHMOD" ]]; then
         if [[ ! -x "$FCHMOD" ]]; then
@@ -254,11 +254,15 @@ if [[ -d "$GZ7_directory" ]]; then
                   ;;
                *)
                   chmod +x "$FCHMOD" 2>/dev/null
+                  sleep 0.2
+                  let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
                   ;;
            esac
         fi
      fi
+     printf "\n${W}Important files ${G}[%02d]" "$FilesStatic_Goblin"
    done
+   echo -e "${W}"
 fi
 }
 

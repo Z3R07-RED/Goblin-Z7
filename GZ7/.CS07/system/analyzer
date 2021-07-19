@@ -6,7 +6,7 @@ let _GSLEEPRANDOM=$RANDOM%10
 # Check all files goblin
 function check_all_files_goblin(){
 if [[ -f "$goblin_file_list" ]]; then
-    CREATE_GOBLIN_FILE_LIST=$(grep "check_all_files_goblin" "$goblin_file_list" | wc -l 2>/dev/null)
+    let CREATE_GOBLIN_FILE_LIST=$(grep "check_all_files_goblin" "$goblin_file_list" | wc -l 2>/dev/null)
     if [[ "$CREATE_GOBLIN_FILE_LIST" != 0 ]]; then
         find "$GZ7_directory/" > "$goblin_file_list" 2>/dev/null
         pip3 install -r requirements.txt
@@ -15,7 +15,7 @@ if [[ -f "$goblin_file_list" ]]; then
 fi
 
 if [[ -s "$goblin_file_list" ]]; then
-_GLISTNNFN=$(cat "$goblin_file_list" | wc -l)
+let _GLISTNNFN=$(cat "$goblin_file_list" | wc -l)
     for _GLISTN in $(seq 1 $_GLISTNNFN);
     do
         _GBNFLG=$(awk "NR==$_GLISTN" "$goblin_file_list" 2>/dev/null)
