@@ -20,6 +20,7 @@ config_directory=".config"
 tools_directory="$GZ7_directory/.tools"
 banner_directory="$GZ7_directory/.CS07/banner"
 creator_directory="$tools_directory/Creator-G7"
+SSCamera_directory="$tools_directory/SSCamera"
 #Files
 colors="GZ7/colors"
 system_information_file="$GZ7_directory/.CS07/system/system_information"

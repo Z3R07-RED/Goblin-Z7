@@ -1,15 +1,16 @@
 #!/bin/bash
-#goblin-z7
-#Coded by Z3R07-RED on Nov 5 2020
-#UPDATED: 2021
-#<https://github.com/Z3R07-RED/Goblin-Z7.git>
+# goblin-z7
+# Coded by Z3R07-RED on Nov 5 2020
+# UPDATED: 2021
+# <https://github.com/Z3R07-RED/Goblin-Z7.git>
 
-#colors
+# colors
 source GZ7/colors
 #
-#VARIABLES:
+# VARIABLES:
 DIALOG=${DIALOG=dialog}
 SHOW_REGISTER="True"
+APTT=""
 
 if [[ -f "GZ7/goblin_variables" && -f "GZ7/goblin_functions" ]]; then
     source GZ7/goblin_variables
@@ -61,6 +62,7 @@ echo ""; exit 1
 # special dependencies
 function special_dependencies(){
 if [[ -d "$termux_path" ]]; then
+    APTT="apt"
     if [ ! "$(command -v tput)" ]; then
         echo -e "\n${Y}[I]${W} apt install ncurses-utils ...${W}"
         apt install ncurses-utils -y >/dev/null 2>&1
@@ -80,6 +82,7 @@ if [[ -d "$termux_path" ]]; then
 fi
 
 if [[ -d "$kali_linux_path" ]]; then
+    APTT="apt-get"
     if [[ ! -f "$log_directory/libsox_fmt_all.txt" ]]; then
         touch "$log_directory/libsox_fmt_all.txt"
         if [ ! "$(command -v libsox-fmt-all)" ]; then
@@ -125,7 +128,7 @@ for program in "${PKGS[@]}"; do
     if [ ! "$(command -v $program)" ]; then
         echo -e "\n${R}[X]${W}${C} $program${Y} is not installed.${W}";sleep 0.2
         echo -e "\n\e[1;33m[i]\e[0m${C} Installing ...${W}";sleep 0.6
-        apt-get install $program -y > /dev/null 2>&1
+        $APTT install $program -y > /dev/null 2>&1
         echo -e "\n\e[1;32m[V]\e[0m${C} $program${Y} installed.${W}";sleep 1
         let counter_dn+=1
     fi
@@ -270,10 +273,11 @@ do
         --title "MENU" \
         --menu "Powerful tools:" 12 60 5 \
         "1" "[ Red Spy Cam      ]" "Activate webcam" \
-        "2" "[ Extract links    ]" "Extract all links from a web page?" \
-        "3" "[ Download website ]" "Do you want to download a website?" \
-        "4" "[ Shorten URL      ]" "cut a url very fast." \
-        "5" "[ PhoneNumbersCS07 ]" "Get information from a phone number.")
+        "2" "[ SSCamera         ]" "Security camera." \
+        "3" "[ Extract links    ]" "Extract all links from a web page?" \
+        "4" "[ Download website ]" "Do you want to download a website?" \
+        "5" "[ Shorten URL      ]" "cut a url very fast." \
+        "6" "[ PhoneNumbersCS07 ]" "Get information from a phone number.")
 
     case $red_toolsz_option in
         1)
@@ -284,15 +288,27 @@ do
             fi
             ;;
         2)
-            extract_links
+            if [[ -d "$SSCamera_directory" ]]; then
+                cd "$SSCamera_directory" 2>/dev/null
+                if [[ -f "SSCamera.sh" ]]; then
+                    source "SSCamera.sh"
+                else
+                    file_not_found "SSCamera.sh"
+                fi
+            else
+                unexpected_error
+            fi
             ;;
         3)
-            wdownload
+            extract_links
             ;;
         4)
-            shorten_url
+            wdownload
             ;;
         5)
+            shorten_url
+            ;;
+        6)
             phonenumbersCS07
             ;;
         *)

@@ -232,12 +232,29 @@ fi
 
 #PERMISSIONS
 function give_permissions(){
+let FilesStatic_Goblin=0
 if [[ -d "$GZ7_directory" ]]; then
    for FCHMOD in $(find "$GZ7_directory/" 2>/dev/null);
    do
      if [[ -f "$FCHMOD" ]]; then
         if [[ ! -x "$FCHMOD" ]]; then
-           chmod +x "$FCHMOD" 2>/dev/null
+           case "$FCHMOD" in
+               *.[conf|css])
+                  let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
+                  ;;
+               *.[png|jpg])
+                  let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
+                  ;;
+               *.[html|txt])
+                  let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
+                  ;;
+               *.[mp3|jpeg])
+                  let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
+                  ;;
+               *)
+                  chmod +x "$FCHMOD" 2>/dev/null
+                  ;;
+           esac
         fi
      fi
    done

@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+}
+
+#general {
+    margin:auto;
+    margin-top:50px;
+    width:100%;
+    height:auto;
+    background:#aaa;
+}
+
+#info {
+    float:right;
+    width:280px;
+    height:500px;
+    border:3px solid #2d5373;
+    color:#000;
+    background:#eee;
+}
+
+.status {
+    background:#000;
+    color:green;
+}
+
+#videos {
+    width:600px;
+    height:500px;
+    margin: 0 20px;
+    border:3px solid #ddd;
+    background:#333;
+}
+
+#chat-general {
+    width:100%;
+    min-height:400px;
+    background:#aaa;
+
+}
+
+#chat-container {
+    max-width:600px;
+    margin:30px auto;
+    border:1px solid #ddd;
+    box-shadow:1px 3px 5px rgba(0, 0, 0, 0.5);
+    background:#2d5373;
+}
+
+#chat-windows {
+    padding: 14px 0;
+    margin: 0 20px;
+    border-bottom:1px solid #e9e9e9;
+    color:#555;
+    background:#2d5373;
+}
+
+#output p {
+    color: #aaa;
+    padding:14px 0;
+    margin:0 20px;
+    background:#000;
+}
+
+#actions p {
+    padding:14px 0;
+    margin: 0 20px;
+    border-bottom:1px solid #e9e9e9;
+    color:#fff;
+}
+
+input {
+    padding: 10px 20px;
+    box-sizing:border-box;
+    border:0;
+    background:#eee;
+    display:block;
+    width:100%;
+}
+
+button {
+    background:#575ed8;
+    color:#fff;
+    font-size:18px;
+    border:0;
+    padding:12px 0;
+    width:100%;
+    border-radius:0 0 2px 2px;
+}
