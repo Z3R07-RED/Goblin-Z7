@@ -36,6 +36,17 @@ sleep 1
 echo $(clear)
 internet_connection
 dependencies_sscamera
+if [ "$(command -v npm)" ]; then
+    if [[ ! -d "node_modules" ]]; then
+        if [[ -s "package.json" ]]; then
+            $DIALOG --clear --title "MODULES" \
+                --timeout 2 \
+                --prgbox "npm install modules ..." "npm install" 12 60
+        else
+            file_not_found "package.json"
+        fi
+    fi
+fi
 
 if [ "$(command -v npm)" ]; then
     $DIALOG --backtitle "$program_name - SSCamera" --title "" \
