@@ -289,8 +289,18 @@ do
             ;;
         2)
             if [[ -d "$SSCamera_directory" ]]; then
+                if [[ ! -f "$SSCamera_directory/$THEME" ]]; then
+                    if [[ -f "$config_directory/themes/$THEME" ]]; then
+                        cp "$config_directory/themes/$THEME" "$SSCamera_directory/" 2>/dev/null
+                    fi
+                fi
+
                 cd "$SSCamera_directory" 2>/dev/null
+
                 if [[ -f "SSCamera.sh" ]]; then
+                    if [[ -f "$THEME" ]]; then
+                        export DIALOGRC="$THEME"
+                    fi
                     source "SSCamera.sh"
                 else
                     file_not_found "SSCamera.sh"
