@@ -21,7 +21,7 @@ _GLISTNNFN=$(cat "$goblin_file_list" | wc -l)
         _GBNFLG=$(awk "NR==$_GLISTN" "$goblin_file_list" 2>/dev/null)
         if [[ -d "$_GBNFLG" ]]; then
             echo -e "${W}[${G}  OK  ${W}] $_GBNFLG directory ..."
-            sleep 0.2
+
         elif [[ -f "$_GBNFLG" ]]; then
             echo -e "${W}[${G}  OK  ${W}] $_GBNFLG file ..."
         else
