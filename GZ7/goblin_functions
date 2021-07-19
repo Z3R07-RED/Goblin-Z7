@@ -253,7 +253,6 @@ if [[ -d "$GZ7_directory" ]]; then
                   ;;
                *)
                   chmod +x "$FCHMOD" 2>/dev/null
-                  sleep 0.2
                   let FilesStatic_Goblin=$(($FilesStatic_Goblin+1))
                   ;;
            esac
