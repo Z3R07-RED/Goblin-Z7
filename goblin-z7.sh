@@ -294,10 +294,10 @@ function red_tools_zmenu(){
 while true;
 do
     red_toolsz_option=$($DIALOG --stdout --item-help \
-        --ok-label "Select" \
+        --ok-label "Select" --scrollbar \
         --backtitle "$program_name - Red tools Z7" \
         --title "MENU" \
-        --menu "Powerful tools:" 12 60 5 \
+        --menu "Powerful tools:" 12 50 5 \
         "1" "[ Red Spy Cam      ]" "Activate webcam" \
         "2" "[ SSCamera         ]" "Security camera." \
         "3" "[ Extract links    ]" "Extract all links from a web page?" \

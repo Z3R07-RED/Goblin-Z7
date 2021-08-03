@@ -284,7 +284,7 @@ echo -e "Tool found ..."
 while true;
 do
 MENUOTTER=$(zenity --list \
-    --title="$program_name" \
+    --title="$program_name - HM-ImageG" \
     --height=250 \
     --width=400 \
     --column="Tools" --column="Details" \
