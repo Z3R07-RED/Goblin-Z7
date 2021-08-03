@@ -83,8 +83,10 @@ fi
 
 if [[ -d "$kali_linux_path" ]]; then
     APTT="apt-get"
-    if [[ ! -f "$log_directory/libsox_fmt_all.txt" ]]; then
-        touch "$log_directory/libsox_fmt_all.txt"
+    if [[ ! -f "$log_directory/packages_linux_special_dependencies.txt" ]]; then
+        touch "$log_directory/packages_linux_special_dependencies.txt"
+        echo -e "\n${Y}[I]${W} pip3 install opencv-contrib-python ...${W}"
+        pip3 install opencv-contrib-python
         if [ ! "$(command -v libsox-fmt-all)" ]; then
             echo -e "\n${Y}[I]${W} apt-get install libsox-fmt-all ...${W}"
             apt-get install libsox-fmt-all -y >/dev/null 2>&1
@@ -137,6 +139,30 @@ done
 }
 
 ##################################################################
+# HM-ImageG
+function tools_hm_imageg(){
+if [[ -d "$HMImageG_directory" ]]; then
+    if [[ -f "$HMImageG_directory/HM-ImageG.sh" ]]; then
+        cp "$HMImageG_directory/HM-ImageG.sh" "$tmp_directory/" 2>/dev/null
+    else
+        file_not_found "HM-ImageG.sh"
+    fi
+
+    if [[ -f "$HMImageG_directory/text_image.py" ]]; then
+        cp "$HMImageG_directory/text_image.py" "$tmp_directory/" 2>/dev/null
+    else
+        file_not_found "text_image.py"
+    fi
+
+    $DIALOG --backtitle "$program_name - HM-ImageG" \
+        --title "" \
+        --no-collapse --clear \
+        --prgbox "Process and details ..." "bash $tmp_directory/HM-ImageG.sh $program_name" 12 60
+else
+    unexpected_error
+fi
+}
+
 #Extract links
 function extract_links(){
 tput cnorm 2>/dev/null
@@ -149,7 +175,7 @@ case $? in
     0)
         if [[ -n $web_extract_links ]]; then
             tput civis 2>/dev/null
-            #$DIALOG --backtitle "$program_name - Extract links" --title "[WEBSITE]" --prgbox "curl https://api.hackertarget.com/pagelinks/?q=$web_extract_links > $log_directory/extracted_links.log" 12 60
+            # $DIALOG --backtitle "$program_name - Extract links" --title "[WEBSITE]" --prgbox "curl https://api.hackertarget.com/pagelinks/?q=$web_extract_links > $log_directory/extracted_links.log" 12 60
             $PROXYCHAINS curl https://api.hackertarget.com/pagelinks/?q=$web_extract_links > $log_directory/extracted_links.log 2>/dev/null
             $DIALOG --exit-label "Ok" --backtitle "$program_name - $log_directory/extracted_links.log" --title "Extracted Links" --textbox $log_directory/extracted_links.log 15 60
         else
@@ -265,7 +291,7 @@ tput civis 2>/dev/null
 
 #RED TOOLS MENU
 function red_tools_zmenu(){
-while :
+while true;
 do
     red_toolsz_option=$($DIALOG --stdout --item-help \
         --ok-label "Select" \
@@ -277,7 +303,8 @@ do
         "3" "[ Extract links    ]" "Extract all links from a web page?" \
         "4" "[ Download website ]" "Do you want to download a website?" \
         "5" "[ Shorten URL      ]" "cut a url very fast." \
-        "6" "[ PhoneNumbersCS07 ]" "Get information from a phone number.")
+        "6" "[ PhoneNumbersCS07 ]" "Get information from a phone number." \
+        "7" "[ HM-ImageG        ]" "Hide message in images.")
 
     case $red_toolsz_option in
         1)
@@ -320,6 +347,13 @@ do
             ;;
         6)
             phonenumbersCS07
+            ;;
+        7)
+            if [[ -d "$kali_linux_path" ]]; then
+                tools_hm_imageg
+            else
+                option_only_for_linux_msg
+            fi
             ;;
         *)
             break
@@ -519,7 +553,7 @@ else
     file_not_found ".sec"
 fi
 let try=1
-while :
+while true;
 do
 PASSWORD01=$($DIALOG --ok-label "Log In" --colors --extra-button --extra-label "About" --backtitle "\Zr$program_name - v$version\Zn Club Secreto 07" \
                     --clear --title "[$USERNAME]" --insecure --passwordbox "Password:" 10 55 3>&1 1>&2 2>&3)

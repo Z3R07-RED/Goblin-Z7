@@ -21,6 +21,7 @@ tools_directory="$GZ7_directory/.tools"
 banner_directory="$GZ7_directory/.CS07/banner"
 creator_directory="$tools_directory/Creator-G7"
 SSCamera_directory="$tools_directory/SSCamera"
+HMImageG_directory="$tools_directory/HM-ImageG"
 #Files
 colors="GZ7/colors"
 system_information_file="$GZ7_directory/.CS07/system/system_information"

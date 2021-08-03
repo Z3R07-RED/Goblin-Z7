@@ -268,7 +268,16 @@ fi
 function option_only_for_termux(){
 $DIALOG --backtitle "$program_name - v$version" \
         --title "INFORMATION" \
+        --no-collapse \
         --msgbox "\n\nSorry: this option is for termux. :(" 10 50
+}
+
+#OPTION ONLY FOR LINUX "MSGBOX"
+function option_only_for_linux_msg(){
+$DIALOG --backtitle "$program_name - v$version" \
+        --no-collapse \
+        --title "INFORMATION" \
+        --msgbox "\nSorry, your device is not supported, it is possible that in the future it will support this tool. :(" 12 60
 }
 
 # RANDOM [DATA]

@@ -29,7 +29,7 @@ Previous requirements:
 ======
 The following system-level utilities need to be installed:
 
-* KALI LINUX
+* `LINUX` or `KALI LINUX`
 
 ```
 apt-get install dialog
@@ -49,8 +49,11 @@ apt-get install proxychains
 ```
 apt-get install zenity -y
 ```
+```
+pip3 install opencv-contrib-python
+```
 
-* TERMUX
+* `TERMUX`
 
 ```
 apt install dialog
