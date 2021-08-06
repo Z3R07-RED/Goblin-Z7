@@ -488,7 +488,13 @@ elif [[ "$main_menu" == 4 ]]; then
         file_not_found "DiggerSC"
     fi
 elif [[ "$main_menu" == 5 ]]; then
-    source "${GShare_Files_tool}"
+    tput cnorm 2> /dev/null
+    if [[ -f "$GShare_Files_tool" ]]; then
+        source "${GShare_Files_tool}"
+    else
+        file_not_found "GShare_Files"
+    fi
+    tput civis 2> /dev/null
 
 elif [[ "$main_menu" == 6 ]]; then
     tput cnorm 2> /dev/null
