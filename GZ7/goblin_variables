@@ -38,8 +38,8 @@ RedSpyCam_tool="$tools_directory/RedSpyCam/RedSpyCam"
 phonenumbersCS07_tool="$tools_directory/PhoneNumbersCS07/PhoneNumbersCS07.py"
 TubeVide07_tool="$tools_directory/TubeVide07"
 converter_tool="$tools_directory/Converter07"
-nmap_tool="$tools_directory/NMAP/nmap.sh"
 DiggerSC_tool="$tools_directory/DiggerSC"
+GShare_Files_tool="$tools_directory/GShare_Files/GShare_Files"
 
 # Goblin-Z7 Copyright (c) 2020-2021
 # Coded by Z3R07-RED

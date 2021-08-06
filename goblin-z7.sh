@@ -366,6 +366,7 @@ do
             shorten_url
             ;;
         6)
+            internet_connection
             phonenumbersCS07
             ;;
         7)
@@ -487,9 +488,7 @@ elif [[ "$main_menu" == 4 ]]; then
         file_not_found "DiggerSC"
     fi
 elif [[ "$main_menu" == 5 ]]; then
-    tput cnorm 2> /dev/null
-    source "${nmap_tool}"
-    tput civis 2> /dev/null
+    source "${GShare_Files_tool}"
 
 elif [[ "$main_menu" == 6 ]]; then
     tput cnorm 2> /dev/null
@@ -523,14 +522,14 @@ do
         --backtitle "$program_name - $(uname -o 2> /dev/null)" \
         --title "MENU" \
         --menu "v${version}" 15 60 6 \
-        "1" "Red tools Z7        [ Hacking       ]" "Powerful tools." \
-        "2" "Creator-G7          [ New tool      ]" "Start a new project." \
-        "3" "TubeVide07          [ Audio/Video   ]" "Download videos and audios." \
-        "4" "DiggerSC            [ File Digger   ]" "Copy all the files from a disk or usb." \
-        "5" "Nmap                [ Port scan     ]" "Scan ports with nmap" \
-        "6" "Text to audio       [ converter     ]" "Convert text to MP3 audio?" \
-        "7" "System Information  [ Information   ]" "Show system information" \
-        "8" "Settings            [ Settings      ]" "Configuration of '$program_name'")
+        "1" "Red tools Z7        [ Hacking         ]" "Powerful tools." \
+        "2" "Creator-G7          [ New tool        ]" "Start a new project." \
+        "3" "TubeVide07          [ Audio/Video     ]" "Download videos and audios." \
+        "4" "DiggerSC            [ File Digger     ]" "Copy all the files from a disk or usb." \
+        "5" "Share Files         [ Share directory ]" "Share all the content of a directory." \
+        "6" "Text to audio       [ converter       ]" "Convert text to MP3 audio?" \
+        "7" "System Information  [ Information     ]" "Show system information" \
+        "8" "Settings            [ Settings        ]" "Configuration of '$program_name'")
 
 case $? in
     0)

@@ -1,0 +1,31 @@
+#!/bin/bash
+# GShare_Files
+# Coded by Z3R07-RED
+
+current_tool_name="Share Files"
+
+$DIALOG --backtitle "$program_name - $current_tool_name" \
+        --clear --colors --title "CONFIRMATION" \
+        --no-collapse \
+        --yesno "\Zu$program_name:\Zn\nDo you want to share a directory by localhost?" 10 60
+
+case $? in
+    0)
+        internet_connection
+        select_a_directory
+
+        if [[ -d "$chosen_directory" ]]; then
+            $DIALOG --backtitle "$program_name - $current_tool_name" \
+                --title "" \
+                --no-collapse \
+                --prgbox "Local server ..." "echo Local: http://localhost:8000/; python3 -m http.server 8000 -d $select_a_directory/" 10 60
+        else
+            unexpected_error
+        fi
+        ;;
+    255)
+        echo $(clear)
+        echo "Program aborted." >&2
+        echo "";exit 1
+        ;;
+esac
