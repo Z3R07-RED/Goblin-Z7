@@ -74,7 +74,15 @@ if [[ -d "$termux_path" ]]; then
         apt install proxychains-ng -y >/dev/null 2>&1
         sleep 1
     fi
-    PROXYCHAINS="proxychains4"
+
+    if [ "$(command -v proxychains4)" ]; then
+        PROXYCHAINS="proxychains4"
+    else
+        echo $(clear)
+        echo -e "\n${Y}[I]${W} apt-get install proxychains-ng ...${W}"
+        echo ""; exit 1
+    fi
+
     if [[ ! -f $PREFIX/etc/proxychainsg.old ]]; then
         cat $PREFIX/etc/proxychains.conf > $PREFIX/etc/proxychainsg.old 2>/dev/null
         cat GZ7/.CS07/proxychains.conf > $PREFIX/etc/proxychains.conf 2>/dev/null
@@ -110,7 +118,19 @@ if [[ -d "$kali_linux_path" ]]; then
         echo -e "\n${Y}[I]${W} sudo apt-get install proxychains ...${W}"
         exit 1
     fi
-    PROXYCHAINS="proxychains"
+
+    if [ "$(command -v proxychains4)" ]; then
+        PROXYCHAINS="proxychains4"
+    else
+        if [ "$(command -v proxychains)" ]; then
+            PROXYCHAINS="proxychains"
+        else
+            echo $(clear)
+            echo -e "\n${Y}[I]${W} sudo apt-get install proxychains ...${W}"
+            exit 1
+        fi
+    fi
+
     if [[ ! -f /etc/proxychainsg.old ]]; then
         cat /etc/proxychains.conf > /etc/proxychainsg.old 2>/dev/null
         cat GZ7/.CS07/proxychains.conf > /etc/proxychains.conf 2>/dev/null
