@@ -14,13 +14,11 @@ case $? in
         internet_connection
         select_a_directory
 
-        if [[ -d "$chosen_directory" ]]; then
+        if [[ -n "$chosen_directory" ]]; then
             $DIALOG --backtitle "$program_name - $current_tool_name" \
                 --title "" \
                 --no-collapse \
                 --prgbox "Local server ..." "echo Local: http://localhost:8000/; python3 -m http.server 8000 -d $chosen_directory/" 10 60
-        else
-            unexpected_error
         fi
         ;;
     255)
