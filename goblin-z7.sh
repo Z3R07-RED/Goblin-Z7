@@ -178,6 +178,9 @@ if [[ -d "$HMImageG_directory" ]]; then
         --title "" \
         --no-collapse --clear \
         --prgbox "Process and details ..." "bash $tmp_directory/HM-ImageG.sh $program_name" 12 60
+
+    rm -rf "$tmp_directory/HM-ImageG.sh" 2>/dev/null
+    rm -rf "$tmp_directory/text_image.py" 2>/dev/null
 else
     unexpected_error
 fi
@@ -315,9 +318,10 @@ while true;
 do
     red_toolsz_option=$($DIALOG --stdout --item-help \
         --ok-label "Select" --scrollbar \
+        --extra-button --extra-label "About" \
         --backtitle "$program_name - Red tools Z7" \
         --title "MENU" \
-        --menu "Powerful tools:" 12 50 5 \
+        --menu "Powerful tools:" 15 60 5 \
         "1" "[ Red Spy Cam      ]" "Activate webcam" \
         "2" "[ SSCamera         ]" "Security camera." \
         "3" "[ Extract links    ]" "Extract all links from a web page?" \
@@ -326,58 +330,74 @@ do
         "6" "[ PhoneNumbersCS07 ]" "Get information from a phone number." \
         "7" "[ HM-ImageG        ]" "Hide message in images.")
 
-    case $red_toolsz_option in
-        1)
-            if [[ -f "$RedSpyCam_tool" ]]; then
-                source "$RedSpyCam_tool"
-            else
-                file_not_found "$RedSpyCam_tool"
-            fi
-            ;;
-        2)
-            if [[ -d "$SSCamera_directory" ]]; then
-                if [[ ! -f "$SSCamera_directory/$THEME" ]]; then
-                    if [[ -f "$config_directory/themes/$THEME" ]]; then
-                        cp "$config_directory/themes/$THEME" "$SSCamera_directory/" 2>/dev/null
-                    fi
+    case $? in
+        0)
+            if [[ "$red_toolsz_option" == 1 ]]; then
+                if [[ -f "$RedSpyCam_tool" ]]; then
+                    source "$RedSpyCam_tool"
+                else
+                    file_not_found "$RedSpyCam_tool"
                 fi
 
-                cd "$SSCamera_directory" 2>/dev/null
-
-                if [[ -f "SSCamera.sh" ]]; then
-                    if [[ -f "$THEME" ]]; then
-                        export DIALOGRC="$THEME"
+            elif [[ "$red_toolsz_option" == 2 ]]; then
+                if [[ -d "$SSCamera_directory" ]]; then
+                    if [[ ! -f "$SSCamera_directory/$THEME" ]]; then
+                        if [[ -f "$config_directory/themes/$THEME" ]]; then
+                            cp "$config_directory/themes/$THEME" "$SSCamera_directory/" 2>/dev/null
+                        fi
                     fi
-                    source "SSCamera.sh"
+
+                    cd "$SSCamera_directory" 2>/dev/null
+
+                    if [[ -f "SSCamera.sh" ]]; then
+                        if [[ -f "$THEME" ]]; then
+                            export DIALOGRC="$THEME"
+                        fi
+
+                        source "SSCamera.sh"
+                    else
+                        file_not_found "SSCamera.sh"
+                    fi
                 else
-                    file_not_found "SSCamera.sh"
+                    unexpected_error
+                fi
+
+            elif [[ "$red_toolsz_option" == 3 ]]; then
+                extract_links
+
+            elif [[ "$red_toolsz_option" == 4 ]]; then
+                wdownload
+
+            elif [[ "$red_toolsz_option" == 5 ]]; then
+                shorten_url
+
+            elif [[ "$red_toolsz_option" == 6 ]]; then
+                internet_connection
+                phonenumbersCS07
+
+            elif [[ "$red_toolsz_option" == 7 ]]; then
+                if [[ -d "$kali_linux_path" ]]; then
+                    tools_hm_imageg
+                else
+                    option_only_for_linux_msg
                 fi
             else
                 unexpected_error
             fi
             ;;
-        3)
-            extract_links
-            ;;
-        4)
-            wdownload
-            ;;
-        5)
-            shorten_url
-            ;;
-        6)
-            internet_connection
-            phonenumbersCS07
-            ;;
-        7)
-            if [[ -d "$kali_linux_path" ]]; then
-                tools_hm_imageg
-            else
-                option_only_for_linux_msg
-            fi
-            ;;
-        *)
+        1)
             break
+            ;;
+        3)
+            $DIALOG --backtitle "$program_name" \
+                --title "ABOUT" \
+                --textbox "GZ7/.CS07/about" 15 60
+
+            ;;
+        255)
+            echo $(clear); tput cnorm 2>/dev/null
+            echo "Program aborted." >&2
+            exit 1
             ;;
     esac
 
