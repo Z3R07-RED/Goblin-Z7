@@ -322,13 +322,13 @@ do
         --backtitle "$program_name - Red tools Z7" \
         --title "MENU" \
         --menu "Powerful tools:" 15 60 5 \
-        "1" "[ Red Spy Cam      ]" "Activate webcam" \
-        "2" "[ SSCamera         ]" "Security camera." \
-        "3" "[ Extract links    ]" "Extract all links from a web page?" \
-        "4" "[ Download website ]" "Do you want to download a website?" \
-        "5" "[ Shorten URL      ]" "cut a url very fast." \
-        "6" "[ PhoneNumbersCS07 ]" "Get information from a phone number." \
-        "7" "[ HM-ImageG        ]" "Hide message in images.")
+        "1" "Red Spy Cam      [ Activate webcam     ]" "Activate webcam" \
+        "2" "SSCamera         [ Security camera     ]" "Security camera." \
+        "3" "Extract links    [ Web page            ]" "Extract all links from a web page?" \
+        "4" "Download website [ Download website    ]" "Do you want to download a website?" \
+        "5" "Shorten URL      [ Cut a link          ]" "cut a url very fast." \
+        "6" "PhoneNumbersCS07 [ Cell phone number   ]" "Get information from a phone number." \
+        "7" "HM-ImageG        [ Hide text or message]" "Hide message in images.")
 
     case $? in
         0)
