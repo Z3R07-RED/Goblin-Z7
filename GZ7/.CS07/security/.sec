@@ -2,6 +2,8 @@
 #Coded by Z3R07-RED
 
 #VARIABLES
+let QuestionNG="0"
+
 if [[ -s "GZ7/.CS07/security/.key" ]]; then
 
 	PASSWRD=$(base64 -d GZ7/.CS07/security/.key)
@@ -10,8 +12,10 @@ else
 fi
 
 if [[ -s "GZ7/.CS07/security/.question" ]]; then
+    let QuestionNG="0"
 	QUESTION=$(base64 -d GZ7/.CS07/security/.question)
 else
+    let QuestionNG="2"
 	QUESTION="Second password?"
 fi
 
@@ -114,7 +118,7 @@ FORM=$($DIALOG --ok-label "Submit" \
 \Z0\ZrUser profile:\Zn" 15 60 5 \
 	"USERNAME:" 1 1 "$USERNAME"     1 11 35 0 0 \
 	"PASSWORD:" 2 1 "$PASSWRD"      2 11 35 0 1 \
-	"QUESTION:" 3 1 "$QUESTION"     3 11 35 0 0 \
+	"QUESTION:" 3 1 "$QUESTION"     3 11 35 0 $QuestionNG \
 	"ANSWER  :" 4 1 "$ANSWER"       4 11 35 0 1 \
 2>&1 1>&3)
 E_status=$?
