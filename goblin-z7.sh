@@ -517,6 +517,7 @@ elif [[ "$main_menu" == 5 ]]; then
     tput civis 2> /dev/null
 
 elif [[ "$main_menu" == 6 ]]; then
+    internet_connection
     tput cnorm 2> /dev/null
     if [[ -f "${converter_tool}/converter.sh" ]]; then
         source "${converter_tool}/converter.sh"
