@@ -3,14 +3,14 @@
 #Coded by Z3R07-RED on Dec 15 2020
 #UPDATED: 2021
 
-set `date`
+# set `date`
 
 #VARIABLES:
 current_tool_name="creator-g7"
-mes="$2"
-fecha="$3"
-anio="$6"
-hora="$4"
+mes=`date "+%b"`
+fecha=`date "+%d"`
+anio=`date "+%Y"`
+hora=`date "+%T"`
 #DIALOG=${DIALOG=dialog}
 
 function new_tool_in_bash(){
