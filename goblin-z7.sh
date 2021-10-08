@@ -13,8 +13,8 @@ SHOW_REGISTER="True"
 APTT=""
 
 if [[ -f "GZ7/goblin_variables" && -f "GZ7/goblin_functions" ]]; then
-    source GZ7/goblin_variables
-    source GZ7/goblin_functions
+    source "GZ7/goblin_variables"
+    source "GZ7/goblin_functions"
 else
     echo "[ERROR]: ! files ..."
     echo "";exit 0
@@ -83,9 +83,16 @@ if [[ -d "$termux_path" ]]; then
         echo ""; exit 1
     fi
 
-    if [[ ! -f $PREFIX/etc/proxychainsg.old ]]; then
-        cat $PREFIX/etc/proxychains.conf > $PREFIX/etc/proxychainsg.old 2>/dev/null
-        cat GZ7/.CS07/proxychains.conf > $PREFIX/etc/proxychains.conf 2>/dev/null
+    if [[ ! -f "$PREFIX/etc/proxychainsg.old" ]]; then
+        cat "$PREFIX/etc/proxychains.conf" > "$PREFIX/etc/proxychainsg.old" 2>/dev/null
+        cat "$security_directory/proxychains.conf" > "$PREFIX/etc/proxychains.conf" 2>/dev/null
+    fi
+
+    if [[ -f "$PREFIX/etc/proxychains4.conf" ]]; then
+        if [[ ! -f "$PREFIX/etc/proxychains4g.old" ]]; then
+            cat "$PREFIX/etc/proxychains4.conf" > "$PREFIX/etc/proxychains4g.old" 2>/dev/null
+            cat "$security_directory/proxychains4.conf" > "$PREFIX/etc/proxychains4.conf" 2>/dev/null
+        fi
     fi
 fi
 
@@ -131,9 +138,14 @@ if [[ -d "$kali_linux_path" ]]; then
         fi
     fi
 
-    if [[ ! -f /etc/proxychainsg.old ]]; then
-        cat /etc/proxychains.conf > /etc/proxychainsg.old 2>/dev/null
-        cat GZ7/.CS07/proxychains.conf > /etc/proxychains.conf 2>/dev/null
+    if [[ ! -f "/etc/proxychainsg.old" ]]; then
+        cat "/etc/proxychains.conf" > /etc/proxychainsg.old 2>/dev/null
+        cat "$security_directory/proxychains.conf" > "/etc/proxychains.conf" 2>/dev/null
+    fi
+
+    if [[ ! -f "/etc/proxychains4g.old" ]]; then
+        cat "/etc/proxychains4.conf" > "/etc/proxychains4g.old" 2>/dev/null
+        cat "$security_directory/proxychains4.conf" > "/etc/proxychains4.conf" 2>/dev/null
     fi
 fi
 }

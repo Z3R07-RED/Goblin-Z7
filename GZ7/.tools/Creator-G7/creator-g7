@@ -11,8 +11,42 @@ mes=`date "+%b"`
 fecha=`date "+%d"`
 anio=`date "+%Y"`
 hora=`date "+%T"`
-#DIALOG=${DIALOG=dialog}
+# DIALOG=${DIALOG=dialog}
 
+# TYPE SCRIPT BASH
+function type_script_bash(){
+mkdir -p "$newtool_goblin/CS07" 2>/dev/null
+mkdir -p "$newtool_goblin/CS07/images" 2>/dev/null
+cat "$creator_directory/CS07/colors" > "$newtool_goblin/CS07/colors" 2>/dev/null
+cat "$creator_directory/CS07/UVF01" > "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+sed -i "s/program_name=\"null\"/program_name=\"$newtool\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+sed -i "s/making=\"null\"/making=\"$mes $fecha $anio\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+sed -i "s/author=\"null\"/author=\"$USERNAME\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
+
+if [[ "$PDGFILE" == 1 ]]; then
+    cat "$creator_directory/CS07/PDG01" >> $new_main_file 2>/dev/null
+    cp -rf "$creator_directory/CS07/banner" "$newtool_goblin/CS07/" 2>/dev/null
+    cat "$creator_directory/CS07/UFF01" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
+elif [[ "$PDGFILE" == 2 ]]; then
+    cat "$creator_directory/CS07/PDG02" >> $new_main_file 2>/dev/null
+    cp -rf "$creator_directory/CS07/banner" "$newtool_goblin/CS07/" 2>/dev/null
+    cat "$creator_directory/CS07/UFF01" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
+elif [[ "$PDGFILE" == 3 ]]; then
+    cat "$creator_directory/CS07/PDG03" >> $new_main_file 2>/dev/null
+    cat "$creator_directory/CS07/UFF02" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
+    mkdir -p "$newtool_goblin/.config" 2>/dev/null
+else
+    rm -rf "$newtool_goblin" 2>/dev/null
+    unexpected_error
+fi
+
+$DIALOG --backtitle "$program_name - $current_tool_name" \
+        --title "INFORMATION" \
+        --no-collapse \
+        --msgbox "The foundation of the tool has been created successfully. :)\nyou can start working on it now.\n$chosen_directory/$newtool/" 10 60
+}
+
+# BASH
 function new_tool_in_bash(){
 new_main_file="$chosen_directory/$newtool/$newtool.sh"
 printf "$chosenpath" > "$new_main_file" 2>/dev/null
@@ -20,6 +54,8 @@ sed -i "1a #$newtool" "$new_main_file" 2>/dev/null
 sed -i "2a #Coded by $USERNAME on $mes $fecha $anio" "$new_main_file" 2>/dev/null
 sed -i "3a #" "$new_main_file" 2>/dev/null
 
+while true;
+do
 PDGFILE=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
                     --item-help --title "CREATOR" \
                     --menu "The tool you will work on will be:" 12 51 3 \
@@ -29,50 +65,36 @@ PDGFILE=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
 
 case $? in
     0)
-        mkdir -p "$newtool_goblin/CS07" 2>/dev/null
-        mkdir -p "$newtool_goblin/CS07/images" 2>/dev/null
-        cat "$creator_directory/CS07/colors" > "$newtool_goblin/CS07/colors" 2>/dev/null
-        cat "$creator_directory/CS07/UVF01" > "$newtool_goblin/CS07/universal_variables" 2>/dev/null
-        sed -i "s/program_name=\"null\"/program_name=\"$newtool\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
-        sed -i "s/making=\"null\"/making=\"$mes $fecha $anio\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
-        sed -i "s/author=\"null\"/author=\"$USERNAME\"/g" "$newtool_goblin/CS07/universal_variables" 2>/dev/null
-
-        if [[ "$PDGFILE" == 1 ]]; then
-            cat "$creator_directory/CS07/PDG01" >> $new_main_file 2>/dev/null
-            cp -rf "$creator_directory/CS07/banner" "$newtool_goblin/CS07/" 2>/dev/null
-            cat "$creator_directory/CS07/UFF01" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
-        elif [[ "$PDGFILE" == 2 ]]; then
-            cat "$creator_directory/CS07/PDG02" >> $new_main_file 2>/dev/null
-            cp -rf "$creator_directory/CS07/banner" "$newtool_goblin/CS07/" 2>/dev/null
-            cat "$creator_directory/CS07/UFF01" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
-        elif [[ "$PDGFILE" == 3 ]]; then
-            cat "$creator_directory/CS07/PDG03" >> $new_main_file 2>/dev/null
-            cat "$creator_directory/CS07/UFF02" > "$newtool_goblin/CS07/universal_functions" 2>/dev/null
-            mkdir -p "$newtool_goblin/.config" 2>/dev/null
+        if [[ -d "$newtool_goblin" ]]; then
+            type_script_bash
         else
-            rm -rf "$newtool_goblin" 2>/dev/null
             unexpected_error
         fi
-
-        $DIALOG --backtitle "$program_name - $current_tool_name" \
-                --title "INFORMATION" \
-                --no-collapse \
-                --msgbox "The foundation of the tool has been created successfully. :)\nyou can start working on it now.\n$chosen_directory/$newtool/" 10 60
+        break
         ;;
     1)
         if [[ -d "$newtool_goblin" ]]; then
-            rm -rf "$newtool_goblin" 2>/dev/null
+            delete_file_or_directory "directory" "$newtool_goblin"
+        fi
+
+        if [[ ! -d "$newtool_goblin" ]]; then
+            break
         fi
         ;;
     255)
+        if [[ -d "$newtool_goblin" ]]; then
+            delete_file_or_directory "directory" "$newtool_goblin"
+
+        fi
         echo $(clear)
         echo "Program aborted." >&2
-        echo "";exit 1
+        echo ""; exit 1
         ;;
 esac
-
+done
 }
 
+# PYTHON
 function new_tool_in_python(){
 new_main_file="$chosen_directory/$newtool/$newtool.py"
 echo "$chosenpath" > "$new_main_file" 2>/dev/null
@@ -94,6 +116,34 @@ $DIALOG --backtitle "$program_name - $current_tool_name" \
 
 }
 
+# NEW TOOL WEB
+function new_tool_in_web(){
+if [[ -d "$newtool_goblin/appweb" ]]; then
+    touch "$newtool_goblin/appweb/js/script.js"
+    echo -e "// Created Using $program_name v.$version" > "$newtool_goblin/appweb/js/script.js" 2>/dev/null
+    echo -e "// https://github.com/Z3R07-RED/Goblin-Z7\n" >> "$newtool_goblin/appweb/js/script.js" 2>/dev/null
+
+    touch "$newtool_goblin/appweb/css/style.css"
+    echo -e "/* Created Using $program_name v.$version */" > "$newtool_goblin/appweb/css/style.css" 2>/dev/null
+    echo -e "/* https://github.com/Z3R07-RED/Goblin-Z7 */ \n" >> "$newtool_goblin/appweb/css/style.css" 2>/dev/null
+
+    cat "$creator_directory/CS07/www/index.html" > "$newtool_goblin/appweb/index.html" 2>/dev/null
+    sed -i "1a <!-- Created Using $program_name v.$version -->" "$newtool_goblin/appweb/index.html" 2>/dev/null
+    sed -i "s/goblin/${newtool}/g" "$newtool_goblin/appweb/index.html" 2>/dev/null
+
+    $DIALOG --backtitle "$program_name - $current_tool_name" \
+            --title "INFORMATION" \
+            --no-collapse \
+            --msgbox "The foundation of the tool has been created successfully. :)\nyou can start working on it now.\n$chosen_directory/$newtool/" 10 60
+else
+    if [[ -d "$newtool_goblin" ]]; then
+        rm -rf "$newtool_goblin" 2>/dev/null
+    fi
+    unexpected_error
+fi
+}
+
+# MENU
 function creator_main_menus(){
 newtool=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
                --ok-label "create" --title "NEW TOOL" \
@@ -102,11 +152,12 @@ newtool=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" \
 if [[ $? = 0 ]]; then
     if [[ -n $newtool ]]; then
         program_in_language=$($DIALOG --stdout --backtitle "$program_name - $current_tool_name" --begin 2 2 --title "CREATOR" \
-                            --colors --nocancel --item-help --ok-label "create" --radiolist "NEW TOOL" 10 41 2 \
-                            1 "[ BASH   ]" off "Press the '\Z2\Zr\ZbSPACE\Zn' key and then '\Z2\Zr\ZbENTER\Zn'" \
+                            --default-item 2 --colors --nocancel --item-help --ok-label "create" --radiolist "NEW TOOL" 10 45 3 \
+                            1 "[ BASH   ]" on "Press the '\Z2\Zr\ZbSPACE\Zn' key and then '\Z2\Zr\ZbENTER\Zn'" \
                             2 "[ PYTHON ]" off "Press the '\Z2\Zr\ZbSPACE\Zn' key and then '\Z2\Zr\ZbENTER\Zn'" \
+                            3 "[ WEB    ]" off "Press the '\Z2\Zr\ZbSPACE\Zn' key and then '\Z2\Zr\ZbENTER\Zn'" \
                             --and-widget --begin 4 6 --clear \
-                            --ok-label "Select" --title "PATH" --radiolist "" 10 41 3 \
+                            --default-item 2 --ok-label "Select" --title "PATH" --radiolist "" 10 41 3 \
                             1 "[ LINUX  ]" off \
                             2 "[ TERMUX ]" ON)
 
@@ -155,6 +206,14 @@ if [[ $? = 0 ]]; then
                         unexpected_error
                     fi
                     new_tool_in_python
+
+                elif [[ "$type_of_programming" == 3 ]]; then
+                    mkdir -p "$newtool_goblin/appweb" 2>/dev/null
+                    mkdir -p "$newtool_goblin/appweb/css" 2>/dev/null
+                    mkdir -p "$newtool_goblin/appweb/js" 2>/dev/null
+                    mkdir -p "$newtool_goblin/appweb/images" 2>/dev/null
+                    mkdir -p "$newtool_goblin/appweb/inc" 2>/dev/null
+                    new_tool_in_web
                 else
                     unexpected_error
                 fi
@@ -163,7 +222,7 @@ if [[ $? = 0 ]]; then
                 sleep 0.3
                 ;;
             255)
-                echo $(clear);exit 1
+                echo $(clear); exit 1
                 ;;
         esac
     else
