@@ -98,12 +98,12 @@ pip3 install -r requirements.txt
 
 `sudo su`
 
-`bash goblin-z7.sh`
+`./goblin-z7.sh`
 
 # Termux:
 
 ```
-./goblin-z7.sh
+bash goblin-z7.sh
 ```
 <h2 align="center"> Screenshots: </h2>
 
