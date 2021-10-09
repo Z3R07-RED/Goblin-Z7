@@ -1,5 +1,5 @@
 {
-  "name": "SSCamera",
+  "name": "sscamera",
   "version": "1.0.0",
   "description": "Local surveillance camera.",
   "main": "index.js",
@@ -12,9 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^4.1.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.10"
+    "socket.io": "^4.2.0"
   }
 }

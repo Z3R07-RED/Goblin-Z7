@@ -57,5 +57,6 @@ fi
 
 
 # Install PACKAGES
+# npm init -y
 # npm install express socket.io
 # npm install nodemon -D
